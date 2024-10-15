@@ -2,11 +2,15 @@
     <a href="{{ collection.url }}" aria-label="Link to {{ collection.title }}">
         <div class="img-wrap">
             {% if collection.featured_image != blank %}
-                {{ collection.featured_image | image_url: width: 500, format: "jpg" | image_tag: alt: collection.name, loading: "lazy", decoding: "async" }}
+                {{ collection.featured_image | image_url: width: 1200, format: "jpg" | image_tag: alt: collection.name, loading: "lazy", decoding: "async" }}
             {% else %}
                 {{ 'collection-6' | placeholder_svg_tag }}
             {% endif %}
         </div>
         <p>{{ collection.title }}</p>
+        <a class="collection_hero_button" href="{{ collection.url }}" aria-label="Link to {{ collection.title }}">
+            SHOP ALL {{ collection.title }}
+            <span class="visually-hidden">Link to</span>
+          </a>
     </a>
 </div>

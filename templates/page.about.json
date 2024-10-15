@@ -1,1 +1,18 @@
-{"sections":{"page_header":{"type":"v2-page-header","settings":{}},"text":{"type":"v2-text","settings":{}}},"order":["page_header","text"]}
+{
+  "sections": {
+    "page_header": {
+      "type": "v2-page-header",
+      "settings": {
+      }
+    },
+    "text": {
+      "type": "v2-text",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "page_header",
+    "text"
+  ]
+} 

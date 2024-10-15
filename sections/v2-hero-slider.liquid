@@ -94,33 +94,46 @@
 
                         <div class="overlay" style="background:{{ block.settings.overlay }};opacity: 0.{% if block.settings.overlay_opacity == 5 %}05{% else %}{{ block.settings.overlay_opacity }}{% endif %}"></div>
 
-                        <div class="page-width">
+                        <div class="hero_info page-width">
 
                             <div class="text-container-wrapper" style="justify-content:{{ block.settings.horizontal_alignment }};">
 
                                 <div class="text-container" style="text-align:{{ block.settings.text_alignment }};">
 
-                                    {%- if block.settings.heading != blank -%}
+                                    {%- if block.settings.pre_header != blank -%}
+                                        <div class="pre_header" style="text-align:{{ block.settings.pre_head_align }};color:{{ block.settings.pre_head_text_color }} !important; font-family:{{ block.settings.font_family.family }} !important;">
+                                            {{ block.settings.pre_header }}
+                                        </div>
+                                    {%- endif -%}
 
-                                        <div class="heading" style="color:{{ block.settings.text_color }}">
+                                    {%- if block.settings.heading != blank -%}
+                                        <div class="heading" style="letter-spacing:{{ block.settings.heading_letter_space }}px;color:{{ block.settings.text_color }}; font-family:{{ block.settings.font_family.family }} !important;">
                                             {{ block.settings.heading }}
                                         </div>
-
                                     {%- endif -%}
 
                                     {%- if block.settings.text != blank -%}
 
-                                        <div class="text" style="color:{{ block.settings.text_color }}">
+                                        <div class="text" style="color:{{ block.settings.main_body_text_color }}">
                                             {{ block.settings.text }}
                                         </div>
 
                                     {%- endif -%}
 
-                                    {%- if block.settings.link_text != blank or block.settings.link != blank -%}
+                                   {%- if block.settings.link_text != blank and block.settings.link != blank -%}
 
-                                        <a href="{{ block.settings.link }}" class="button-1" style="background-color:{{ block.settings.link_bg_color }};color:{{ block.settings.link_text_color }}">
+                                        <a href="{{ block.settings.link }}" class="button-2" style="background-color:{{ block.settings.link_bg_color }};color:{{ block.settings.link_text_color }}">
                                           {{ block.settings.link_text }}
                                           <span class="visually-hidden">Link to {{ block.settings.link }}</span>
+                                        </a>
+
+                                    {%- endif -%}
+                                  
+                                    {%- if block.settings.link_text2 != blank and block.settings.link2 != blank -%}
+
+                                        <a href="{{ block.settings.link2 }}" class="button-2" style="background-color:{{ block.settings.link_bg_color2 }};color:{{ block.settings.link_text_color2 }}">
+                                          {{ block.settings.link_text2 }}
+                                          <span class="visually-hidden">Link to {{ block.settings.link2 }}</span>
                                         </a>
 
                                     {%- endif -%}
@@ -131,27 +144,81 @@
 
                         </div>
 
+                 
+
                     </div>
+
+       <!-- START INFO SECTION FOR MOBILE -->
+       <div class="hero_info_mobile page-width">
+
+       <div class="text-container-wrapper" style="justify-content:{{ block.settings.horizontal_alignment }};">
+
+           <div class="text-container" style="text-align:{{ block.settings.text_alignment }};">
+
+               {%- if block.settings.pre_header != blank -%}
+                   <div class="pre_header" style="color:{{ block.settings.text_color }}; font-family:{{ block.settings.font_family.family }} !important;">
+                       {{ block.settings.pre_header }}
+                   </div>
+               {%- endif -%}
+
+               {%- if block.settings.heading != blank -%}
+                   <div class="heading" style="letter-spacing:{{ block.settings.heading_letter_space }}px;color:{{ block.settings.text_color }}; font-family:{{ block.settings.font_family.family }} !important;">
+                       {{ block.settings.heading }}
+                   </div>
+               {%- endif -%}
+
+               {%- if block.settings.text != blank -%}
+
+                   <div class="text" style="color:{{ block.settings.text_color }}">
+                       {{ block.settings.text }}
+                   </div>
+
+               {%- endif -%}
+
+              {%- if block.settings.link_text != blank and block.settings.link != blank -%}
+
+                   <a href="{{ block.settings.link }}" class="button-1" style="background-color:{{ block.settings.link_bg_color }};color:{{ block.settings.link_text_color }}">
+                     {{ block.settings.link_text }}
+                     <span class="visually-hidden">Link to {{ block.settings.link }}</span>
+                   </a>
+
+               {%- endif -%}
+             
+               {%- if block.settings.link_text2 != blank and block.settings.link2 != blank -%}
+
+                   <a href="{{ block.settings.link2 }}" class="button-2" style="background-color:{{ block.settings.link_bg_color2 }} !important;color:{{ block.settings.link_text_color2 }} !important;">
+                     {{ block.settings.link_text2 }}
+                     <span class="visually-hidden">Link to {{ block.settings.link2 }}</span>
+                   </a>
+
+               {%- endif -%}
+
+           </div>
+
+       </div>
+
+   </div>
+      <!-- END INFO SECTION FOR MOBILE -->
 
                 </div>
 
             {% endfor %}
 
         </div>
-
-        <div class="swiper-controls">
-
-            {%- if section.settings.navigation == true -%}
+   {%- if section.settings.navigation == true -%}
                 <div class="hero-swiper-button-prev swiper-button-prev"></div>
             {%- endif -%}
+{%- if section.settings.navigation == true -%}
+                <div class="hero-swiper-button-next swiper-button-next"></div>
+            {%- endif -%}
+        <div class="swiper-controls">
 
+         
             {%- if section.settings.pagination == true -%}
                 <div class="swiper-pagination"></div>
             {%- endif -%}
 
-            {%- if section.settings.navigation == true -%}
-                <div class="hero-swiper-button-next swiper-button-next"></div>
-            {%- endif -%}
+            
 
         </div>
 
@@ -194,17 +261,17 @@
 
 {% schema %}
 {
-  "name": "Hero slider",
+  "name": "Hero slider", 
   "settings": [
     {
       "type": "range",
       "id": "hero_height",
-      "min": 300,
-      "max": 1000,
-      "step": 50,
+      "min": 500,
+      "max": 800,
+      "step": 5,
       "unit": "px",
       "label": "Hero minimum height",
-      "default": 400
+      "default": 795
     },
     {
       "type": "header",
@@ -331,26 +398,92 @@
         },
         {
           "type": "inline_richtext",
+          "id": "pre_header",
+          "default": "Text <i>to go</i> <b>here</b>",
+          "label": "Pre Header text"
+        },
+        {
+          "type": "select",
+          "id": "pre_head_align",
+          "label": "Pre Header Alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Centre"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "color",
+          "id": "pre_head_text_color",
+          "label": "Pre Header Text colour",
+          "default": "#000"
+        },
+        {
+          "type": "inline_richtext",
           "id": "heading",
           "default": "Heading <i>to go</i> <b>here</b>",
           "label": "Heading"
         },
         {
+          "type": "color",
+          "id": "text_color",
+          "label": "Header Text colour",
+          "default": "#000"
+        },
+        {
+                "type": "header",
+                "content": "Heading Font Styles"
+            },
+            {
+                "type": "range",
+                "id": "heading_letter_space",
+                "label": "Heading letter-spacing",
+                "default": 2,
+                "unit": "px",
+                "min": 0,
+                "max": 2,
+                "step": 1
+            },
+            {
+                "type": "header",
+                "content": "Body Font Size"
+            },
+            {
+                "type": "range",
+                "id": "body_font_size",
+                "label": "Body Font Size",
+                "default": 16,
+                "unit": "px",
+                "min": 13,
+                "max": 25,
+                "step": 1
+            },
+        {
           "type": "inline_richtext",
           "id": "text",
           "default": "Text <i>to go</i> <b>here</b>",
-          "label": "Text"
+          "label": "Main Body Text"
+        },
+        {
+          "type": "color",
+          "id": "main_body_text_color",
+          "label": "Main Body Text colour",
+          "default": "#fff"
         },
         {
           "type": "text",
           "id": "link_text",
           "label": "Link text"
-        },
-        {
-          "type": "color",
-          "id": "text_color",
-          "label": "Text colour",
-          "default": "#fff"
         },
         {
           "type": "url",
@@ -365,7 +498,29 @@
         {
           "type": "color",
           "id": "link_text_color",
-          "label": "Link text colour"
+          "label": "Link text colour",
+          "default": "#000"
+        },
+        {
+          "type": "text",
+          "id": "link_text2",
+          "label": "Second Link text"
+        },
+        {
+          "type": "url",
+          "id": "link2",
+          "label": "Second Link URL"
+        },
+        {
+          "type": "color",
+          "id": "link_bg_color2",
+          "label": "Second Link background colour"
+        },
+        {
+          "type": "color",
+          "id": "link_text_color2",
+          "label": "Second Link text colour",
+          "default": "#fff"
         },
         {
           "type": "header",

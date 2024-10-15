@@ -9,7 +9,8 @@
   transform: translateX(-50%);
   z-index: 1;
 }
-.hero-slider .swiper-controls .hero-swiper-button-next, .hero-slider .swiper-controls .hero-swiper-button-prev {
+.hero-slider .swiper-controls .hero-swiper-button-next,
+.hero-slider .swiper-controls .hero-swiper-button-prev {
   position: relative;
   opacity: 1;
   color: red;
@@ -77,37 +78,43 @@
 }
 @media only screen and (max-width: 767.98px) {
   .hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.heading {
-    font-size: 24px;
+    font-size: 22px;
   }
 }
-.hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.heading em, .hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.heading strong {
+.hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.heading em,
+.hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.heading strong {
   font-size: 50px;
 }
 @media only screen and (max-width: 767.98px) {
-  .hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.heading em, .hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.heading strong {
+  .hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.heading em,
+  .hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.heading strong {
     font-size: 24px;
   }
 }
 .hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.text {
-  font-size: 24px;
+  font-size: 22px;
 }
 @media only screen and (max-width: 767.98px) {
   .hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.text {
     font-size: 16px;
   }
 }
-.hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.text em, .hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.text strong {
-  font-size: 24px;
+.hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.text em,
+.hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.text strong {
+  font-size: 22px;
 }
 @media only screen and (max-width: 767.98px) {
-  .hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.text em, .hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.text strong {
+  .hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.text em,
+  .hero-slider .hero-slide .page-width .text-container-wrapper .text-container div.text strong {
     font-size: 16px;
   }
 }
 .hero-slider .hero-slide .page-width .text-container-wrapper .text-container a {
   border: none;
 }
-.hero-slider .hero-slide img, .hero-slider .hero-slide svg, .hero-slider .hero-slide video {
+.hero-slider .hero-slide img,
+.hero-slider .hero-slide svg,
+.hero-slider .hero-slide video {
   position: absolute;
   top: 0;
   left: 0;

@@ -1,17 +1,39 @@
+@import '../../../scss/breakpoints.scss';
+
 .variant-prices-container {
   .variant-price-wrapper {
 
+    &.old-price {
+      .product-price {
+        color: #FF0000;
+        margin-right: 15px;
+
+        @include from-md() {
+          margin-right: 20px;
+        }
+      }
+    }
+
     span.product-sale-price {
       margin-right: 5px;
-      font-size: 20px;
+      font-size: var(--font-size-18);
+      
+      @include from-md() {
+        font-size: var(--font-size-22);
+      }
+
       &.strikethrough {
+        color: 858585;
         text-decoration: line-through;
       }
     }
 
     .product-price {
-      font-weight: bold;
-      font-size: 20px;
+      font-size: var(--font-size-18);
+      
+      @include from-md() {
+        font-size: var(--font-size-22);
+      }
     }
 
     &.hidden {

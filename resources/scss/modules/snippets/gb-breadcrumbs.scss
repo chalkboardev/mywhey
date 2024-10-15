@@ -1,0 +1,43 @@
+nav.breadcrumbs {
+    ul {
+        display: flex;
+        gap: 10px 20px;
+        padding: 0;
+        li {
+            display: inline-block;
+            position: relative;
+            padding: 4px;
+            &:first-of-type {
+                padding-left: 0;
+            }
+            &:last-of-type a {
+                text-decoration: underline;
+            }
+            a {
+                font-size: var(--font-size-10);
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+                text-decoration: none;
+
+                @media screen and (min-width: 750px) {
+                    font-size: var(--font-size-12);
+                    letter-spacing: 0.6px;    
+                }
+            }
+            &:nth-of-type(n+2) {
+                &:before {
+                    content: "/";
+                    position: absolute;
+                    left: -10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    font-size: var(--font-size-10);
+
+                    @media screen and (min-width: 750px) {
+                        font-size: var(--font-size-12);
+                    }
+                }
+            }
+        }
+    }
+}

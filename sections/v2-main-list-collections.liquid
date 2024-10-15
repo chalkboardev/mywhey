@@ -1,14 +1,67 @@
 <link rel="stylesheet" href="{{ 'section-v2-main-list-collections.min.css' | asset_url }}" >
+<script src="{{ 'collections-page.min.js' | asset_url }}" defer></script>
 
 <div class="main-collections-list page-width vertical-margin">  
 
-    <h1 class="heading-lg">Collections</h1>
+    <h1 class="heading-lg collection-list-category">Dresses</h1>
 
-    <div class="collection-grid">
+    <div class="collection-grid collections-list-swiper">
+        <div class="swiper-wrapper">
+            {% for collection in collections %}
+                {% if collection.metafields.collections_page.category == 'Dresses' %}
+                    <div class="swiper-slide block-links-wrapper">
+                        {% render 'v2-collection-card-long' collection: collection %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="main-collections-list page-width vertical-margin">  
 
-        {% for collection in collections %}
-            {% render 'v2-collection-card' collection: collection %}
-        {% endfor %}
+    <h1 class="heading-lg collection-list-category">Clothing</h1>
 
+    <div class="collection-grid collections-list-swiper">
+        <div class="swiper-wrapper">
+            {% for collection in collections %}
+                {% if collection.metafields.collections_page.category == 'Clothing' %}
+                    <div class="swiper-slide block-links-wrapper">
+                        {% render 'v2-collection-card-long' collection: collection %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="main-collections-list page-width vertical-margin">  
+
+    <h1 class="heading-lg collection-list-category">Occassion</h1>
+
+    <div class="collection-grid collections-list-swiper">
+        <div class="swiper-wrapper">
+            {% for collection in collections %}
+                {% if collection.metafields.collections_page.category == 'Occassion' %}
+                    <div class="swiper-slide block-links-wrapper">
+                        {% render 'v2-collection-card-long' collection: collection %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="main-collections-list page-width vertical-margin">  
+
+    <h1 class="heading-lg collection-list-category">Accessories</h1>
+
+    <div class="collection-grid collections-list-swiper">
+        <div class="swiper-wrapper">
+            {% for collection in collections %}
+                {% if collection.metafields.collections_page.category == 'Accessories' %}
+                    <div class="swiper-slide block-links-wrapper">
+                        {% render 'v2-collection-card-long' collection: collection %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
 </div>

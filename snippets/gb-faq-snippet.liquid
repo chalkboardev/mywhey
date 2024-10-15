@@ -1,0 +1,9 @@
+<div class="accordion-faqs-tag-based-container {% if show %}active{% endif %}" data-faq-section="{{ faq_section.title.value | handleize }}">
+    {% for faq in faq_section.faqs.value %}
+        <div class="accordion-sub-container">
+            
+                {% render 'v2-accordion', question: faq.question, content: faq.answer %}
+            
+        </div>
+    {% endfor %}
+</div>

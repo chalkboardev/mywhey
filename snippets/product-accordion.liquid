@@ -1,0 +1,36 @@
+{% comment %}
+  === FUNCTIONALITY ===
+
+  Section notes:
+
+  -Text only - can include links to other pages
+  -Item Description, Delivery & Returns, Other information needed
+  -First open as default, closes when another is selected-
+
+  Section Author: Dan Hall
+{% endcomment %}
+
+{% capture delivery_returns %}
+    <div>
+      {{ shop.shipping_policy }}
+    </div>
+  
+    <div style="margin-top: 30px">
+      {{ shop.refund_policy }}
+    </div>
+  {% endcapture %}
+
+{{ 'section-v2-product-information.min.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="product-information-container"
+  style="background: {{ section.settings.acc_bg_color }};"
+>
+  <div class="product-accordions-wrapper">
+    <div class="product-accordions">
+      {% render 'v2-accordion', question: 'Product Information', content: product.description, active: true %}
+      {% render 'v2-accordion', question: 'Material & Care', content: product.description, active: false %}
+      {% render 'v2-accordion', question: 'Delivery & Returns', content: delivery_returns, active: false %}
+    </div>
+  </div>
+</div>

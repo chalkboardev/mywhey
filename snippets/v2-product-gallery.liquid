@@ -156,7 +156,7 @@
 
 <script>
   const thumbSwiper = new window.swiper('.thumb-swiper', {
-    spaceBetween: 10,
+    spaceBetween: 20,
     slidesPerView: 5,
     freeMode: true,
     watchSlidesProgress: true,
@@ -189,12 +189,13 @@
         var main_swiper_width = main_swiper_slide.offsetWidth;
         var thumb_swiper_width = thumb_swiper_slide.offsetWidth;
 
-        main_swiper_slide.style.height = main_swiper_width + 'px';
+        // JL: I don't think this is necessary
+        // main_swiper_slide.style.height = main_swiper_width + 'px';
 
         if (window.innerWidth > 991.98) {
-          thumb_swiper.style.height = main_swiper_width + 'px';
+          // thumb_swiper.style.height = main_swiper_width + 'px';
         } else {
-          thumb_swiper.style.height = thumb_swiper_width + 'px';
+          // thumb_swiper.style.height = thumb_swiper_width + 'px';
         }
 
         document.querySelector('.gallery-container').style.opacity = 1;
@@ -207,7 +208,8 @@
           var main_swiper_width = main_swiper_slide.offsetWidth;
           var thumb_swiper_width = thumb_swiper_slide.offsetWidth;
 
-          main_swiper_slide.style.height = main_swiper_width + 'px';
+          // JL: I don't think this is necessary
+          // main_swiper_slide.style.height = main_swiper_width + 'px';
 
           if (window.innerWidth > 991.98) {
             thumb_swiper.style.height = main_swiper_width + 'px';

@@ -32,32 +32,38 @@
 <div
   class="collection-slider-section"
   id="{{ section.id }}"
-  style=" {% if bg %} background-image: url('{{ section.settings.bg_image | image_url: format: "jpg" }}'); {% endif %} padding-top: {{ section.settings.padding-top }}%; padding-bottom: {{ section.settings.padding-bottom }}%;"
+  style=" {% if bg %} background-image: url('{{ section.settings.bg_image | image_url: format: "jpg" }}'); {% endif %} padding-top: {{ section.settings.padding-top }}px; padding-bottom: {{ section.settings.padding-bottom }}px;margin-top:{{ section.settings.margin-top }}%"
 >
   <div class="collection-slider-top">
     <div class="page-width container">
       <div class="intro">
         <div class="slider-header">
-          <h3 class="heading-md">{{ section.settings.section_title }}</h3>
-          {% if section.settings.section_link != blank and section.settings.section_link_value %}
-            <a href="{{ section.settings.section_link }}" class="button-4" aria-label="View All Products"
-              >View All Products</a
-            >
-          {% endif %}
-        </div>
-
-        {% if section.settings.section_desc != blank %}
+          <h3 class="heading-x-lg">{{ section.settings.section_title }}</h3>
+          
+          {% if section.settings.section_desc != blank %}
           <p class="description body">{{ section.settings.section_desc }}</p>
         {% endif %}
+        </div>
+ {% if section.settings.section_link != blank and section.settings.section_link_value %}
+            <a href="{{ section.settings.section_link }}" class="button-1" aria-label="{{ section.settings.section_link_value }}"
+              >{{ section.settings.section_link_value }}</a>
+          {% endif %}
+       
       </div>
     </div>
   </div>
 
   <div class="collection-slider-bottom page-width">
+    
     {% if section.settings.collection_slider_navigation == true %}
       <!-- If we need navigation buttons -->
       <div class="swiper-button-prev"></div>
     {% endif %}
+
+      <!-- If we need navigation buttons -->
+      {% if section.settings.collection_slider_navigation == true %}
+        <div class="swiper-button-next"></div>
+      {% endif %}
 
     <div class="swiper collection-slider-swiper">
       <!-- Additional required wrapper -->
@@ -70,6 +76,7 @@
         <!-- Slides Go Here -->
 
         {% for product in section.settings.collection_slider_items.products limit: section.settings.product_limit %}
+   
           <div class="swiper-slide collection-slider-product">
             {% render 'gb-product-card', product: product %}
           </div>
@@ -82,10 +89,7 @@
       {% endif %}
     </div>
 
-    <!-- If we need navigation buttons -->
-    {% if section.settings.collection_slider_navigation == true %}
-      <div class="swiper-button-next"></div>
-    {% endif %}
+
   </div>
 
   <!-- If we need scrollbar -->
@@ -102,6 +106,13 @@
     const swiper{{ section.id | replace: 'template--', '' }} = new window.swiper('.swiper.collection-slider-swiper', {
         // Optional parameters
         direction: 'horizontal',
+        lazy: {
+          enabled: true,
+          checkInView: true,
+          loadOnTransitionStart: true,
+          loadPrevNext: true,
+          loadPrevNextAmount: 1
+      },
 
         effect: '{{ section.settings.collection_slider_transition_effect }}',
 
@@ -112,10 +123,6 @@
             delay: {{ section.settings.collection_slider_autoplay }},
         },
         {% endif %}
-
-        // slidesPerView: {{ section.settings.collection_slider_slidesperview }},
-
-        // spaceBetween: {{ section.settings.collection_slider_spacebetween }},
 
         {% if section.settings.collection_slider_pagination %}
             // If we need pagination
@@ -159,7 +166,7 @@
             },
 
             768: {
-              slidesPerView: {{ section.settings.collection_slider_slidesperview_laptop }},
+              slidesPerView: 2,
               spaceBetween: {{ section.settings.collection_slider_spacebetween_laptop }}
             },
 
@@ -286,7 +293,7 @@
       "step": 0.5,
       "id": "collection_slider_slidesperview_mobile",
       "label": "( Mobile ) Collection Slider Slides Per View",
-      "default": 2.5
+      "default": 1.5
     },
     {
       "type": "range",
@@ -295,7 +302,7 @@
       "step": 0.5,
       "id": "collection_slider_slidesperview_tablet",
       "label": "( Tablet ) Collection Slider Slides Per View",
-      "default": 3.5
+      "default": 3
     },
     {
       "type": "range",
@@ -304,7 +311,7 @@
       "step": 0.5,
       "id": "collection_slider_slidesperview_laptop",
       "label": "( Laptop ) Collection Slider Slides Per View",
-      "default": 3.5
+      "default": 3
     },
     {
       "type": "range",
@@ -313,7 +320,7 @@
       "step": 0.5,
       "id": "collection_slider_slidesperview_desktop",
       "label": "( Desktop ) Collection Slider Slides Per View",
-      "default": 5.5
+      "default": 3
     },
     {
       "type": "range",
@@ -356,20 +363,30 @@
       "min": 0,
       "max": 100,
       "step": 1,
-      "unit": "%",
+      "unit": "px",
       "id": "padding-top",
       "label": "Padding Top",
-      "default": 5
+      "default": 0
     },
     {
       "type": "range",
       "min": 0,
       "max": 100,
       "step": 1,
-      "unit": "%",
+      "unit": "px",
       "id": "padding-bottom",
       "label": "Padding bottom",
-      "default": 5
+      "default": 25
+    },
+    {
+      "type": "range",
+      "min": -50,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "id": "margin-top",
+      "label": "Margin Top",
+      "default": 0
     }
   ],
   "presets": [

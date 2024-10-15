@@ -20,7 +20,7 @@
   <div class="article-slider-header">
     <h2 class="heading-lg">{{ section.settings.blog.title }}</h2>
 
-    <a href="{{ section.settings.blog.url }}" class="button-2" aria-label="View all articles">View all articles</a>
+    <a href="{{ section.settings.blog.url }}" class="button-1" aria-label="View all articles">View all stories</a>
   </div>
 
   <div class="swiper article--slider">
@@ -37,7 +37,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var swiper = new window.swiper('.article--slider', {
-      slidesPerView: 1.4,
+      slidesPerView: 1.2,
       spaceBetween: 30,
       lazy: {
         enabled: true,

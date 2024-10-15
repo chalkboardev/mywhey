@@ -1,0 +1,118 @@
+.content-page.page-width,
+.content-page .page-width {
+  max-width: 1055px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-content {
+  font-size: var(--font-size-18);
+}
+@media only screen and (min-width: 1025px) {
+  .page-content {
+    font-size: var(--font-size-22);
+  }
+}
+
+.page\.size-guide .full-width-image {
+  height: 240px;
+}
+@media only screen and (min-width: 1025px) {
+  .page\.size-guide .full-width-image {
+    height: 380px;
+  }
+}
+.page\.size-guide .heading-lg {
+  font-size: var(--font-size-36);
+}
+@media only screen and (min-width: 1025px) {
+  .page\.size-guide .heading-lg {
+    font-size: var(--font-size-52);
+  }
+}
+.page\.size-guide .heading-lg,
+.page\.size-guide .page-content {
+  text-align: left;
+}
+@media only screen and (min-width: 1025px) {
+  .page\.size-guide .heading-lg,
+  .page\.size-guide .page-content {
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 1024.98px) {
+  .page\.size-guide .text-image .image-wrapper {
+    min-width: 115px;
+  }
+  .page\.size-guide .text-image .content-wrapper {
+    min-width: 230px;
+  }
+  .page\.size-guide .text-image .content-wrapper .title {
+    font-size: var(--font-size-26);
+  }
+  .page\.size-guide .text-image .page-width, .page\.size-guide .text-image .text-video .page-width {
+    gap: 10px !important;
+    flex-direction: row !important;
+    align-items: flex-start;
+  }
+  .page\.size-guide .text-image .page-width.right, .page\.size-guide .text-image .text-video .page-width.right {
+    gap: 10px !important;
+    flex-direction: row-reverse !important;
+    align-items: flex-start;
+  }
+}
+
+.measurement-points {
+  margin-bottom: 20px;
+}
+.measurement-points .measurement-point {
+  font-size: var(--font-size-15);
+}
+@media only screen and (min-width: 1025px) {
+  .measurement-points .measurement-point {
+    font-size: var(--font-size-18);
+  }
+}
+
+.page\.our-heritage .full-width-image {
+  height: 240px;
+}
+@media only screen and (min-width: 1025px) {
+  .page\.our-heritage .full-width-image {
+    height: 380px;
+  }
+}
+.page\.our-heritage .content-for-layout {
+  padding-bottom: 5em;
+}
+@media only screen and (min-width: 1025px) {
+  .page\.our-heritage .content-for-layout {
+    padding-bottom: 7em;
+  }
+}
+.page\.our-heritage .heading-lg {
+  font-size: var(--font-size-36);
+}
+@media only screen and (min-width: 1025px) {
+  .page\.our-heritage .heading-lg {
+    font-size: var(--font-size-52);
+  }
+}
+.page\.our-heritage .heading-lg,
+.page\.our-heritage .page-content {
+  text-align: left;
+}
+@media only screen and (min-width: 1025px) {
+  .page\.our-heritage .heading-lg,
+  .page\.our-heritage .page-content {
+    text-align: center;
+  }
+}
+.page\.our-heritage .shopify-section.text-image-section {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.page\.our-heritage .text-image.vertical-margin {
+  margin: 0;
+}

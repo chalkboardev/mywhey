@@ -1,0 +1,188 @@
+{% comment %}
+  This sections styling is shared with v2-video-image-.liquid
+
+  Section notes:
+      - Split down the middle (Half image, half text box)
+      - Ability to invert (ie image can be left or right)
+      - Text alignment within space (Left/Central/Right)
+      - Title, description, CTA button (Limited to one)
+      - Mobile stack text then image
+      - Mobile option to hide image
+
+  Section Author: jo@quickfiredigital.com
+{% endcomment %}
+
+{{ 'section-gb-size-guide-table.min.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign size_table = section.blocks | where: 'type', 'size_table'
+
+  if section.settings.hide_mobile == true
+    assign hide_mobile = 'hide-mobile'
+  endif
+-%}
+
+<section
+  class="text-image {% if background == '' or background == 'rgba(0,0,0,0)' %}vertical-margin{% else %}vertical-padding{% endif %}"
+  style="background:{{ background }};"
+  id="image-text-{{ section.id }}"
+>
+  <div class="{{ layout }}">
+    {% if size_table %}
+      <div class="content-wrapper {{ align }}" style="color: {{ colour }};">
+        <table class="size-guide-table">
+          <thead>
+            <tr>
+              <th>{{ section.settings.column_1_heading }}</th>
+              <th>{{ section.settings.column_2_heading }}</th>
+              <th>{{ section.settings.column_3_heading }}</th>
+              <th>{{ section.settings.column_4_heading }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for block in size_table %}
+              <tr>
+                <td>{{ block.settings.size }}</td>
+                <td>{{ block.settings.bust }}</td>
+                <td>{{ block.settings.waist }}</td>
+                <td>{{ block.settings.hip }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Size Guide Table",
+  "tag": "section",
+  "class": "size-guide-table-section content-page page-width",
+  "blocks": [
+    {
+      "name": "Row",
+      "type": "size_table",
+      "limit": 30,
+      "settings": [
+        {
+          "type": "text",
+          "id": "size",
+          "label": "Size"
+        },
+        {
+          "type": "text",
+          "id": "bust",
+          "label": "Bust"
+        },
+        {
+          "type": "text",
+          "id": "waist",
+          "label": "Waist"
+        },
+        {
+          "type": "text",
+          "id": "hip",
+          "label": "Hip"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Column Headings"
+    },
+    {
+      "type": "text",
+      "id": "column_1_heading",
+      "label": "Column 1 Heading"
+    },
+    {
+      "type": "text",
+      "id": "column_2_heading",
+      "label": "Column 2 Heading"
+    },
+    {
+      "type": "text",
+      "id": "column_3_heading",
+      "label": "Column 3 Heading"
+    },
+    {
+      "type": "text",
+      "id": "column_4_heading",
+      "label": "Column 4 Heading"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "header",
+      "content": "Styles"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Content Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "middle",
+          "label": "Middle"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "middle"
+    },
+    {
+      "type": "color",
+      "id": "colour",
+      "label": "Colour"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Hide Video",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Size Guide Table"
+    }
+  ]
+}
+{% endschema %}

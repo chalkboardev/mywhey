@@ -1,6 +1,6 @@
 {{ 'section-v2-collection-slider.min.css' | asset_url | stylesheet_tag }}
 
-<div class="page-width">
+<div class="collection_slider_main page-width">
 
     <div class="collection-slider-heading-wrapper">
 
@@ -8,7 +8,7 @@
 
             <h2 class="heading-lg">
 
-                {{ section.settings.heading }}
+            {%- if section.settings.heading != blank -%}  {{ section.settings.heading }} {%- endif -%}
 
             </h2>
 
@@ -30,6 +30,18 @@
 
     </div>
 
+  <div class="collection-slider-bottom">
+
+  {% if section.settings.collection_slider_navigation == true %}
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev"></div>
+  {% endif %}
+  
+    <!-- If we need navigation buttons -->
+    {% if section.settings.collection_slider_navigation == true %}
+      <div class="swiper-button-next"></div>
+    {% endif %}
+
     <div class="swiper collection-slider-{{ section.index }}">
 
         <div class="swiper-wrapper">
@@ -41,14 +53,17 @@
             {% endfor %}
 
         </div>
-
+       <!-- If we need pagination -->
+        {% if section.settings.collection_slider_pagination == true %}
+          <div class="collection-swiper-pagination swiper-pagination"></div>
+        {% endif %}
     </div>
+</div>
 
 <div>
 
 <script>
   var swiper_{{ section.index }} = new window.swiper(".collection-slider-{{ section.index }}", {
-      slidesPerView: 1.4,
       spaceBetween: 30,
       lazy: {
           enabled: true,
@@ -57,8 +72,40 @@
           loadPrevNext: true,
           loadPrevNextAmount: 1
       },
-      breakpoints: {
+      loop: {{ section.settings.collection_slider_loop }},
+      {% if section.settings.collection_slider_pagination %}
+          // If we need pagination
+          pagination: {
+              el: '.collection-swiper-pagination.swiper-pagination',
+              clickable: true,
+              dynamicBullets: true,
+          },
+      {% endif %}
 
+      {% if section.settings.collection_slider_navigation == true %}
+          // Navigation arrows
+          navigation: {
+              nextEl: '.collection-slider-bottom .swiper-button-next',
+              prevEl: '.collection-slider-bottom .swiper-button-prev',
+          },
+      {% endif %}
+
+      {% if section.settings.collection_slider_scrollbar == true %}
+          // And if we need scrollbar
+          scrollbar: {
+              el: '.collection-swiper-scrollbar.swiper-scrollbar',
+          },
+      {% endif %}
+      breakpoints: {
+          0: {
+            slidesPerView: 1.3
+          },
+          360: {
+            slidesPerView: 1.3
+          },
+          425: {
+            slidesPerView: 1.3
+          },
           768: {
               slidesPerView: {{ section.settings.slidesSmall }}
           },
@@ -74,8 +121,6 @@
 </script>
 
 
-
-
 {% schema %}
 {
   "name": "Collection Slider",
@@ -85,8 +130,31 @@
     {
         "type": "inline_richtext",
         "id": "heading",
-        "default": "Shop By Category",
+        "default": "Heading",
         "label": "Heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_slider_pagination",
+      "label": "Collection Slider Pagination",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_slider_navigation",
+      "label": "Collection Slider Navigation",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_slider_scrollbar",
+      "label": "Collection Slider Scrollbar"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_slider_loop",
+      "label": "Collection Slider Loop",
+      "default": false
     },
     {
         "type": "text",
@@ -106,19 +174,19 @@
         "label": "Slides per view at largest breakpoint",
         "options": [
           {
-            "value": "7",
-            "label": "7"
-          },
-          {
             "value": "5",
             "label": "5"
+          },
+          {
+            "value": "3.5",
+            "label": "3.5"
           },
           {
             "value": "3",
             "label": "3"
           }
         ],
-        "default": "5"
+        "default": "3"
       },
       {
           "type": "select",
@@ -134,11 +202,11 @@
               "label": "3"
             },
             {
-              "value": "2",
-              "label": "2"
+              "value": "3.2",
+              "label": "3.2"
             }
           ],
-          "default": "3"
+          "default": "3.2"
         },
         {
             "type": "select",
@@ -146,19 +214,19 @@
             "label": "Slides per view at smallest breakpoint",
             "options": [
               {
-                "value": "3",
-                "label": "3"
-              },
-              {
                 "value": "2",
                 "label": "2"
+              },
+              {
+                "value": "1.2",
+                "label": "1.2"
               },
               {
                 "value": "1",
                 "label": "1"
               }
             ],
-            "default": "2"
+            "default": "1.2"
           }
 
   ],

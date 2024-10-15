@@ -1,3 +1,27 @@
+.text-image .heading-sm, .text-video .heading-sm {
+  font-size: var(--font-size-14);
+}
+@media only screen and (min-width: 1025px) {
+  .text-image .heading-sm, .text-video .heading-sm {
+    font-size: var(--font-size-22);
+  }
+}
+.text-image .heading-md, .text-video .heading-md {
+  font-size: var(--font-size-20);
+}
+@media only screen and (min-width: 1025px) {
+  .text-image .heading-md, .text-video .heading-md {
+    font-size: var(--font-size-30);
+  }
+}
+.text-image .heading-lg, .text-video .heading-lg {
+  font-size: var(--font-size-26);
+}
+@media only screen and (min-width: 1025px) {
+  .text-image .heading-lg, .text-video .heading-lg {
+    font-size: var(--font-size-40);
+  }
+}
 .text-image .page-width, .text-video .page-width {
   display: flex;
   flex-direction: row;
@@ -25,23 +49,38 @@
     padding: 0;
   }
 }
+@media only screen and (max-width: 991.98px) {
+  .text-image .page-width .content-wrapper, .text-video .page-width .content-wrapper {
+    order: 0;
+  }
+  .text-image .page-width .image-wrapper, .text-image .page-width .video-wrapper, .text-video .page-width .image-wrapper, .text-video .page-width .video-wrapper {
+    order: 1;
+    width: calc(100% + var(--page-padding-sm) * 2);
+  }
+}
 .text-image .page-width .content-wrapper, .text-video .page-width .content-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 15px 0;
 }
-.text-image .page-width .content-wrapper.right, .text-video .page-width .content-wrapper.right {
-  text-align: right;
-  align-items: flex-end;
-}
 .text-image .page-width .content-wrapper.left, .text-video .page-width .content-wrapper.left {
   text-align: left;
   align-items: flex-start;
 }
+.text-image .page-width .content-wrapper.right, .text-video .page-width .content-wrapper.right {
+  text-align: right;
+  align-items: flex-end;
+}
 .text-image .page-width .content-wrapper.middle, .text-video .page-width .content-wrapper.middle {
   text-align: center;
   align-items: center;
+}
+@media only screen and (max-width: 991.98px) {
+  .text-image .page-width .content-wrapper.right, .text-video .page-width .content-wrapper.right {
+    text-align: left;
+    align-items: flex-start;
+  }
 }
 .text-image .page-width .content-wrapper .title, .text-video .page-width .content-wrapper .title {
   margin: 0;

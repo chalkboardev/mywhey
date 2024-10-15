@@ -1,0 +1,73 @@
+{% comment %}
+  === FUNCTIONALITY ===
+
+  Section notes:
+    - Got from furniture online
+    - tag based FAQs that pull from QF Connector
+    - requires accordion-qf snippet
+    - block based FAQ grid
+
+  Section Author: Matt Parkes
+{% endcomment %}
+
+{{ 'section-v2-faq-grid.min.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width faq-grid-internal">
+    <div class="sidebar">
+        {% for block in section.blocks %}
+            {% assign faq_handle = block.settings.metaobject_handle %}
+            {% assign faq_section = shop.metaobjects.faq_section[faq_handle] %}
+            <div class="faq-section-select {% if forloop.first %}active{% endif %}" data-faq-section-select="{{ faq_section.title.value | handleize }}">
+                {{ faq_section.title.value }}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="main">
+        {% for block in section.blocks %}
+            {% assign faq_handle = block.settings.metaobject_handle %}
+            {% assign faq_section = shop.metaobjects.faq_section[faq_handle] %}
+            {% render 'gb-faq-snippet', faq_section: faq_section, show: forloop.first %}
+        {% endfor %}
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ grid",
+  "class": "faq-grid vertical-margin",
+  "blocks": [
+    {
+        "type": "section",
+        "name": "Section",
+        "settings": [
+            {
+                "type": "text",
+                "id": "metaobject_handle",
+                "label": "Handle"
+            }
+        ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ grid"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+    document.querySelectorAll('[data-faq-section-select]').forEach((node)=>{
+        node.addEventListener('click',(e)=>{
+            document.querySelectorAll('[data-faq-section-select]').forEach((node)=>{
+                node.classList.remove('active')
+            })
+            document.querySelectorAll('[data-faq-section]').forEach((node)=>{
+                node.classList.remove('active')
+            })
+            e.target.closest('[data-faq-section-select]').classList.add('active')
+            var target = e.target.closest('[data-faq-section-select]').getAttribute('data-faq-section-select')
+            document.querySelector('[data-faq-section="'+target+'"]').classList.add('active')
+        })
+    })
+{% endjavascript %}

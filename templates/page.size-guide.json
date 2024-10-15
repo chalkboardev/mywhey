@@ -1,0 +1,190 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "v2_full_width_image_aXcWnQ": {
+      "type": "v2-full-width-image",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/Mask_Group_7_2x_123d5757-c063-4de2-a5d6-f736ef34eff3.png",
+        "show_gradient_overlay": false,
+        "background": ""
+      }
+    },
+    "v2_breadcrumbs_FNJnY9": {
+      "type": "v2-breadcrumbs",
+      "settings": {
+      }
+    },
+    "main": {
+      "type": "v2-page",
+      "settings": {
+        "remove_padding_top": true,
+        "remove_padding_bottom": false
+      }
+    },
+    "gb_text_image_size_guide_9fG7nE": {
+      "type": "gb-text-image-size-guide",
+      "blocks": {
+        "measurement_point_iwXNyF": {
+          "type": "measurement_point",
+          "settings": {
+            "content": "Bust - The widest part of the bust area. Make sure that you keep the measuring tape horizontal."
+          }
+        },
+        "measurement_point_6FWzAK": {
+          "type": "measurement_point",
+          "settings": {
+            "content": "Waist - The smallest part of your waistline - this is above your hips and below your bust, just above the navel."
+          }
+        },
+        "measurement_point_fL7rC3": {
+          "type": "measurement_point",
+          "settings": {
+            "content": "Hips - The widest part of your hips at the top of your legs, Again, remember to keep your measure horizontal."
+          }
+        }
+      },
+      "block_order": [
+        "measurement_point_iwXNyF",
+        "measurement_point_6FWzAK",
+        "measurement_point_fL7rC3"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/Image_42.png",
+        "title": "Where To Measure",
+        "bottom_content": "<p>Please note that the measurements in the chart are body measurements and not garment measurements. <\/p><p>Garments’ measurements will vary between different styles. The model’s height is 5’8”.<\/p><p>If you have any queries regarding sizing please contact us at <a href=\"mailto:customerservices@ginabacconi.com\" title=\"mailto:customerservices@ginabacconi.com\">customerservices@ginabacconi.com<\/a> or call us on 020 8438 2000<\/p>",
+        "url_text": "Learn More",
+        "url": "",
+        "layout": "right",
+        "align": "left",
+        "size": "h3",
+        "button_style": "button-1",
+        "colour": "",
+        "background": "",
+        "hide_mobile": false
+      }
+    },
+    "gb_size_guide_table_7yYYzh": {
+      "type": "gb-size-guide-table",
+      "blocks": {
+        "size_table_d67zXg": {
+          "type": "size_table",
+          "settings": {
+            "size": "8 \/ XS",
+            "bust": "82",
+            "waist": "65",
+            "hip": "90"
+          }
+        },
+        "size_table_a8ixzY": {
+          "type": "size_table",
+          "settings": {
+            "size": "10 \/ S",
+            "bust": "86",
+            "waist": "69",
+            "hip": "94"
+          }
+        },
+        "size_table_49qne3": {
+          "type": "size_table",
+          "settings": {
+            "size": "12 \/ S",
+            "bust": "91",
+            "waist": "74",
+            "hip": "99"
+          }
+        },
+        "size_table_izEBAV": {
+          "type": "size_table",
+          "settings": {
+            "size": "14 \/ M",
+            "bust": "96",
+            "waist": "79",
+            "hip": "104"
+          }
+        },
+        "size_table_PQpmbe": {
+          "type": "size_table",
+          "settings": {
+            "size": "16 \/ M",
+            "bust": "101",
+            "waist": "84",
+            "hip": "109"
+          }
+        },
+        "size_table_mpLbWG": {
+          "type": "size_table",
+          "settings": {
+            "size": "18 \/ L",
+            "bust": "106",
+            "waist": "89",
+            "hip": "114"
+          }
+        },
+        "size_table_WhYRxd": {
+          "type": "size_table",
+          "settings": {
+            "size": "20 \/ L",
+            "bust": "112",
+            "waist": "95",
+            "hip": "120"
+          }
+        },
+        "size_table_TWNe9w": {
+          "type": "size_table",
+          "settings": {
+            "size": "22 \/ XL",
+            "bust": "118",
+            "waist": "101",
+            "hip": "126"
+          }
+        },
+        "size_table_zPyTMw": {
+          "type": "size_table",
+          "settings": {
+            "size": "24 \/ XL",
+            "bust": "124",
+            "waist": "107",
+            "hip": "132"
+          }
+        }
+      },
+      "block_order": [
+        "size_table_d67zXg",
+        "size_table_a8ixzY",
+        "size_table_49qne3",
+        "size_table_izEBAV",
+        "size_table_PQpmbe",
+        "size_table_mpLbWG",
+        "size_table_WhYRxd",
+        "size_table_TWNe9w",
+        "size_table_zPyTMw"
+      ],
+      "settings": {
+        "column_1_heading": "Size",
+        "column_2_heading": "Bust (cm)",
+        "column_3_heading": "Waist (cm)",
+        "column_4_heading": "Hips (cm)",
+        "layout": "left",
+        "align": "middle",
+        "colour": "",
+        "background": "",
+        "hide_mobile": false
+      }
+    }
+  },
+  "order": [
+    "v2_full_width_image_aXcWnQ",
+    "v2_breadcrumbs_FNJnY9",
+    "main",
+    "gb_text_image_size_guide_9fG7nE",
+    "gb_size_guide_table_7yYYzh"
+  ]
+}

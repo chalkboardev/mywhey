@@ -12,12 +12,17 @@
 #main-product-container #main-product {
   display: grid;
   grid-template-columns: 50% auto;
-  gap: 40px;
+  gap: 90px;
 }
 @media only screen and (max-width: 767.98px) {
   #main-product-container #main-product {
     grid-template-columns: 100%;
     gap: 0;
+  }
+}
+@media only screen and (min-width: 992px) {
+  #main-product-container #main-product {
+    margin-top: 40px;
   }
 }
 #main-product-container #main-product .gallery .gallery-container {
@@ -38,8 +43,8 @@
   }
 }
 #main-product-container #main-product .gallery .gallery-container .thumb-gallery {
-  width: 20%;
-  margin-right: 10px;
+  width: 110px;
+  margin-right: 20px;
 }
 @media only screen and (max-width: 991.98px) {
   #main-product-container #main-product .gallery .gallery-container .thumb-gallery {
@@ -50,15 +55,15 @@
 }
 #main-product-container #main-product .gallery .gallery-container .thumb-gallery .swiper-slide.thumb {
   width: 100%;
-  height: 100%;
+  height: 150px !important;
   overflow: hidden;
   position: relative;
 }
 #main-product-container #main-product .gallery .gallery-container .thumb-gallery .swiper-slide.thumb .gallery-image-holder {
   width: 100%;
-  height: 100%;
   overflow: hidden;
   position: relative;
+  padding-bottom: 150%;
 }
 #main-product-container #main-product .gallery .gallery-container .thumb-gallery .swiper-slide.thumb .gallery-image-holder img, #main-product-container #main-product .gallery .gallery-container .thumb-gallery .swiper-slide.thumb .gallery-image-holder svg {
   position: absolute;
@@ -68,7 +73,7 @@
      object-fit: cover;
 }
 #main-product-container #main-product .gallery .gallery-container .main-gallery {
-  width: 80%;
+  width: calc(100% - 130px);
   position: relative;
 }
 @media only screen and (max-width: 991.98px) {
@@ -77,13 +82,17 @@
   }
 }
 #main-product-container #main-product .gallery .gallery-container .main-gallery .product-badges {
+  background-color: transparent;
+  padding: 5px;
+  position: absolute;
   width: unset;
   z-index: 99;
 }
 #main-product-container #main-product .gallery .gallery-container .main-gallery .product-badges .product-badge {
+  background: #FFF;
+  font-size: 12px;
   width: -moz-max-content;
   width: max-content;
-  font-size: 12px;
   padding: 7px 14px;
 }
 #main-product-container #main-product .gallery .gallery-container .main-gallery .lightbox-trigger {
@@ -115,7 +124,7 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  padding-bottom: 100%;
+  padding-bottom: 150%;
 }
 #main-product-container #main-product .gallery .gallery-container .main-gallery .gallery-image-holder img, #main-product-container #main-product .gallery .gallery-container .main-gallery .gallery-image-holder video, #main-product-container #main-product .gallery .gallery-container .main-gallery .gallery-image-holder iframe, #main-product-container #main-product .gallery .gallery-container .main-gallery .gallery-image-holder model-viewer, #main-product-container #main-product .gallery .gallery-container .main-gallery .gallery-image-holder svg {
   position: absolute;
@@ -145,6 +154,16 @@
 }
 #main-product-container #main-product .gallery .gallery-container .swiper-button-prev {
   left: 20px !important;
+}
+#main-product-container #main-product .heading-lg {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-24);
+  text-transform: capitalize;
+}
+@media only screen and (min-width: 992px) {
+  #main-product-container #main-product .heading-lg {
+    font-size: var(--font-size-40);
+  }
 }
 #main-product-container #main-product .product-information .product-details {
   display: grid;
@@ -242,6 +261,7 @@
 #main-product-container #main-product .product-information .product-form form .variant-selector-wrapper .option-radios-wrapper .radio-option .variant-radios .variant-wrapper {
   position: relative;
   overflow: hidden;
+  width: 46px;
 }
 #main-product-container #main-product .product-information .product-form form .variant-selector-wrapper .option-radios-wrapper .radio-option .variant-radios .variant-wrapper input {
   position: absolute;
@@ -255,20 +275,28 @@
   cursor: pointer;
 }
 #main-product-container #main-product .product-information .product-form form .variant-selector-wrapper .option-radios-wrapper .radio-option .variant-radios .variant-wrapper input:checked + label {
-  background-color: var(--primary-color);
-  color: var(--text-alternate-color);
+  color: var(--primary-color);
+  border: 1px solid var(--button-1-border-color);
+  font-weight: var(--font-weight-medium);
 }
 #main-product-container #main-product .product-information .product-form form .variant-selector-wrapper .option-radios-wrapper .radio-option .variant-radios .variant-wrapper input:hover:not(:checked) + label {
   filter: brightness(0.9);
 }
 #main-product-container #main-product .product-information .product-form form .variant-selector-wrapper .option-radios-wrapper .radio-option .variant-radios .variant-wrapper label {
   display: block;
-  padding: 10px 30px;
-  background-color: var(--text-alternate-color);
+  padding: 10px;
+  border: 1px solid var(--secondary-color);
+  font-size: var(--font-size-14);
   transition: all 0.3s;
+  text-align: center;
 }
 #main-product-container #main-product .product-information .product-form form .variant-prices-container .variant-price-wrapper span {
   font-family: Fira Sans Extra Condensed;
+}
+#main-product-container #main-product .product-information .product-form form .quantity-atc-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px 20px;
 }
 #main-product-container #main-product .product-information .product-form form .quantity-total-wrapper {
   display: flex;

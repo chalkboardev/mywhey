@@ -1,0 +1,63 @@
+{% comment %}
+  
+  === FUNCTIONALITY ===
+
+  Add section notes from project developer notes. See announcement bar example below.
+
+  Section notes:
+
+  - Title, Intro paragraph (limited to X characters)
+  - Text alignment within space (Left/Central/Right)
+  - Ability to invert (ie image can be left or right)
+  - Ratio of image/text (ie half/half)
+  - To add video add video metafield to collection metafields
+
+  Section Author: Dan Hall
+
+{% endcomment %}
+
+{{ 'section-v2-page-header-text-image.min.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width text-center">
+
+  <div class="text-container collections-header">
+
+      <h1 class="heading-collections-all">{{ section.settings.title }}</h1>
+
+      <div class="text">
+          {{ section.settings.description }}
+      </div>
+
+  </div>
+
+</div>
+
+
+{% schema %}
+{
+  "name": "Collections header",
+  "tag": "section",
+  "class": "page-header-text-image",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "description",
+      "label": "Description"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection header"
+    }
+  ]
+}
+{% endschema %}

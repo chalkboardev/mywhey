@@ -1,0 +1,127 @@
+@import "../../../scss/breakpoints.scss";
+
+.content-page.page-width,
+.content-page .page-width {
+    max-width: 1055px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-content {
+    font-size: var(--font-size-18);
+    
+    @include from-mdl() {
+        font-size: var(--font-size-22);
+    }
+}
+
+.page\.size-guide {
+    .full-width-image {
+        height: 240px;
+
+        @include from-mdl() {
+            height: 380px;
+        }
+    }
+
+    .heading-lg {
+        font-size: var(--font-size-36);
+
+        @include from-mdl() {
+            font-size: var(--font-size-52);
+        }
+    }
+
+    .heading-lg,
+    .page-content {
+        text-align: left;
+
+        @include from-mdl() {
+            text-align: center;   
+        }
+    }
+
+    .text-image {
+        @include to-mdl() {
+            .image-wrapper {
+                min-width: 115px;
+            }
+
+            .content-wrapper {
+                min-width: 230px;
+
+                .title {
+                    font-size: var(--font-size-26);
+                }
+            }
+            .page-width, .text-video .page-width {
+                gap: 10px !important;
+                flex-direction: row !important;
+                align-items: flex-start;
+            }
+            .page-width.right, .text-video .page-width.right {
+                gap: 10px !important;
+                flex-direction: row-reverse !important;
+                align-items: flex-start;
+            }
+        }
+    }
+}
+
+.measurement-points {
+    margin-bottom: 20px;
+
+    .measurement-point {
+        font-size: var(--font-size-15);
+
+        @include from-mdl() {
+            font-size: var(--font-size-18);
+        }
+    }
+}
+
+
+.page\.our-heritage {
+    .full-width-image {
+        height: 240px;
+
+        @include from-mdl() {
+            height: 380px;
+        }
+    }
+
+    .content-for-layout {
+        padding-bottom: 5em;
+
+        @include from-mdl() {
+            padding-bottom: 7em;
+        }
+    }
+
+    .heading-lg {
+        font-size: var(--font-size-36);
+
+        @include from-mdl() {
+            font-size: var(--font-size-52);
+        }
+    }
+
+    .heading-lg,
+    .page-content {
+        text-align: left;
+
+        @include from-mdl() {
+            text-align: center;   
+        }
+    }
+
+    .shopify-section.text-image-section {
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .text-image.vertical-margin {
+        margin: 0;
+    }
+}

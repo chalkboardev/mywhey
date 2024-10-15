@@ -364,7 +364,7 @@ export class GlobalListeners {
         if (quickViewModal) {
           let quickViewModalInner = quickViewModal.querySelector(".inner");
 
-          let sectionName = "v2-main-product";
+          let sectionName = "gb-main-product";
 
           let handle = quickView.getAttribute("data-product-handle");
           if (handle) {

@@ -1,1 +1,50 @@
-{"sections":{"main":{"type":"v2-contact-form","blocks":{"text_VT8xfg":{"type":"text","settings":{"heading":"my <em>inline<\/em> <strong>text<\/strong>","text":"my <em>inline<\/em> <strong>text<\/strong>"}},"contact_details_HbhNpH":{"type":"contact_details","settings":{"phone":"","email":"","address":""}},"social_icons_Fmctmx":{"type":"social_icons","settings":{}}},"block_order":["text_VT8xfg","contact_details_HbhNpH","social_icons_Fmctmx"],"settings":{"title":""}}},"order":["main"]}
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "main": {
+      "type": "v2-contact-form",
+      "blocks": {
+        "text_VT8xfg": {
+          "type": "text",
+          "settings": {
+            "heading": "",
+            "text": "The best way to contact us is by email: <span style=\"text-decoration:underline\">customerservices@ginabacconi.com <\/span>We can answer any questions by phone from Monday to Friday 9am - 5.00pm.<a href=\"tel:+4402084382018\"><span style=\"text-decoration:underline\">Tel: +44 (0)20 8438 2000<\/span><\/a>"
+          }
+        },
+        "contact_details_HbhNpH": {
+          "type": "contact_details",
+          "disabled": true,
+          "settings": {
+            "phone": "",
+            "email": "",
+            "address": ""
+          }
+        },
+        "social_icons_Fmctmx": {
+          "type": "social_icons",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "text_VT8xfg",
+        "contact_details_HbhNpH",
+        "social_icons_Fmctmx"
+      ],
+      "settings": {
+        "title": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,103 +1,108 @@
-
 {% comment %}
+  This sections styling is shared with v2-video-image-.liquid
 
-    This sections styling is shared with v2-video-image-.liquid
+  Section notes:
+      - Split down the middle (Half image, half text box)
+      - Ability to invert (ie image can be left or right)
+      - Text alignment within space (Left/Central/Right)
+      - Title, description, CTA button (Limited to one)
+      - Mobile stack text then image
+      - Mobile option to hide image
 
-    Section notes:
-        - Split down the middle (Half image, half text box)
-        - Ability to invert (ie image can be left or right)
-        - Text alignment within space (Left/Central/Right)
-        - Title, description, CTA button (Limited to one)
-        - Mobile stack text then image
-        - Mobile option to hide image
-
-    Section Author: jo@quickfiredigital.com
-
+  Section Author: jo@quickfiredigital.com
 {% endcomment %}
 
 {{ 'section-v2-text-image.min.css' | asset_url | stylesheet_tag }}
 
-{%- liquid 
-    assign image = section.settings.image 
-    assign video = section.settings.video
-    assign title = section.settings.title 
-    assign body = section.settings.body 
+{%- liquid
+  assign image = section.settings.image
+  assign video = section.settings.video
+  assign title = section.settings.title
+  assign body = section.settings.body
 
-    assign url = section.settings.url 
-    assign url_text = section.settings.url_text 
+  assign url = section.settings.url
+  assign url_text = section.settings.url_text
 
-    assign layout = section.settings.layout 
-    assign align = section.settings.align 
-    assign size = section.settings.size 
-    assign colour = section.settings.colour 
-    assign background = section.settings.background 
-    assign button_style = section.settings.button_style 
+  assign layout = section.settings.layout
+  assign align = section.settings.align
+  assign size = section.settings.size
+  assign colour = section.settings.colour
+  assign background = section.settings.background
+  assign button_style = section.settings.button_style
+  assign no_margin_top = section.settings.remove_top_margin
+  assign no_margin_bottom = section.settings.remove_bottom_margin
 
-    if section.settings.hide_mobile == true 
-        assign hide_mobile = "hide-mobile" 
-    endif 
+  if section.settings.hide_mobile == true
+    assign hide_mobile = 'hide-mobile'
+  endif
 -%}
 
-<section class="text-image {% if background == '' or background == 'rgba(0,0,0,0)' %}vertical-margin{% else %}vertical-padding{% endif %}" style="background:{{ background }};" id="image-text-{{ section.id }}">
-    <div class="page-width {{ layout }}">
-    
-        <div class="image-wrapper {{ hide_mobile }}">
-          {%- if section.settings.video -%}
+<section
+  class="text-image {% if background == '' or background == 'rgba(0,0,0,0)' %}vertical-margin{% else %}vertical-padding{% endif %} {% if no_margin_top %} margin-top-0 {% endif %} {% if no_margin_bottom %} margin-bottom-0 {% endif %}"
+  style="background:{{ background }};"
+  id="image-text-{{ section.id }}"
+>
+  <div class="page-width {{ layout }}">
+    <div class="image-wrapper {{ hide_mobile }}">
+      {%- if section.settings.video -%}
+        <video preload="none" id="video-{{ section.id }}">
+          <source
+            src="{{ section.settings.video.sources[1].url }}"
+            type="{{ section.settings.video.sources[1].mime_type }}"
+          >
+        </video>
 
-            <video preload="none" id="video-{{ section.id }}">
-              <source src="{{ section.settings.video.sources[1].url }}" type="{{ section.settings.video.sources[1].mime_type }}">
-            </video>
-  
-            <div class="video-overlay">
-              {{ section.settings.video.preview_image | image_url: width: 600, format: "jpg" | image_tag: loading: 'lazy', decoding: "async" }}
-              <div class="video-control play-video">
-                <svg xmlns="http://www.w3.org/2000/svg" class="play" viewBox="0 0 24 24">
-                  <path d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-                </svg>
-              </div>
-              <div class="video-control pause-video">
-                <svg xmlns="http://www.w3.org/2000/svg" class="pause" viewBox="0 0 24 24">
-                  <path d="M15,16H13V8H15M11,16H9V8H11M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-                </svg>
-              </div>
-            </div>
-      
-          {%- elsif section.settings.image != blank -%}
-            {{ image | image_url: width: 900, format: "jpg" | image_tag: loading: 'lazy', decoding: "async" }}
-          {%- else -%}
-            {{ 'lifestyle-1' | placeholder_svg_tag }}
-          {%- endif -%}
+        <div class="video-overlay">
+          {{
+            section.settings.video.preview_image
+            | image_url: width: 600, format: 'jpg'
+            | image_tag: loading: 'lazy', decoding: 'async'
+          }}
+          <div class="video-control play-video">
+            <svg xmlns="http://www.w3.org/2000/svg" class="play" viewBox="0 0 24 24">
+              <path d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+            </svg>
+          </div>
+          <div class="video-control pause-video">
+            <svg xmlns="http://www.w3.org/2000/svg" class="pause" viewBox="0 0 24 24">
+              <path d="M15,16H13V8H15M11,16H9V8H11M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+            </svg>
+          </div>
         </div>
-    
-        {% if title != blank or body != blank or show_button == true %}
-            <div class="content-wrapper {{ align }}" style="color: {{ colour }};">
-                <h2 class="title {{ size }}">
-                    {% if title != blank %}
-                        {{ title }}
-                    {% endif %}
-                </h2>
-        
-                {% if body != blank %}
-                    <p class="body">{{ body }}</p>
-                {% endif %}
-        
-                {% if url != blank and url_text != blank %}
-                    {% assign show_button = true %}
-                    <a class="{{ button_style }}" href="{{ url }}">
-                      {{- url_text -}}
-                      <span class="visually-hidden">Link to {{ url }}</span>
-                    </a>
-                {% endif %}
-        
-            </div>
-        {% endif %}
-        
+
+      {%- elsif section.settings.image != blank -%}
+        {{ image | image_url: width: 900, format: 'jpg' | image_tag: loading: 'lazy', decoding: 'async' }}
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag }}
+      {%- endif -%}
     </div>
+
+    {% if title != blank or body != blank or show_button == true %}
+      <div class="content-wrapper {{ align }}" style="color: {{ colour }};">
+        <h2 class="title {{ size }}">
+          {% if title != blank %}
+            {{ title }}
+          {% endif %}
+        </h2>
+
+        {% if body != blank %}
+          <p class="body">{{ body }}</p>
+        {% endif %}
+
+        {% if url != blank and url_text != blank %}
+          {% assign show_button = true %}
+          <a class="{{ button_style }}" href="{{ url }}">
+            {{- url_text -}}
+            <span class="visually-hidden">Link to {{ url }}</span>
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
 </section>
 
 {%- if video -%}
   <script>
-
     let video_{{ section.id | replace: "-", "" }} = document.querySelector('#video-{{section.id }}')
     let video_play_{{ section.id | replace: "-", "" }} = video_{{ section.id | replace: "-", "" }}.nextElementSibling.querySelector('svg.play');
     let video_overlay_{{ section.id | replace: "-", "" }} = video_{{ section.id | replace: "-", "" }}.nextElementSibling;
@@ -119,7 +124,7 @@
       video_overlay_play_{{ section.id | replace: "-", "" }}.style.display = 'block';
     })
 
-    
+
     document.addEventListener('DOMContentLoaded',  function() {
       const video_section_{{ section.id | replace: "-", "" }} = document.querySelector('#image-text-{{ section.id }}');
       console.log("🚀 ~ file: tb-image-text-cta.liquid:123 ~ document.addEventListener ~ video_section_{{ section.id | replace: "-", "" }}", video_section_{{ section.id | replace: "-", "" }})
@@ -145,9 +150,6 @@
       observer_{{ section.id | replace: "-", "" }}.observe(video_section_{{ section.id | replace: "-", "" }})
 
     })
-
-    
-
   </script>
 {%- endif -%}
 
@@ -306,11 +308,21 @@
       "id": "hide_mobile",
       "label": "Hide Video",
       "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_top_margin",
+      "label": "Remove Top Margin",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_bottom_margin",
+      "label": "Remove Bottom Margin",
+      "default": false
     }
   ],
-  "blocks": [
-
-  ],
+  "blocks": [],
   "presets": [
     {
       "name": "Text Image"

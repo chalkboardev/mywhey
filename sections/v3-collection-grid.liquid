@@ -23,7 +23,7 @@
 {%- endif -%}
 
 {% capture collection_advert_1 %}
-  <div id="collection-grid-cta">
+  <div class="cta1" id="collection-grid-cta">
 
     {%- if image_one != blank -%}
       {{ image_one | image_url: width: 800, format: "jpg" | image_tag }}
@@ -31,16 +31,16 @@
       {{ section.settings.banner_bg_img_1 | image_url: width: 800, format: "jpg" | image_tag }}
     {%- endif -%}
 
-    <div class="overlay" style="opacity:0.5"></div>
+    <div class="overlay" style="opacity:0.4"></div>
 
     <div class="cta-content">
 
       {%- if heading_one != blank -%}
-        <div class="heading-md">
+        <div class="heading-lg">
           {{ heading_one }}
         </div>
       {%- elsif section.settings.banner_heading_1 != blank -%}
-        <div class="heading-md">
+        <div class="heading-lg">
           {{ section.settings.banner_heading_1 }}
         </div>
       {%- endif -%}
@@ -76,18 +76,21 @@
         {{ image_two | image_url: width: 900, format: "jpg" | image_tag: loading: "lazy", decoding: "async" }}
     {%- elsif section.settings.banner_bg_img_2 != blank -%}
         {{ section.settings.banner_bg_img_2 | image_url: width: 900, format: "jpg" | image_tag: loading: "lazy", decoding: "async" }}
+    {%- else  -%}  
+     {{ 'lifestyle-1' | placeholder_svg_tag }}  
     {%- endif -%}
 
-    <div class="overlay" style="opacity:0.5"></div>
+
+    <div class="overlay" style="opacity:0.4"></div>
 
     <div class="cta-content">
 
       {%- if heading_two != blank -%}
-        <div class="heading-md">
+        <div class="heading-lg">
           {{ heading_two }}
         </div>
       {%- elsif section.settings.banner_heading_2 != blank -%}
-        <div class="heading-md">
+        <div class="heading-lg">
           {{ section.settings.banner_heading_2 }}
         </div>
       {%- endif -%}
@@ -130,7 +133,7 @@
   endif
 -%}
 
-<section class="vertical-margin" id="collection-grid">
+<section class="plp_margin vertical-margin" id="collection-grid">
   {%- paginate collection.products by grid_items -%}
     <div id="qf-filter-wrapper" class="page-width">
       {% render 'v3-collection-filters' %}
@@ -144,6 +147,9 @@
               echo '<div class="heading-lg">No results</div>'
             else
               if section.settings.show_banner_1 and section.settings.show_banner_2
+                if collection.products.size > 7
+                  echo collection_advert_1
+                endif
                 for product in collection.products limit: 7
                   if forloop.index > 4
                     render 'gb-product-card', product: product, lazy: true
@@ -151,13 +157,12 @@
                     render 'gb-product-card', product: product, lazy: false
                   endif
                 endfor
-                if collection.products.size > 7
-                  echo collection_advert_1
-                  echo collection_advert_2
-                endif
                 for product in collection.products offset: 7
                   render 'gb-product-card', product: product, lazy: true
                 endfor
+                if collection.products.size > 7
+                  echo collection_advert_2
+                endif
               elsif section.settings.show_banner_1
                 for product in collection.products limit: 7
                   if forloop.index > 4
@@ -198,8 +203,16 @@
             endif
           -%}
         </div>
-        {%- if paginate.pages > 1 -%}
-          <div class="custom-filter-load-more button-2">
+ 
+      </div>       
+      
+      {%- if paginate.pages > 1 -%}
+        <div class="collection_results">
+          <span class="collection_paginate_size" style="display: none;">{{ collection.products.size }}</span>
+          <p class="collection_viewing_of"> {{ 'collections.viewing_total' | t }} <span class="update_product_count">{{ collection.products.size }}</span> {{ 'collections.viewing_of' | t }}  {{ collection.all_products_count }}</p>
+        </div>
+
+          <div class="custom-filter-load-more button-1">
             {{ 'collections.load_more' | t }}
             <div class="load-more-spinner">
               {% render 'gb-icon', icon: 'animated-spinner' %}
@@ -218,7 +231,7 @@
             </div>
           </div>
         {%- endif -%}
-      </div>
+        
     </div>
   {%- endpaginate -%}
 </section>
@@ -376,3 +389,10 @@
   ]
 }
 {% endschema %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  var items = document.getElementsByClassName("selected-filter").length;
+  //alert(items);
+})
+</script>

@@ -6,7 +6,7 @@
       <h2 class="desktop-filter-heading">Filter</h2>
 
       <div class="mobile-filter-heading">
-        <h2>Filter & Sort</h2>
+        <h2></h2>
 
         {% render 'gb-icon', icon: 'chevron' %}
       </div>
@@ -81,7 +81,7 @@
                                 >
                                 {{- filter_label | replace: '-', ' ' -}}
                               </label>
-                            {%- endif -%}
+                            {%- endif -%}  
                           {%- endif -%}
                         {%- endfor -%}
                       </div>
@@ -189,5 +189,6 @@
         }
       });
     }
+    
   });
 </script>

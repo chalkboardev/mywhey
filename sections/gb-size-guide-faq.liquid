@@ -1,0 +1,76 @@
+{{ 'section-v2-faq-grid.min.css' | asset_url | stylesheet_tag }}
+
+<div class="faq-grid-size-guide">
+    <div class="left">
+        <div class="inner">
+            <h3 class="title">FAQs</h3>
+            {% assign faq_handle = section.settings.metaobject_handle %}
+            {% assign faq_section = shop.metaobjects.faq_section[faq_handle] %}
+            {% render 'gb-faq-snippet', faq_section: faq_section, show: true %}
+        </div>
+    </div>
+    <div class="right">
+        <div class="image-wrapper" style="flex: 0 1 240px;">
+            {%- if section.settings.video -%}
+              <video preload="none" id="video-{{ section.id }}">
+                <source
+                  src="{{ section.settings.video.sources[1].url }}"
+                  type="{{ section.settings.video.sources[1].mime_type }}"
+                >
+              </video>
+      
+              <div class="video-overlay">
+                {{
+                  section.settings.video.preview_image
+                  | image_url: width: 600, format: 'jpg'
+                  | image_tag: loading: 'lazy', decoding: 'async'
+                }}
+                <div class="video-control play-video">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="play" viewBox="0 0 24 24">
+                    <path d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                  </svg>
+                </div>
+                <div class="video-control pause-video">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="pause" viewBox="0 0 24 24">
+                    <path d="M15,16H13V8H15M11,16H9V8H11M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                  </svg>
+                </div>
+              </div>
+      
+            {%- elsif section.settings.image != blank -%}
+              {{ section.settings.image | image_url: width: section.settings.image.width, format: 'jpg' | image_tag: loading: 'lazy', decoding: 'async' }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag }}
+            {%- endif -%}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Size guide FAQ grid",
+  "class": "faq-grid faq-grid-size vertical-margin page-width rte",
+  "settings": [
+    {
+        "type": "text",
+        "id": "metaobject_handle",
+        "label": "Handle"
+    },
+    {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+    },
+    {
+        "type": "video",
+        "id": "video",
+        "label": "Video"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Size guide FAQ grid"
+    }
+  ]
+}
+{% endschema %}

@@ -17,8 +17,8 @@
 <div class="page-width">
   <div class="heading-container">
     <div class="insta-handle">
-      {% render 'gb-icon', icon: 'instagram' %}
-      <span class="heading-md">@{{ section.settings.insta_handle }}</span>
+   
+      <span class="heading-lg">{{ section.settings.insta_handle }}</span>
     </div>
 
     {%- if settings.social_instagram_link != blank -%}
@@ -30,6 +30,7 @@
           class="button-1"
           aria-label="Link to {{ section.settings.link_text }}"
         >
+        {%- render 'gb-icon', icon: 'instagram' -%}
           {{- section.settings.link_text -}}
         </a>
       </div>

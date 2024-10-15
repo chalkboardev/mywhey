@@ -26,21 +26,21 @@
 
     </div>
 
-    <div class="article-card-author">
+    {% comment %} <div class="article-card-author">
 
         {{ article.author }} - {{ article.updated_at | date: '%d/%m/%Y' }}
 
-    </div>
+    </div> {% endcomment %}
 
-    <div class="article-card-excerpt">
+    {% comment %} <div class="article-card-excerpt">
 
         {{ article.excerpt_or_content | strip_html }}
 
-    </div>
+    </div> {% endcomment %}
 
-    <div class="article-card-link button-2">
+    <div class="article-card-link">
 
-        Read full article
+        Read More
 
     </div>
 

@@ -1,0 +1,30 @@
+{{ 'section-v2-page-header-text-image.min.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width text-center">
+
+  <div class="text-container collections-header">
+
+      <h1 class="heading-collections-all">{{ page.title }}</h1>
+
+      <div class="text">
+          {{ page.content }}
+      </div>
+
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "FAQ header",
+  "tag": "section",
+  "class": "page-header-text-image",
+  "settings": [
+  ],
+  "presets": [
+    {
+      "name": "FAQ header"
+    }
+  ]
+}
+{% endschema %}

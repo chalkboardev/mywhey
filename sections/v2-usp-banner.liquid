@@ -27,45 +27,258 @@
 
 {{ 'section-usp-banner.min.css' | asset_url | stylesheet_tag }}
 
-<div class="usp-banner-section" style=" padding: {{ section.settings.padding }}px 0px ; background: {{ section.settings.bg_color }}; ">
+{% comment %} <div class="usp-banner-section" style=" padding: {{ section.settings.padding }}px 0px ; background: {{ section.settings.bg_color }}; ">
   <div class="container page-width">
 
     {% for block in section.blocks %}
       <div class="usp-card" style="text-align: {{ block.settings.text_align }} ;">
-
+        <div class="usp_icon">
         {% if block.settings.icon != blank %}
           {{ block.settings.icon | image_url: width: "174px", height: "174px" | image_tag: class: "icon", alt: block.settings.icon.alt }}
         {% endif %}
-        <h4 class="title">{{ block.settings.title }}
-        </h4>
-        <p class="body">{{ block.settings.body }}
-        </p>
-
+        </div>
+        <div class="usp_info">
+          <h4 id="title" class="title">{{ block.settings.title }}
+          </h4>
+          <p class="body">{{ block.settings.body }}
+          </p>
+        </div>
       </div>
     {% endfor %}
 
   </div>
+</div> {% endcomment %}
+
+<div
+  class="usp_slider collection-slider-section"
+  id="{{ section.id }}"
+  style="{% if bg %} background-image: url('{{ section.settings.bg_image | image_url: format: "jpg" }}'); {% endif %} padding-top: {{ section.settings.padding }}%; padding-bottom: {{ section.settings.padding }}%">
+
+  <div class="collection-slider-bottom">
+    
+<div class="swiper_container">
+  <div class="swiper collection-slider-{{ section.index }}">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+        <!-- Slides Go Here -->
+
+        {% for block in section.blocks limit: section.settings.product_limit %}
+          <div class="swiper-slide collection-slider-product">
+              <div class="usp-card" style="text-align: {{ block.settings.text_align }} ;">
+                 {% comment %} <div class="usp_icon">
+                    {% if block.settings.icon != blank %}
+                      {{ block.settings.icon | image_url: width: "174px", height: "174px" | image_tag: class: "icon", alt: block.settings.icon.alt }}
+                    {% endif %}
+                  </div>  {% endcomment %}
+                 
+                      <div class="usp_icon">
+                      {% if block.settings.icon != blank %}
+                        <img 
+                        src="{{ block.settings.icon | image_url }}"
+                        loading="lazy" 
+                        class="icon"
+                        alt="{{ block.settings.icon.alt }}"
+                        style="padding:{% if block.settings.icon_padding != blank %} {{ block.settings.icon_padding }}px {% endif %}"
+                        />
+                        
+                      {% endif %}
+                    
+                    </div>   
+                    <div class="usp_info">
+                      <h4 id="title" class="title">{{ block.settings.title }}
+                        </h4>
+                        <p class="body">{{ block.settings.body }}
+                        </p>
+                    </div>
+              </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- If we need pagination -->
+
+    </div>
+    </div>
+
+  </div>
+
+
 </div>
+
+<script>
+  var swiper_{{ section.index }} = new window.swiper(".collection-slider-{{ section.index }}", {
+      spaceBetween: 0,
+      slidesPerView: 1,
+      initialSlide: 1,
+      lazy: {
+          enabled: true,
+          checkInView: true,
+          centeredSlides: true,
+          loadOnTransitionStart: true,
+          loadPrevNext: true,
+          loadPrevNextAmount: 1
+      },
+      loop: {{ section.settings.collection_slider_loop }},
+      {% if section.settings.collection_slider_pagination %}
+          // If we need pagination
+          pagination: {
+              el: '.collection-swiper-pagination.swiper-pagination',
+              clickable: true,
+              dynamicBullets: true,
+          },
+      {% endif %}
+
+      {% if section.settings.collection_slider_navigation == true %}
+          // Navigation arrows
+          navigation: {
+              nextEl: '.collection-slider-bottom .swiper-button-next',
+              prevEl: '.collection-slider-bottom .swiper-button-prev',
+          },
+      {% endif %}
+
+      {% if section.settings.collection_slider_scrollbar == true %}
+          // And if we need scrollbar
+          scrollbar: {
+              el: '.collection-swiper-scrollbar.swiper-scrollbar',
+          },
+      {% endif %}
+      breakpoints: {
+          0: {
+            slidesPerView: 1
+          },
+          360: {
+            slidesPerView: 1
+          },
+          425: {
+            slidesPerView: 1
+          },
+          768: {
+              slidesPerView: {{ section.settings.slidesSmall }}
+          },
+          992: {
+              slidesPerView: {{ section.settings.slidesMid }}
+          },
+          1200: {
+              slidesPerView: {{ section.settings.slidesLarge }}
+          }
+      },
+  });
+</script>
 
 {% schema %}
 {
   "name": "USP Section",
-  "class": "usp-banner vertical-margin",
+  "class": "usp-banner usp_margin",
   "settings": [
     {
       "type": "range",
-      "min": 5,
-      "max": 150,
+      "min": 0,
+      "max": 50,
       "step": 5,
       "id": "padding",
       "label": "Banner Padding",
-      "default": 20
+      "default": 0
     },
     {
       "type": "color",
       "id": "bg_color",
       "label": "Background Colour"
-    }
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_slider_pagination",
+      "label": "USP Slider Pagination",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_slider_navigation",
+      "label": "USP Slider Navigation",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_slider_scrollbar",
+      "label": "USP Slider Scrollbar"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_slider_loop",
+      "label": "USP Slider Loop",
+      "default": false
+    },
+    {
+        "type": "select",
+        "id": "slidesLarge",
+        "label": "Slides per view at largest breakpoint",
+        "options": [
+          {
+            "value": "7",
+            "label": "7"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          }
+        ],
+        "default": "3"
+      },
+      {
+          "type": "select",
+          "id": "slidesMid",
+          "label": "Slides per view at middle breakpoint",
+          "options": [
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "3.2",
+              "label": "3.2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            }
+          ],
+          "default": "3"
+        },
+        {
+            "type": "select",
+            "id": "slidesSmall",
+            "label": "Slides per view at smallest breakpoint",
+            "options": [
+              {
+                "value": "3",
+                "label": "3"
+              },
+              {
+                "value": "2",
+                "label": "2"
+              },
+              {
+                "value": "1.2",
+                "label": "1.2"
+              },
+              {
+                "value": "1",
+                "label": "1"
+              }
+            ],
+            "default": "3"
+        }
   ],
   "blocks": [
     {
@@ -77,6 +290,15 @@
           "type": "image_picker",
           "id": "icon",
           "label": "Icon"
+        },
+        {
+          "type": "range",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "id": "icon_padding",
+          "label": "Icon Padding",
+          "default": 0
         },
         {
           "type": "text",
@@ -121,3 +343,16 @@
   ]
 }
 {% endschema %} 
+
+<script>
+  // document.addEventListener('DOMContentLoaded', function() {
+  //   var second_icon = document.getElementsByClassName('usp_icon')[1];
+  //   var third_icon = document.getElementsByClassName('usp_icon')[2];
+  //   //first.parentNode.removeChild(first);
+  //   second_icon.parentNode.querySelector('.icon').style.padding = "18px";
+  //   third_icon.parentNode.querySelector('.icon').style.padding = "18px";
+
+  //   // var test = document.getElementsByClassName('usp_icon').getElementsByTagName('img')[0];
+  //   // test.style.width = "100px";
+  // })
+</script>

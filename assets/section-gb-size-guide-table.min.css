@@ -1,0 +1,25 @@
+table.size-guide-table {
+  text-align: center;
+}
+table.size-guide-table thead th {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #E2E1DF;
+  color: #000;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-normal);
+  text-align: center;
+}
+@media only screen and (min-width: 1025px) {
+  table.size-guide-table thead th {
+    font-size: var(--font-size-20);
+  }
+}
+table.size-guide-table tbody tr:nth-child(even) {
+  background-color: #F1F1F1;
+}
+table.size-guide-table tbody td {
+  border: none;
+  padding-top: 13px;
+  padding-bottom: 13px;
+}

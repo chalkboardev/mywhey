@@ -1,0 +1,36 @@
+{% assign block_image_sizes = '(max-width: 992px) 215px, (max-width: 1200px) 240px, (max-width: 1400px) 290px, (max-width: 1600px) 340px, 370px' %}
+{% assign block_image_widths = '215,240,290,340,370,430,480,580,680,740' %}
+
+<a
+    class="block-link"
+    href="{{ collection.url }}"
+    aria-label="Link to {{ collection.title }}"
+  >
+    {% if collection.featured_image != blank %}
+      {{
+        collection.featured_image
+        | image_url: width: 740, format: 'jpg'
+        | image_tag:
+          loading: 'lazy',
+          decoding: 'async',
+          width: 370,
+          height: 493,
+          sizes: block_image_sizes,
+          widths: block_image_widths
+      }}
+    {% else %}
+        {{ 'collection-1' | placeholder_svg_tag }}
+    {% endif %}
+
+    <span class="block-link-title">
+      {% if collection.title != blank %}
+        {{ collection.title }}
+      {% endif %}
+    </span>
+
+    <span class="block-link-title undertitle">
+      {% if collection.title != blank %}
+        Shop all {{ collection.title }}
+      {% endif %}
+    </span>
+</a>

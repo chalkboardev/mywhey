@@ -192,6 +192,8 @@
 }
 */
 nav.breadcrumbs ul {
+  display: flex;
+  gap: 10px 20px;
   padding: 0;
 }
 nav.breadcrumbs ul li {
@@ -202,17 +204,33 @@ nav.breadcrumbs ul li {
 nav.breadcrumbs ul li:first-of-type {
   padding-left: 0;
 }
+nav.breadcrumbs ul li:last-of-type a {
+  text-decoration: underline;
+}
 nav.breadcrumbs ul li a {
-  font-size: 12px;
-  text-transform: capitalize;
+  font-size: var(--font-size-10);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+@media screen and (min-width: 750px) {
+  nav.breadcrumbs ul li a {
+    font-size: var(--font-size-12);
+    letter-spacing: 0.6px;
+  }
 }
 nav.breadcrumbs ul li:nth-of-type(n+2):before {
   content: "/";
   position: absolute;
-  left: -5px;
+  left: -10px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 12px;
+  font-size: var(--font-size-10);
+}
+@media screen and (min-width: 750px) {
+  nav.breadcrumbs ul li:nth-of-type(n+2):before {
+    font-size: var(--font-size-12);
+  }
 }
 
 /* Customize the label (the container) */
@@ -1686,16 +1704,35 @@ nav.breadcrumbs ul li:nth-of-type(n+2):before {
   rotate: -90deg;
 }
 
+.variant-prices-container .variant-price-wrapper.old-price .product-price {
+  color: #FF0000;
+  margin-right: 15px;
+}
+@media only screen and (min-width: 992px) {
+  .variant-prices-container .variant-price-wrapper.old-price .product-price {
+    margin-right: 20px;
+  }
+}
 .variant-prices-container .variant-price-wrapper span.product-sale-price {
   margin-right: 5px;
-  font-size: 20px;
+  font-size: var(--font-size-18);
+}
+@media only screen and (min-width: 992px) {
+  .variant-prices-container .variant-price-wrapper span.product-sale-price {
+    font-size: var(--font-size-22);
+  }
 }
 .variant-prices-container .variant-price-wrapper span.product-sale-price.strikethrough {
+  color: 858585;
   text-decoration: line-through;
 }
 .variant-prices-container .variant-price-wrapper .product-price {
-  font-weight: bold;
-  font-size: 20px;
+  font-size: var(--font-size-18);
+}
+@media only screen and (min-width: 992px) {
+  .variant-prices-container .variant-price-wrapper .product-price {
+    font-size: var(--font-size-22);
+  }
 }
 .variant-prices-container .variant-price-wrapper.hidden {
   display: none;

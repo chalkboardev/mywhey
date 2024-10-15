@@ -77,5 +77,41 @@
                 }
             }
         }
+        &.text-center {
+            flex-direction: row;
+            justify-content: center;
+            .text-container {
+                padding: 60px 0 60px 0;
+                @include to-sm() {
+                    width: 100%;
+                    padding:0;
+                }
+            }
+            @include to-sm() {
+                justify-content:flex-start;
+            }
+        }
+    }
+    .heading-collections-all{
+        font-size: var(--font-size-52);
+        text-align:center;
+        @include to-sm() {
+            font-size: var(--font-size-36);
+            text-align:left;
+        }
+    }
+    .collections-header .text{
+        text-align:center;
+        font-size: var(--font-size-23);
+        @include to-sm() {
+            text-align:left;
+        }
+    }
+}
+.main-collections-list h1.collection-list-category{
+    text-align:left;
+    font-size: var(--font-size-52);
+    @include to-sm() {
+        font-size: var(--font-size-36);
     }
 }

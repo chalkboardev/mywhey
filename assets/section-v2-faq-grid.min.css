@@ -1,14 +1,142 @@
-.faq-grid .accordion-faqs-tag-based-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
+.faq-grid-size .accordion-faqs-tag-based-container, .faq-grid-internal .accordion-faqs-tag-based-container {
+  display: none;
+  padding: 0px 30px;
 }
-.faq-grid .accordion-faqs-tag-based-container .accordion-sub-container {
-  padding: 30px 22px 46px;
-  background-color: #F4F4F4;
+.faq-grid-size .accordion-faqs-tag-based-container.active, .faq-grid-internal .accordion-faqs-tag-based-container.active {
+  display: block;
 }
-.faq-grid .accordion-faqs-tag-based-container .accordion-sub-container .accordion {
-  border-bottom: 3px solid #fff;
+.faq-grid-size .accordion-faqs-tag-based-container .accordion-sub-container, .faq-grid-internal .accordion-faqs-tag-based-container .accordion-sub-container {
+  border-bottom: 1px solid #E2E1DF;
+}
+.faq-grid-size .accordion-faqs-tag-based-container .accordion-sub-container .accordion, .faq-grid-internal .accordion-faqs-tag-based-container .accordion-sub-container .accordion {
   font-size: 18px;
-  padding: 10px 0;
+  padding: 30px 0;
+}
+.faq-grid-size .accordion-faqs-tag-based-container .accordion-sub-container .accordion .accordion__heading, .faq-grid-internal .accordion-faqs-tag-based-container .accordion-sub-container .accordion .accordion__heading {
+  text-align: left;
+  font-size: var(--font-size-20);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-normal);
+}
+@media only screen and (max-width: 767.98px) {
+  .faq-grid-size .accordion-faqs-tag-based-container .accordion-sub-container .accordion .accordion__heading, .faq-grid-internal .accordion-faqs-tag-based-container .accordion-sub-container .accordion .accordion__heading {
+    font-size: var(--font-size-18);
+  }
+}
+.faq-grid-size .accordion-faqs-tag-based-container .accordion-sub-container .chevron, .faq-grid-internal .accordion-faqs-tag-based-container .accordion-sub-container .chevron {
+  flex-shrink: 0;
+}
+.faq-grid-size .accordion-faqs-tag-based-container .accordion-sub-container .content, .faq-grid-internal .accordion-faqs-tag-based-container .accordion-sub-container .content {
+  font-size: var(--font-size-16);
+  padding: 0;
+  padding-bottom: 30px;
+}
+
+.faq-grid-internal {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  max-width: 75%;
+}
+@media only screen and (max-width: 767.98px) {
+  .faq-grid-internal {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+  }
+}
+.faq-grid-internal .sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 30px;
+}
+@media only screen and (max-width: 767.98px) {
+  .faq-grid-internal .sidebar {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    padding: 0px;
+  }
+}
+.faq-grid-internal .sidebar > * {
+  letter-spacing: 1.12px;
+  padding-top: 30px;
+  text-transform: uppercase;
+  position: relative;
+  cursor: pointer;
+  font-size: var(--font-size-14);
+  flex-shrink: 0;
+}
+@media only screen and (max-width: 767.98px) {
+  .faq-grid-internal .sidebar > * {
+    padding: 0 15px;
+    border-bottom: 1px solid #E2E1DF;
+    padding-bottom: 15px;
+  }
+  .faq-grid-internal .sidebar > *.active {
+    border-bottom: 2px solid var(--text-primary-color);
+  }
+}
+.faq-grid-internal .sidebar > *.active::after {
+  position: absolute;
+  right: 3px;
+  top: 36px;
+  content: "";
+  height: 12px;
+  width: 12px;
+  border-top: 1px solid var(--text-primary-color);
+  border-right: 1px solid var(--text-primary-color);
+  rotate: 45deg;
+}
+@media only screen and (max-width: 767.98px) {
+  .faq-grid-internal .sidebar > *.active::after {
+    display: none;
+  }
+}
+
+.faq-grid-size {
+  max-width: 1390px;
+}
+.faq-grid-size .faq-grid-size-guide {
+  display: flex;
+  justify-content: space-between;
+}
+@media only screen and (max-width: 767.98px) {
+  .faq-grid-size .faq-grid-size-guide {
+    flex-direction: column-reverse;
+  }
+}
+.faq-grid-size .faq-grid-size-guide .left, .faq-grid-size .faq-grid-size-guide .right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.faq-grid-size .faq-grid-size-guide .left {
+  width: 60%;
+}
+@media only screen and (max-width: 767.98px) {
+  .faq-grid-size .faq-grid-size-guide .left {
+    width: 100%;
+  }
+}
+.faq-grid-size .faq-grid-size-guide .right {
+  width: 35%;
+}
+@media only screen and (max-width: 767.98px) {
+  .faq-grid-size .faq-grid-size-guide .right {
+    width: 100%;
+    margin-bottom: 30px;
+    height: 242px;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+}
+.faq-grid-size .accordion-faqs-tag-based-container {
+  padding: 0;
+}
+@media only screen and (max-width: 767.98px) {
+  .faq-grid-size h3.title {
+    font-size: 26px;
+  }
 }

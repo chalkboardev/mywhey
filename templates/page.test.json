@@ -1,1 +1,172 @@
-{"sections":{"ac5e1597-3e7f-4da7-a0eb-29eae268121c":{"type":"v2-page-header","settings":{"heading":"Heading <em>to go<\/em> <strong>here<\/strong>","text":"Text <em>to go<\/em> <strong>here<\/strong>","background_color":"linear-gradient(180deg, rgba(238, 238, 238, 1), rgba(238, 238, 238, 1) 100%)","text_color":"#000000","overlay":"linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 100%)","overlay_opacity":30}},"9213c27d-900e-4fb1-aea5-755d1d756dda":{"type":"v2-breadcrumbs","settings":{}},"b7d1a060-e7fd-4097-86a9-4beff2212e6f":{"type":"v2-text","settings":{"heading_tag":"h1","h_size":"large","heading":"Heading","text":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<\/p>","text_alignment":"center","change_text_color":false,"text_color":"#000000","background_color":false,"background":"linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 100%)","overlay_opacity":0,"overlay_background":"linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 100%)"}},"dcced670-facb-475f-839b-3c3261d4bcba":{"type":"v2-usp-banner","blocks":{"e8c6312c-4b25-4084-bc2c-aaa641a687bf":{"type":"usp-card","settings":{"icon":"shopify:\/\/shop_images\/pexels-sebastian-voortman-214574_2.jpg","title":"Title","body":"Body Text","text_align":"center"}},"3264cdb8-dd32-434b-a286-aaba2015c6bc":{"type":"usp-card","settings":{"icon":"shopify:\/\/shop_images\/pexels-ylanite-koppens-843226.jpg","title":"Title","body":"Body Text","text_align":"center"}},"ba78b28b-46f6-4f79-85ae-9d06ee78ffdd":{"type":"usp-card","settings":{"icon":"shopify:\/\/shop_images\/pexels-craig-adderley-1563356.jpg","title":"Title","body":"Body Text","text_align":"center"}},"e512091e-f870-4c12-98ec-3bd10f76816c":{"type":"usp-card","settings":{"icon":"shopify:\/\/shop_images\/retail-shopping-package.jpg","title":"Title","body":"Body Text","text_align":"center"}}},"block_order":["e8c6312c-4b25-4084-bc2c-aaa641a687bf","3264cdb8-dd32-434b-a286-aaba2015c6bc","ba78b28b-46f6-4f79-85ae-9d06ee78ffdd","e512091e-f870-4c12-98ec-3bd10f76816c"],"settings":{"padding":20,"bg_color":""}},"f8f57767-3f7d-49f2-824f-7b7b42956e9f":{"type":"text-video","settings":{"title":"Subtitle Here","body":"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy","url_text":"Learn More","url":"shopify:\/\/pages\/test-1","controls":true,"autoplay":"none","muted":true,"loop":true,"preload":true,"layout":"right","align":"left","size":"heading-md","button_style":"button-3","colour":"","background":"","hide_mobile":false}},"a40ced4c-740f-4f9c-a676-7162fd09a8c5":{"type":"v2-text","settings":{"heading_tag":"h1","h_size":"large","heading":"Meet the team","text":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<\/p>","text_alignment":"center","change_text_color":false,"text_color":"#000000","background_color":false,"background":"linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 100%)","overlay_opacity":0,"overlay_background":"linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 100%)"}},"af4d217d-073c-4ff6-a898-e2ca9f4ccb3b":{"type":"v2-meet-the-team","blocks":{"94c4ee9a-36b8-4d24-bff7-4f33eba244d7":{"type":"team_member","settings":{"image":"shopify:\/\/shop_images\/Hotpinkthong_005_056a3ae0-f45f-494d-8398-92e5fddcbfc0.webp","name":"lady in pink","description":"rtjhajrajrtaj","linkedinlink":""}},"124d9f8c-ae31-4d3f-8111-ecaa709890aa":{"type":"team_member","settings":{"image":"shopify:\/\/shop_images\/LEMON_KNICKER_205.webp","name":"lady in white","description":"tdzjzfjrj","linkedinlink":""}},"2240e53f-1475-43f9-81f1-67dab651c86b":{"type":"team_member","settings":{"image":"shopify:\/\/shop_images\/Screenshot_20221014-120218_WhatsApp_2.jpg","name":"George","description":"dnjhsfjsjytj","linkedinlink":""}}},"block_order":["94c4ee9a-36b8-4d24-bff7-4f33eba244d7","124d9f8c-ae31-4d3f-8111-ecaa709890aa","2240e53f-1475-43f9-81f1-67dab651c86b"],"settings":{"show_navigation":true}}},"order":["ac5e1597-3e7f-4da7-a0eb-29eae268121c","9213c27d-900e-4fb1-aea5-755d1d756dda","b7d1a060-e7fd-4097-86a9-4beff2212e6f","dcced670-facb-475f-839b-3c3261d4bcba","f8f57767-3f7d-49f2-824f-7b7b42956e9f","a40ced4c-740f-4f9c-a676-7162fd09a8c5","af4d217d-073c-4ff6-a898-e2ca9f4ccb3b"]}
+{
+  "sections": {
+    "ac5e1597-3e7f-4da7-a0eb-29eae268121c": {
+      "type": "v2-page-header",
+      "settings": {
+        "heading": "Heading <em>to go<\/em> <strong>here<\/strong>",
+        "text": "Text <em>to go<\/em> <strong>here<\/strong>",
+        "background_color": "linear-gradient(180deg, rgba(238, 238, 238, 1), rgba(238, 238, 238, 1) 100%)",
+        "text_color": "#000000",
+        "overlay": "linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 100%)",
+        "overlay_opacity": 30
+      }
+    },
+    "9213c27d-900e-4fb1-aea5-755d1d756dda": {
+      "type": "v2-breadcrumbs",
+      "settings": {}
+    },
+    "b7d1a060-e7fd-4097-86a9-4beff2212e6f": {
+      "type": "v2-text",
+      "settings": {
+        "heading_tag": "h1",
+        "h_size": "large",
+        "heading": "Heading",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<\/p>",
+        "text_alignment": "center",
+        "change_text_color": false,
+        "text_color": "#000000",
+        "background_color": false,
+        "background": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 100%)",
+        "overlay_opacity": 0,
+        "overlay_background": "linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 100%)"
+      }
+    },
+    "dcced670-facb-475f-839b-3c3261d4bcba": {
+      "type": "v2-usp-banner",
+      "blocks": {
+        "e8c6312c-4b25-4084-bc2c-aaa641a687bf": {
+          "type": "usp-card",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/pexels-sebastian-voortman-214574_2.jpg",
+            "title": "Title",
+            "body": "Body Text",
+            "text_align": "center"
+          }
+        },
+        "3264cdb8-dd32-434b-a286-aaba2015c6bc": {
+          "type": "usp-card",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/pexels-ylanite-koppens-843226.jpg",
+            "title": "Title",
+            "body": "Body Text",
+            "text_align": "center"
+          }
+        },
+        "ba78b28b-46f6-4f79-85ae-9d06ee78ffdd": {
+          "type": "usp-card",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/pexels-craig-adderley-1563356.jpg",
+            "title": "Title",
+            "body": "Body Text",
+            "text_align": "center"
+          }
+        },
+        "e512091e-f870-4c12-98ec-3bd10f76816c": {
+          "type": "usp-card",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/retail-shopping-package.jpg",
+            "title": "Title",
+            "body": "Body Text",
+            "text_align": "center"
+          }
+        }
+      },
+      "block_order": [
+        "e8c6312c-4b25-4084-bc2c-aaa641a687bf",
+        "3264cdb8-dd32-434b-a286-aaba2015c6bc",
+        "ba78b28b-46f6-4f79-85ae-9d06ee78ffdd",
+        "e512091e-f870-4c12-98ec-3bd10f76816c"
+      ],
+      "settings": {
+        "padding": 20,
+        "bg_color": ""
+      }
+    },
+    "f8f57767-3f7d-49f2-824f-7b7b42956e9f": {
+      "type": "text-video",
+      "settings": {
+        "title": "Subtitle Here",
+        "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy",
+        "url_text": "Learn More",
+        "url": "shopify:\/\/pages\/test-1",
+        "controls": true,
+        "autoplay": "none",
+        "muted": true,
+        "loop": true,
+        "preload": true,
+        "layout": "right",
+        "align": "left",
+        "size": "heading-md",
+        "button_style": "button-3",
+        "colour": "",
+        "background": "",
+        "hide_mobile": false
+      }
+    },
+    "a40ced4c-740f-4f9c-a676-7162fd09a8c5": {
+      "type": "v2-text",
+      "settings": {
+        "heading_tag": "h1",
+        "h_size": "large",
+        "heading": "Meet the team",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<\/p>",
+        "text_alignment": "center",
+        "change_text_color": false,
+        "text_color": "#000000",
+        "background_color": false,
+        "background": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 100%)",
+        "overlay_opacity": 0,
+        "overlay_background": "linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 100%)"
+      }
+    },
+    "af4d217d-073c-4ff6-a898-e2ca9f4ccb3b": {
+      "type": "v2-meet-the-team",
+      "blocks": {
+        "94c4ee9a-36b8-4d24-bff7-4f33eba244d7": {
+          "type": "team_member",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Hotpinkthong_005_056a3ae0-f45f-494d-8398-92e5fddcbfc0.webp",
+            "name": "lady in pink",
+            "description": "rtjhajrajrtaj",
+            "linkedinlink": ""
+          }
+        },
+        "124d9f8c-ae31-4d3f-8111-ecaa709890aa": {
+          "type": "team_member",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/LEMON_KNICKER_205.webp",
+            "name": "lady in white",
+            "description": "tdzjzfjrj",
+            "linkedinlink": ""
+          }
+        },
+        "2240e53f-1475-43f9-81f1-67dab651c86b": {
+          "type": "team_member",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Screenshot_20221014-120218_WhatsApp_2.jpg",
+            "name": "George",
+            "description": "dnjhsfjsjytj",
+            "linkedinlink": ""
+          }
+        }
+      },
+      "block_order": [
+        "94c4ee9a-36b8-4d24-bff7-4f33eba244d7",
+        "124d9f8c-ae31-4d3f-8111-ecaa709890aa",
+        "2240e53f-1475-43f9-81f1-67dab651c86b"
+      ],
+      "settings": {
+        "show_navigation": true
+      }
+    }
+  },
+  "order": [
+    "ac5e1597-3e7f-4da7-a0eb-29eae268121c",
+    "9213c27d-900e-4fb1-aea5-755d1d756dda",
+    "b7d1a060-e7fd-4097-86a9-4beff2212e6f",
+    "dcced670-facb-475f-839b-3c3261d4bcba",
+    "f8f57767-3f7d-49f2-824f-7b7b42956e9f",
+    "a40ced4c-740f-4f9c-a676-7162fd09a8c5",
+    "af4d217d-073c-4ff6-a898-e2ca9f4ccb3b"
+  ]
+}

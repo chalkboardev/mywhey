@@ -58,9 +58,16 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+    <script>
+	window.fwSettings={
+	'widget_id':32000000098
+	};
+	!function(){if("function"!=typeof window.FreshworksWidget){var n=function(){n.q.push(arguments)};n.q=[],window.FreshworksWidget=n}}() 
+</script>
+<script type='text/javascript' src='https://widget.freshworks.com/widgets/32000000098.js' async defer></script>
   </head>
 
-  <body class="">
+  <body class="{{ template }}{% if template == "product" %} {{ product.handle }}{% endif %}{% if template == "collection" %} {{ collection.handle }}{% endif %}"">
     {% liquid
       render 'gb-gtm', location: 'body'
 

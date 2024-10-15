@@ -18,54 +18,58 @@
 
 {{ 'section-v2-page-header-text-image.min.css' | asset_url | stylesheet_tag }}
 
-{%- liquid
- if section.settings.text_container_width == "25" 
-   assign text_width = "text-width-25" 
-   assign img_width = "img-width-75" 
- elsif section.settings.text_container_width == "33" 
-   assign text_width = "text-width-33" 
-   assign img_width = "img-width-67" 
- elsif section.settings.text_container_width == "66" 
-   assign text_width = "text-width-66" 
-   assign img_width = "img-width-34" 
- elsif section.settings.text_container_width == "75" 
-   assign text_width = "text-width-75" 
-   assign img_width = "img-width-25" 
- else 
-   assign text_width = "" 
-   assign img_width = "" 
- endif -%}
-
+{%- liquid -%}
+<h1 class="mobile_heading-xl">{{ collection.title }}</h1>
 <div class="page-width {% if section.settings.text_position == 'right' %}text-right{% endif %}">
 
-  <div class="text-container {{ text_width }}" style="text-align:{{ section.settings.text_alignment }};">
 
-      <h1 class="heading-lg">{{ collection.title }}</h1>
 
-      <div class="text">
-          {{ collection.description }}
-      </div>
+   <div class="image-container" style="filter:brightness({{ section.settings.plp_head_overlay_opacity }});">
+    {%- if section.settings.remove_feature_img == true -%}
 
-  </div>
-
-  <div class="image-container">
-      {%- if collection.metafields.video != blank -%}
-        {{ collection.metafields.video | video_tag: class: img_width, autoplay: true, loop: true, muted: true, controls: false }}
       {%- else -%}
-        {%- if collection.featured_image != blank -%}
-            {{ collection.featured_image | image_url: width: 800, format: "jpg" | image_tag: class: img_width, fetchpriority: 'high', loading: 'eager' }}
+
+      {%- if section.settings.show_default_feature_img == false and section.settings.feature_image != blank -%}
+        {{ section.settings.feature_image | image_url: width: 1200, format: "jpg" | image_tag: class: img_width, fetchpriority: 'high', loading: 'eager' }}
+    {%- endif -%}
+        {%- if collection.metafields.video != blank -%}
+          {{ collection.metafields.video | video_tag: class: img_width, autoplay: true, loop: true, muted: true, controls: false }}
         {%- else -%}
-          {% if settings.collection_banner_fallback != blank %}
-            {{ settings.collection_banner_fallback | image_url: width: 800, format: "jpg" | image_tag: class: img_width, fetchpriority: 'high', loading: 'eager' }}
+          {%- if collection.featured_image != blank and section.settings.show_default_feature_img == true -%}
+              {{ collection.featured_image | image_url: width: 1200, format: "jpg" | image_tag: class: img_width, fetchpriority: 'high', loading: 'eager' }}
           {%- else -%}
-          {{ 'lifestyle-1' | placeholder_svg_tag }}
-          {%- endif -%}
-        {%- endif -%}
-      {%- endif -%}
+            {% if settings.collection_banner_fallback != blank %}
+              {{ settings.collection_banner_fallback | image_url: width: 800, format: "jpg" | image_tag: class: img_width, fetchpriority: 'high', loading: 'eager' }}
+            {%- else -%}
+            {% comment %} {{ 'lifestyle-1' | placeholder_svg_tag }} {% endcomment %}
+            {%- endif -%}
+          {%- endif -%} 
+        {%- endif -%} 
+      
+    {%- endif -%}
+   
+
+      
   </div>
+
+  {%- if section.settings.remove_feature_img == true -%}
+        <div class="text-container {{ text_width }}" style="color:#000;text-align:{{ section.settings.text_alignment }};">
+            <h1 class="heading-xl">{{ collection.title }}</h1>
+            <div class="text">
+                {{ collection.description }}
+            </div>
+        </div>
+    {%- else -%}
+        <div class="text-container {{ text_width }}" style="text-align:{{ section.settings.text_alignment }};">
+            <h1 class="heading-xl">{{ collection.title }}</h1>
+            <div class="text">
+                {{ collection.description }}
+            </div>
+        </div>
+  {%- endif -%}
+
 
 </div>
-
 
 {% schema %}
 {
@@ -75,6 +79,55 @@
   "settings": [
     {
       "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "paragraph",
+      "content": "This will show instead of any images."
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_feature_img",
+      "label": "Don't show any Feature Image",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_default_feature_img",
+      "label": "Show Collection Feature Image",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image (Mobile)",
+      "info": "If no image is selected mobile will use desktop image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+          "type": "range",
+          "id": "plp_head_overlay_opacity", 
+          "min": 0,
+          "max": 1,
+          "step": 0.1,
+          "label": "Image Overlay opacity",
+          "default": 0.5
+        },
+    {
+      "type": "header",
       "content": "Text"
     },
     {
@@ -82,12 +135,6 @@
       "id": "heading",
       "label": "Heading",
       "default": "Heading"
-    },
-    {
-      "type": "inline_richtext",
-      "id": "text",
-      "default": "Lorem <i>ipsum dolor</i> sit amet, <b>consectetur</b> adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "label": "text"
     },
     {
       "type": "select",

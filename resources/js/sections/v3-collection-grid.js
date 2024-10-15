@@ -15,19 +15,21 @@ document.addEventListener('DOMContentLoaded', function() {
             load_btn.style.display = 'none';
         }
 
-        load_btn.addEventListener("click", ()=> {
+        load_btn.addEventListener("click", () => {
+            var total_showing = document.querySelector(".update_product_count").innerHTML;
+            var paginate_size = document.querySelector(".collection_paginate_size").innerHTML;
 
             spinner.classList.add("show");
 
             fetch(url)
-                .then(function (response) {
+                .then(function(response) {
                     if (response.ok) {
                         return response.text();
                     } else {
                         throw new Error('Network response was not ok.');
                     }
                 })
-                .then(function (data) {
+                .then(function(data) {
                     const html = document.createElement('div');
                     html.innerHTML = data;
 
@@ -39,17 +41,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (url === '') {
                         load_btn.style.display = 'none';
                     }
-                    let new_products = new_grid.querySelectorAll(".product-card, #collection-grid-cta, #collection-grid-cta-2");
+                    //let new_products = new_grid.querySelectorAll(".product-card, #collection-grid-cta, #collection-grid-cta-2");
+                    let new_products = new_grid.querySelectorAll(".product-card");
 
                     new_products.forEach(new_prod => {
                         products_on_page.append(new_prod);
                     });
                     spinner.classList.remove("show");
+                    //alert('test');
+                    document.querySelector(".update_product_count").innerHTML = Number(total_showing) + Number(paginate_size);
                 })
-                .catch(function (error) {
+                .catch(function(error) {
                     window.log(error);
                 });
-
 
         })
     }
@@ -71,17 +75,17 @@ document.addEventListener('DOMContentLoaded', function() {
             priceInput[1].innerHTML = maxFilterInput.value;
         }
 
-        priceInput.forEach(input =>{
-            input.addEventListener("input", e =>{
+        priceInput.forEach(input => {
+            input.addEventListener("input", e => {
                 let minPrice = parseInt(priceInput[0].innerHTML);
                 let maxPrice = parseInt(priceInput[1].innerHTML);
 
-                if((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max){
-                    if(e.target.className === "input-min"){
+                if ((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
+                    if (e.target.className === "input-min") {
                         rangeInput[0].value = minPrice;
-                        rangeInput[0].setAttribute("data-term",minPrice);
+                        rangeInput[0].setAttribute("data-term", minPrice);
                         range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
-                    }else{
+                    } else {
                         rangeInput[1].value = maxPrice;
                         maxFilterInput.value = maxVal;
                         range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
@@ -90,13 +94,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        rangeInput.forEach(input =>{
-            input.addEventListener("input", e =>{
+        rangeInput.forEach(input => {
+            input.addEventListener("input", e => {
                 let minVal = parseInt(rangeInput[0].value),
-                maxVal = parseInt(rangeInput[1].value);
+                    maxVal = parseInt(rangeInput[1].value);
 
-                if ((maxVal - minVal) < priceGap){
-                    if (e.target.className === "range-min"){
+                if ((maxVal - minVal) < priceGap) {
+                    if (e.target.className === "range-min") {
                         rangeInput[0].value = maxVal - priceGap
                     } else {
                         rangeInput[1].value = minVal + priceGap;
@@ -116,16 +120,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let custom_filters = document.querySelectorAll(".custom-filter")
 
-    custom_filters.forEach((el)=>{
+    custom_filters.forEach((el) => {
 
         let control = el.querySelector(".filter-heading")
         let body = el.querySelector(".filter-body")
 
-        if(control && body){
+        if (control && body) {
 
             control.addEventListener('click', () => {
 
-                if(el.classList.contains("open")){
+                if (el.classList.contains("open")) {
                     el.classList.remove("open")
                 } else {
                     el.classList.add("open")
@@ -135,22 +139,41 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })
 
-    let mobile_control = document.querySelector(".mobile-filter-heading")
-    let filter_body = document.querySelector(".custom-filter-wrapper")
+    let mobile_control = document.querySelector(".mobile-filter-heading");
+    let filter_body = document.querySelector(".custom-filter-wrapper");
 
-    if(mobile_control && filter_body){
+    if (mobile_control && filter_body) {
         mobile_control.addEventListener('click', () => {
-            console.log("CLICK")
+            //console.log("CLICK");
+            //document.querySelector(".mobile-filter-heading").style.content = "Hello";
+            document.querySelector(".mobile-filter-heading h2").innerHTML = "Hide Filters & Sort";
+            var source = document.querySelector(".filters_contents");
+            document.querySelector(".collection-grid-wrapper").prepend(source);
+            document.querySelector(".cta1").classList.add("adjust_cta1");
+            document.querySelector(".collection-grid-wrapper").classList.add("plp_open_filter");
+            document.querySelector(".filter-container-wrapper").classList.add("filter_open");
+            document.querySelector(".filter-container-wrapper").classList.remove("plp_filter_start");
+            document.querySelector(".collection-grid").classList.add("shift_right");
+
+            //document.getElementById("collection-grid-cta").style.display = "none";
             // rotate svg
-            if(mobile_control.classList.contains("open")){
+            if (mobile_control.classList.contains("open")) {
                 mobile_control.classList.remove("open")
             } else {
-                mobile_control.classList.add("open")
+                mobile_control.classList.add("open");
+                //console.log("OPEN");
             }
 
             // open filters
-            if(filter_body.classList.contains("open")){
-                filter_body.classList.remove("open")
+            if (filter_body.classList.contains("open")) {
+                filter_body.classList.remove("open");
+                //console.log("CLOSED");
+                document.querySelector(".mobile-filter-heading h2").innerHTML = "Show Filters & Sort";
+                document.querySelector(".collection-grid-wrapper").classList.remove("plp_open_filter");
+                document.querySelector(".filter-container-wrapper").classList.remove("filter_open");
+                document.querySelector(".filter-container-wrapper").classList.add("plp_filter_start");
+                document.querySelector(".cta1").classList.remove("adjust_cta1");
+                //document.querySelector(".filter-container-wrapper").style.display = "red";
             } else {
                 filter_body.classList.add("open")
             }
@@ -173,21 +196,68 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Submit form on input change
 
-    const filter_inputs = document.querySelectorAll('.filter-container-wrapper select, .filter-container-wrapper input');
+    // const filter_inputs = document.querySelectorAll('.filter-container-wrapper select, .filter-container-wrapper input');
+    // const filter_form = document.querySelector('.filter-container');
+    // const reset_filter = document.querySelector('#reset-filters');
+    // const collection_grid = document.querySelector('.collection-grid');
+
+    // filter_inputs.forEach(input => {
+    //     input.addEventListener('change', () => {
+    //         ///collection_grid.classList.add("loading")
+    //         //filter_form.submit()
+    //     })
+    // })
+
+    // reset_filter.addEventListener('click', () => {
+    //     collection_grid.classList.add("loading")
+    // })
+
+    // const filter_submit_btn = document.querySelectorAll('#submit_filters');
+    // const reset_filter_btn = document.querySelector('#clear_filters');
+
+    // filter_submit_btn.addEventListener('click', () => {
+    //     collection_grid.classList.add("loading")
+    //     filter_form.submit()
+    // })
+
+    // reset_filter_btn.addEventListener('click', () => {
+    //     collection_grid.classList.add("loading")
+    // })
+
+    const filter_inputs = document.querySelectorAll('#submit_filters');
+    const filter_reset_inputs = document.querySelectorAll('.reset-filters');
     const filter_form = document.querySelector('.filter-container');
     const reset_filter = document.querySelector('#reset-filters');
     const collection_grid = document.querySelector('.collection-grid');
 
     filter_inputs.forEach(input => {
-        input.addEventListener('change', () => {
+        input.addEventListener('click', () => {
             collection_grid.classList.add("loading")
             filter_form.submit()
         })
     })
 
-    reset_filter.addEventListener('click', () => {
-        collection_grid.classList.add("loading")
+    // filter_reset_inputs.forEach(input => {
+    //     input.addEventListener('click', () => {
+    //         collection_grid.classList.add("loading")
+    //     })
+    // })
+
+    // reset_filter.addEventListener('click', () => {
+    //     collection_grid.classList.add("loading")
+    // })
+
+    filter_reset_inputs.forEach(input => {
+        input.addEventListener('click', () => {
+            collection_grid.classList.add("loading")
+            filter_form.submit()
+        })
     })
 
+    //console.log("test...");
+    // alert("test...");
+
+    // var el = document.querySelector('.filter-container-wrapper');
+    // el.parentNode.removeChild(el);
 
 })

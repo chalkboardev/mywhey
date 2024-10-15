@@ -1,16 +1,61 @@
-<div class="page-width vertical-margin">
+{{ 'page-content.min.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="
+    section__content
+    page-width
+    vertical-padding
+    {% if section.settings.remove_padding_top != blank %}
+      padding-top-0
+    {% endif %}
+    {% if section.settings.remove_padding_bottom != blank %}
+      padding-bottom-0
+    {% endif %}
+  "
+>
+  <div class="rte">
     <h1 class="heading-lg">
       {%- if page.title != blank -%}
         {{ page.title | escape }}
-      {%- else -%}
-        Add a page title
       {%- endif -%}
     </h1>
-    <div class="rte">
-      {%- if page.content != blank -%}
+    {%- if page.content != blank -%}
+      <div class="page-content">
         {{ page.content }}
-      {%- else -%}
-        Add page content
-      {%- endif -%}
-    </div>
+      </div>
+    {%- endif -%}
+  </div>
 </div>
+
+{% schema %}
+{
+  "name": "Content Page",
+  "tag": "section",
+  "class": "content-page",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Content padding"
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_padding_top",
+      "label": "Remove top padding",
+      "info": "Removes the default top padding from the content area",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_padding_bottom",
+      "label": "Remove bottom padding",
+      "info": "Removes the default bottom padding from the content area",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Content Page"
+    }
+  ]
+}
+{% endschema %}

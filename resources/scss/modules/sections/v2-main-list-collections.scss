@@ -21,4 +21,45 @@
       grid-template-columns: repeat(1, 1fr);
     }
   }
+
+  .block-links-wrapper {
+
+    .block-link {
+      width: 100%;
+      position: relative;
+      transform: scale(100%);
+      transition: transform 0.15s cubic-bezier(0, 0.6, 0.28, 1);
+      text-decoration: none;
+
+      &:hover {
+        opacity: 1;
+        transform: scale(104%);
+      }
+
+      .block-link-title {
+        display: block;
+        padding: 2rem 1em 0;
+        text-align: center;
+        color: var(--primary-color);
+        font-size: var(--font-size-26);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: 1.12px;
+        text-decoration: none;
+        text-transform: none;
+        &.undertitle{
+          text-transform: uppercase;
+          font-size: var(--font-size-14);
+          text-decoration: underline;
+        }
+      }
+
+      img,svg {
+        position: block;
+        aspect-ratio: 3 / 4;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    }
+  }
 }
