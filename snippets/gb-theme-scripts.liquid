@@ -1,0 +1,18 @@
+{{ 'swiper.min.js' | asset_url | preload_tag: as: 'script' }}
+
+<script src="{{ 'swiper.min.js' | asset_url }}"></script>
+<script src="{{ 'critical.min.js' | asset_url }}" defer></script>
+<script src="{{ 'option_selection.js' | shopify_asset_url }}" defer></script>
+<script src="{{ 'fslightbox.min.js' | asset_url }}" defer></script>
+
+{% if template contains 'product' %}
+  {% render 'v2-recently-viewed-js-logic' %}
+{% endif %}
+
+{% if template contains 'customers' %}
+
+  <script src="{{ 'addresses.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+  <script src="{{ 'customer_area.js' | shopify_asset_url }}" defer></script>
+
+{% endif %}

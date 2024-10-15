@@ -1,0 +1,42 @@
+{%-  liquid 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#
+#   OVERVIEW: 
+#       - The Toasty allows you to display a customisable image/message that displays on 
+#         the screen before sliding back out, like a notification. 
+#
+#       - Below is an example of how to use the toasty.
+#
+#
+#   FILES: 
+#       - v3-toasty.js
+#       - v3-toasty.scss
+#       - v3-toasty.liquid
+#    
+#   REFRERENCED IN: 
+#       - snippet.scss
+#       - theme.liquid -> v2-theme-scripts
+#    
+#   AUTHOR: jo@quickfiredigital.com
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    assign toasty_script = 'v3-toasty.min.js' | asset_url | prepend: ' <script src=" ' | append: ' " defer></script> '
+    echo toasty_script
+-%}
+
+{% comment %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let options = {
+                title: "Test Title", 
+                message: "This is a test message...", 
+                delay: 10000, 
+                background: "var(--accent-1-color)", 
+                image: "{{- shop.brand.square_logo | image_url: width: 100 -}}"
+            };
+            
+            window.toasty.addToast(options);
+        });
+    </script>
+{% endcomment %}

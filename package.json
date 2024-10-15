@@ -1,0 +1,35 @@
+{
+  "name": "quickfire-shopify-theme",
+  "version": "2.5.0",
+  "description": "Quickfire Shopify Theme.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run development",
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "prod": "npm run production",
+    "production": "mix --production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quickfiredigital/Quickfire-Shopify-Theme.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quickfiredigital/Quickfire-Shopify-Theme/issues"
+  },
+  "homepage": "https://github.com/quickfiredigital/Quickfire-Shopify-Theme#readme",
+  "devDependencies": {
+    "laravel-mix": "^6.0.49",
+    "sass": "^1.43.4",
+    "sass-loader": "^12.1.0"
+  },
+  "dependencies": {
+    "imports-loader": "^3.1.1",
+    "resolve-url-loader": "^5.0.0",
+    "swiper": "^11.0.3"
+  }
+}

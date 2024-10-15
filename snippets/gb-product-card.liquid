@@ -1,0 +1,114 @@
+<a
+  href="{{ product.url }}"
+  product-card
+  class="product-card"
+  data-product-id="{{ product.id }}"
+  data-test="{{ settings.include_quick_view }}"
+  data-cart-link-text="{{ 'side_cart.side_cart_buttons_and_tabs.recommended_products_view_product' | t }}"
+>
+  <div class="product-image">
+    {% if product.featured_image != blank %}
+      {%- if swiper == true -%}
+        {{
+          product.featured_image
+          | image_url: width: 400, format: 'jpg'
+          | image_tag: loading: 'lazy', decoding: 'async'
+        }}
+
+        <div class="swiper-lazy-preloader"></div>
+
+      {%- else -%}
+        {%- if lazy == true -%}
+          {{
+            product.featured_image
+            | image_url: width: 400, format: 'jpg'
+            | image_tag: loading: 'lazy', decoding: 'async'
+          }}
+
+        {%- else -%}
+          {{
+            product.featured_image
+            | image_url: width: 400, format: 'jpg'
+            | image_tag: loading: 'eager', fetchpriority: 'high'
+          }}
+        {%- endif -%}
+      {% endif %}
+
+      {% if product.images.size > 1 %}
+        {%- if swiper == true -%}
+          {{
+            product.images[1]
+            | image_url: width: 400, format: 'jpg'
+            | image_tag: loading: 'lazy', decoding: 'async', class: 'image-hover'
+          }}
+
+        {%- else -%}
+          {%- if lazy == true -%}
+            {{
+              product.images[1]
+              | image_url: width: 400, format: 'jpg'
+              | image_tag: loading: 'lazy', decoding: 'async', class: 'image-hover'
+            }}
+
+          {%- else -%}
+            {{
+              product.images[1]
+              | image_url: width: 400, format: 'jpg'
+              | image_tag: loading: 'eager', fetchpriority: 'high', class: 'image-hover'
+            }}
+          {%- endif -%}
+        {%- endif -%}
+      {% endif %}
+
+    {% else %}
+      {% if settings.product_fallback != blank %}
+        {%- if lazy == true -%}
+          {{
+            settings.product_fallback
+            | image_url: width: 400, format: 'jpg'
+            | image_tag: loading: 'lazy', decoding: 'async'
+          }}
+
+        {%- else -%}
+          {{
+            settings.product_fallback
+            | image_url: width: 400, format: 'jpg'
+            | image_tag: loading: 'eager', fetchpriority: 'high'
+          }}
+        {%- endif -%}
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag }}
+      {% endif %}
+    {% endif %}
+
+    <div class="wishlist-heart">
+      {%- render 'gb-button-wishlist', product: product -%}
+    </div>
+
+    {% render 'gb-product-badges', product: product, limit: 2 %}
+  </div>
+
+  <div class="product-details">
+    <div class="product-title">
+      {{ product.title }}
+    </div>
+
+    <div class="product-extras">
+      <div>SK TODO: SWATCHES</div>
+
+      <div class="product-price" data-price="{{ product.price }}" data-product-id="{{ product.id }}">
+        <div>{% render 'v2-price', product: product %}</div>
+        {% if settings.include_quick_view %}
+          <div
+            open-quick-view
+            data-product-handle="{{ product.handle }}"
+            data-product-simple="{{ product.has_only_default_variant }}"
+            class="quickview-eye"
+          >
+            {% render 'gb-icon', icon: 'quick-add' %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,112 @@
+.contact-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-bottom: 200px; */
+  position: relative;
+  padding-top: 50px;
+
+  &::before {
+    content: " ";
+    width: 50%;
+    height: 130%;
+    // background: #d4f0f4;
+
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    @media screen and (max-width: 980px) {
+      content: " ";
+      display: none;
+      height: 100%;
+    }
+  }
+
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0px;
+
+    @media screen and (max-width: 980px) {
+      flex-direction: column;
+      padding: 0px;
+    }
+
+    .form-content,
+    .text-content {
+      width: 100%;
+      flex-basis: 50%;
+      position: relative;
+
+      @media screen and (max-width: 750px) {
+        padding: 30px 1.5rem;
+      }
+    }
+
+    .text-content {
+      padding-right: 100px;
+
+      @media screen and (max-width: 980px) {
+        background: #fff;
+        padding: 30px 5rem;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+      p {
+        font-size: 14px;
+      }
+
+      .contact-info {
+        padding: 0px;
+        margin: 50px 0px 30px;
+        list-style-type: none;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        gap: 20px 0px;
+
+        li {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 0px 10px;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .form-content {
+      padding: 25px 0px 100px 50px;
+
+      @media screen and (max-width: 980px) {
+        // background: #d4f0f4;
+        padding: 30px 5rem 50px;
+      }
+
+      form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+
+        .input-group {
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          flex-direction: column;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

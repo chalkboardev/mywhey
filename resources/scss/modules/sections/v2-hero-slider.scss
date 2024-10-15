@@ -1,0 +1,108 @@
+@import '../../../scss/breakpoints.scss';
+
+.hero-slider {
+  overflow-y: hidden;
+  .swiper-controls {
+    display: flex;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    .hero-swiper-button-next, .hero-swiper-button-prev {
+      position: relative;
+      opacity: 1;
+      color: red;
+      left: unset;
+      right: unset;
+      top: unset;
+      height: unset;
+      margin-top: unset;
+    }
+    .swiper-pagination {
+      width: max-content;
+      position: relative;
+      bottom: unset;
+      top: unset;
+      position: relative;
+      display: flex;
+      align-items: center;
+      .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+        border: 2px solid #000;
+        opacity: 1;
+        background-color: transparent;
+        &.swiper-pagination-bullet-active {
+          background-color: #000;
+        }
+      }
+    }
+  }
+  .hero-slide {
+    position: relative;
+    display: flex;
+    align-items: center;
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .page-width {
+      flex: 1;
+      .text-container-wrapper {
+        display: flex;
+        width: 100%;
+        .text-container {
+          position: relative;
+          color: var(--text-alternate-color);
+          padding: 60px 0;
+          width: 100%;
+          @include from-sm() {
+            max-width: 40vw;
+          }
+          div {
+            margin-bottom: 20px;
+            &.heading {
+              font-size: 50px;
+              @include to-sm() {
+                font-size: 24px;
+              }
+              em, strong {
+                font-size: 50px;
+                @include to-sm() {
+                  font-size: 24px;
+                }
+              }
+            }
+            &.text {
+              font-size: 24px;
+              @include to-sm() {
+                font-size: 16px;
+              }
+              em, strong {
+                font-size: 24px;
+                @include to-sm() {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+          a {
+            border: none;
+          }
+        }
+      }
+    }
+    img, svg, video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

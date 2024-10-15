@@ -1,0 +1,34 @@
+{% comment %}
+  
+    === FUNCTIONALITY ===
+
+    Section notes:
+
+    - Renders breadcrumbs snippet
+
+    Section Author: Dan Hall
+
+{% endcomment %}
+
+<div class="page-width">
+
+    {% render 'v2-breadcrumbs' %}
+
+</div>
+
+
+{% schema %}
+{
+  "name": "Breadcrumbs",
+  "tag": "section",
+  "class": "breadcrumbs-section",
+  "settings": [
+
+  ],
+  "presets": [
+    {
+      "name": "Breadcrumbs"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,87 @@
+{% comment %}
+  === FUNCTIONALITY ===
+
+  Section notes:
+
+  -
+
+  Section Author: Jeremy Lee
+{% endcomment %}
+
+{{ 'section-v2-main-search.min.css' | asset_url | stylesheet_tag }}
+
+{% assign paginate_amount = section.settings.grid_size %}
+
+{%- assign result_count = 0 | plus: 0 -%}
+{%- for item in search.results -%}
+  {%- assign result_count = result_count | plus: 1 -%}
+{%- endfor -%}
+
+<div class="page-width">
+  <div class="result_amount vertical-margin">
+    <h1 class="heading-lg">{{ search.results_count }} search results for: "{{ search.terms }}"</h1>
+  </div>
+  <div class="search-wrapper">
+    {% paginate search.results by paginate_amount %}
+      {% if search.performed %}
+        {% if search.results_count > 0 %}
+          <div class="search-products">
+            <div class="search-products__heading">
+              <h2 class="heading-lg">Products</h2>
+            </div>
+
+            {% assign product_count = 0 %}
+
+            <div class="search-grid" data-next-url="{{ paginate.next.url }}">
+              {%- for product in search.results -%}
+                {% if product.object_type == 'product' %}
+                  {% render 'gb-product-card', product: product -%}
+
+                  {% assign product_count = product_count | plus: 1 %}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {% if product_count == 0 %}
+                <div>No product results</div>
+              {% endif %}
+            </div>
+          </div>
+
+        {% elsif search.results_count == 0 %}
+          <div class="results">
+            <div class="wrapper">
+              <p>No Results Found</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+      {% if paginate.pages > 1 %}
+        {% render 'gb-search-pagination', paginate: paginate %}
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "V2 Main search",
+  "tag": "section",
+  "class": "main-search vertical-margin",
+  "settings": [
+    {
+      "type": "range",
+      "id": "grid_size",
+      "label": "Number of products in the grid",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "V2 Main search"
+    }
+  ]
+}
+{% endschema %}

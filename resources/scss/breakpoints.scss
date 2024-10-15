@@ -1,0 +1,101 @@
+@mixin from-xxs {
+    @media only screen and (min-width: 390px) {
+        @content;
+    }
+}
+
+@mixin from-xs {
+    @media only screen and (min-width: 576px) {
+        @content;
+    }
+}
+
+@mixin from-sm {
+    @media only screen and (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin from-md {
+    @media only screen and (min-width: 992px) {
+        @content;
+    }
+}
+
+@mixin from-md-landscape {
+    @media only screen and (min-width: 1025px) and (orientation: landscape) {
+        @content;
+    }
+}
+
+@mixin from-mdl {
+    @media only screen and (min-width: 1025px) {
+        @content;
+    }
+}
+
+@mixin from-lg {
+    @media only screen and (min-width: 1200px) {
+        @content;
+    }
+}
+
+@mixin from-xl {
+    @media only screen and (min-width: 1399.98px) {
+        @content;
+    }
+}
+
+@mixin to-lg {
+    @media only screen and (max-width: 1199.98px) {
+        @content;
+    }
+}
+
+@mixin to-md-landscape {
+    @media only screen and (max-width: 1024.98px) and (orientation: landscape) {
+        @content;
+    }
+}
+
+@mixin to-mdl {
+    @media only screen and (max-width: 1024.98px) {
+        @content;
+    }
+}
+
+@mixin to-md {
+    @media only screen and (max-width: 991.98px) {
+        @content;
+    }
+}
+
+@mixin to-sm {
+    @media only screen and (max-width: 767.98px) {
+        @content;
+    }
+}
+
+@mixin to-xs {
+    @media only screen and (max-width: 575.98px) {
+        @content;
+    }
+}
+
+@mixin to-xxs {
+    @media only screen and (max-width: 319.98px) {
+        @content;
+    }
+}
+
+@mixin from-width($width) {
+    @media only screen and (min-width: $width) {
+        @content;
+    }
+}
+
+@mixin to-width($width) {
+    @media only screen and (max-width: $width) {
+        @content;
+    }
+}

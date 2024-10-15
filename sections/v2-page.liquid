@@ -1,0 +1,16 @@
+<div class="page-width vertical-margin">
+    <h1 class="heading-lg">
+      {%- if page.title != blank -%}
+        {{ page.title | escape }}
+      {%- else -%}
+        Add a page title
+      {%- endif -%}
+    </h1>
+    <div class="rte">
+      {%- if page.content != blank -%}
+        {{ page.content }}
+      {%- else -%}
+        Add page content
+      {%- endif -%}
+    </div>
+</div>

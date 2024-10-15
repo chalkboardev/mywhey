@@ -1,0 +1,202 @@
+{% comment %}
+  
+  OVERVIEW: 
+    This section handles the customer's login and account recovery forms.
+    
+    * The form styles from this page are inherited from v3-account-forms.scss
+    * Specific page styles are found in login.scss
+    * There are two captures below containing both forms
+    * There is JS at the bottom of the page to handle swapping between forms
+    
+    
+  AUTHOR: jo@quickfiredigital.com
+    
+{% endcomment %}
+
+{% comment %}  
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        --=== FORM CAPTURES ===--
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+{% endcomment %}
+{% capture recovery_form %}
+  <div class="account-recover-form account-form-wrapper vertical-margin">
+    <h1 class="heading-md" id="recover" tabindex="-1">{{ 'customer.recover_password.title' | t }}</h1>
+    <p>{{ 'customer.recover_password.subtext' | t }}</p>
+    
+    {%- form 'recover_customer_password', class: 'account-form' -%}
+      {% assign recover_success = form.posted_successfully? %}
+      
+      {% assign success_msg = 'customer.recover_password.success' | t %}
+      {% render 'v3-form-response-messages', form: form, success: success_msg %}
+      
+      <span class="required-msg">* Required fields</span>
+      
+      {% assign recover_label = 'customer.login_page.email' | t %}
+      {% render 'v3-form-field',
+          type: "email"
+          id: "RecoverEmail",
+          name: "email",
+          value: form.email,
+          label: recover_label, 
+          placeholder: recover_label,
+          attributes: 'autocorrect="off" autocapitalize="off" autocomplete="email"', 
+          required: true, 
+      %}
+      
+      <div class="form-buttons">
+        <button class="button-1">{{ 'customer.login_page.submit' | t }}</button>
+        <a href="#login" class="button-2" aria-label="Cancel recovery login" swap-login-form> {{ 'customer.login_page.cancel' | t }} </a>
+      </div>
+
+      {%- if form.posted_successfully? == true -%}
+        {%- assign recovery_posted = true -%}
+      {%- endif -%}
+
+    {%- endform -%}
+    
+  </div>
+{% endcapture %}
+
+{% capture login_form %}
+  <div class="login-form account-form-wrapper vertical-margin active">
+    <h1 id="login" class="heading-md" tabindex="-1">{{ 'customer.login_page.title' | t }}</h1>
+
+    {%- form 'customer_login', novalidate: 'novalidate', class: 'account-form' -%}
+      {% render 'v3-form-response-messages', form: form %}
+      
+      <span class="required-msg">* Required fields</span>
+      
+      
+      {% assign email_label = 'customer.login_page.email' | t %}
+      {% render 'v3-form-field',
+          type: "email"
+          id: "CustomerEmail",
+          name: "customer[email]",
+          value: form.email,
+          label: email_label, 
+          placeholder: email_label,
+          attributes: 'autocomplete="email" autocorrect="off" autocapitalize="off"', 
+          required: true, 
+      %}
+      
+      {%- if form.password_needed -%}
+        <div class="forgot-wrapper">
+          {% assign password_label = 'customer.login_page.password' | t %}
+          {% render 'v3-form-field',
+              type: "password"
+              id: "CustomerPassword",
+              name: "customer[password]",
+              label: password_label, 
+              placeholder: password_label,
+              attributes: 'autocomplete="current-password"', 
+              required: true, 
+          %}
+          
+          <p class="forgot-password">
+            {{ 'customer.login_page.forgot_password' | t }}
+            <a href="#recover" aria-label="Link to recover password" swap-login-form> Click here </a>
+          </p>
+        </div>
+      {% endif %}
+      
+      <div class="form-buttons">
+        <button class="button-1 submitForm">{{ 'customer.login_page.sign_in' | t }}</button>
+        
+        <a class="register button-2" href="{{ routes.account_register_url }}" aria-label="Link to create account">
+          {{ 'customer.login_page.create_account' | t }}
+        </a>
+      </div>
+      
+    {%- endform -%}
+    
+    {% comment %} REACTIVATE ACCOUNT MODAL TRIGGER {% endcomment %}
+    <div class="reactivate" data-modal-trigger="reactivate-form">{{- 'customer.reactivate.open_modal' | t -}}</div>
+    
+  </div>
+{% endcapture %}
+
+{% comment %} GUEST LOG IN FORM {% endcomment %}
+{% capture guest_login_form %}
+  <div class="account-form-wrapper">
+    <hr>
+    <h2>{{ 'customer.login_page.guest_title' | t }}</h2>
+
+    {%- form 'guest_login' -%}
+      <button class="button-1">
+        {{ 'customer.login_page.guest_continue' | t }}
+      </button>
+    {%- endform -%}
+  </div>
+{% endcapture %}
+{% comment %} END OF: GUEST LOG IN FORM {% endcomment %}
+
+
+
+{% comment %}  
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        --=== SECTION HTML ===--
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+{% endcomment %}
+<section class="account-form-page login recovery vertical-padding">
+  
+  {{ login_form }}
+  {{ recovery_form }}
+  
+  {% comment %} {{ guest_login }} {% endcomment %}
+  
+</section>
+
+
+{% comment %}  
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        --=== SWAP FORM JAVASCRIPT ===--
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+{% endcomment %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const account_page = document.querySelector('.account-form-page.login.recovery');
+    const recoverBtn = document.querySelectorAll('.recover');
+    const recover = document.querySelector('.account-recover-form');
+    const login = document.querySelector('.login-form');
+    
+    document.addEventListener('click', (e) => {
+      if (e.target.getAttribute('swap-login-form') != null) {
+        e.preventDefault();
+        swapForms();
+      }
+    });
+    
+    // Swap to recovery form if posted
+    {%- if recovery_posted == true -%}
+      swapForms();
+      console.log('Posted Recovery Form, Swapped forms ...');
+    {%- endif -%}
+    
+    // Helper Functions - - - - - - - - - - - - - 
+    
+    // Swap Forms
+    function swapForms() {
+      if (login.classList.contains('active')) {
+        login.classList.remove('active');
+        recover.classList.add('active');
+        
+      } else {
+        recover.classList.remove('active');
+        login.classList.add('active');
+        
+      }
+      
+      resizeForms();
+    }
+
+    function resizeForms() {
+      const height1 = login.offsetHeight;
+      const height2 = recover.offsetHeight;
+      const tallestHeight = Math.max(height1, height2);
+      
+      login.style.minHeight = tallestHeight + 'px';
+      recover.style.minHeight = tallestHeight + 'px';
+    }
+    
+  });
+</script>

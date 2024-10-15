@@ -1,0 +1,50 @@
+section.account-form-page.register {
+  background-color: #F0F0F0;
+}
+section.account-form-page.register .account-form-wrapper {
+  max-width: 900px;
+}
+@media only screen and (max-width: 767.98px) {
+  section.account-form-page.register .account-form-wrapper {
+    max-width: 500px;
+  }
+}
+section.account-form-page.register .account-form-wrapper .account-form {
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 25px 50px;
+}
+@media only screen and (max-width: 991.98px) {
+  section.account-form-page.register .account-form-wrapper .account-form {
+    gap: 25px 30px;
+  }
+}
+section.account-form-page.register .account-form-wrapper .account-form .required-msg {
+  margin-top: 0;
+}
+section.account-form-page.register .account-form-wrapper .account-form .form-errors {
+  margin-bottom: -25px;
+}
+section.account-form-page.register .account-form-wrapper .account-form .form-field {
+  width: calc(50% - 25px);
+}
+@media only screen and (max-width: 991.98px) {
+  section.account-form-page.register .account-form-wrapper .account-form .form-field {
+    width: calc(50% - 15px);
+  }
+}
+@media only screen and (max-width: 767.98px) {
+  section.account-form-page.register .account-form-wrapper .account-form .form-field {
+    width: 100%;
+  }
+}
+section.account-form-page.register .account-form-wrapper .account-form .form-buttons.submit-wrapper {
+  margin-top: 5px;
+  flex-direction: column;
+  gap: 30px;
+}
+section.account-form-page.register .account-form-wrapper .account-form .form-buttons.submit-wrapper button.submit-register {
+  margin: 0 auto;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+}

@@ -1,0 +1,45 @@
+section.account-form-page {
+  position: relative;
+  background-color: #F0F0F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+section.account-form-page .account-form-wrapper {
+  min-height: 450px;
+  opacity: 1;
+  translate: 0 0px;
+  pointer-events: all;
+  transition: opacity 0.2s ease-in-out 0.4s, translate 0.3s ease 0.4s;
+}
+section.account-form-page .account-form-wrapper:not(.active) {
+  opacity: 0;
+  translate: 0 60px;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out, translate 0.3s ease;
+}
+section.account-form-page .account-form-wrapper.login-form .forgot-wrapper {
+  width: 100%;
+}
+section.account-form-page .account-form-wrapper.login-form .forgot-wrapper .forgot-password {
+  font-size: 14px;
+  text-align: right;
+}
+section.account-form-page .account-form-wrapper.login-form .forgot-wrapper .forgot-password a {
+  font-size: inherit;
+}
+section.account-form-page .account-form-wrapper.login-form .forgot-wrapper .forgot-password a:hover {
+  text-decoration: underline;
+}
+section.account-form-page .account-form-wrapper.login-form .reactivate {
+  margin-top: 15px;
+}
+section.account-form-page .account-form-wrapper.account-recover-form {
+  position: absolute;
+  inset: 50% 50% auto auto;
+  translate: 50% calc(-50% - 60px - var(--spacing-sections-desktop));
+}
+section.account-form-page .account-form-wrapper.account-recover-form.active {
+  translate: 50% calc(-50% - var(--spacing-sections-desktop));
+}

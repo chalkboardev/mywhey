@@ -1,0 +1,94 @@
+<div class="item cart-item d-flex justify-content-start" data-variant-key="{{ item.key }}">
+  <a class="img-wrap" href="{{ item.variant.url }}" aria-label="Link to {{ item.product.title }}">
+    {% if item.image %}
+      {{ item.image | image_url: width: 150, format: 'jpg' | image_tag }}
+    {% elsif item.product.featured_image %}
+      {{ item.product.featured_image | image_url: width: 150, format: 'jpg' | image_tag }}
+    {% else %}
+      {{ 'product-2' | placeholder_svg_tag }}
+    {% endif %}
+    {% comment %} <img src="{{ item.image | image_url: width: 80, height: 80, format: "jpg" }}" alt="{{ item.featured_image.alt }}"> {% endcomment %}
+  </a>
+
+  <div class="content-wrapper">
+    <div class="product-info">
+      <a class="p-title" href="{{ item.variant.url }}" aria-label="Link to {{ item.product.title }}">
+        {% if item.product.metafields.brands.collection_handle != blank %}
+          <span class="p-brand">{{ item.product.metafields.brands.collection_handle }} -</span>
+        {% endif %}
+        <span>{{ item.product.title }}</span>
+      </a>
+
+      <div class="remove-control">
+        {% render 'gb-cart-item-remove', item: item %}
+      </div>
+    </div>
+
+    {%- if item.properties != blank -%}
+      <ul>
+        {%- for property in item.properties -%}
+          {% assign first_char = property[0] | slice: 0 %}
+          {%- unless first_char == '_' -%}
+            <li
+              line_item_property
+              data-key="{{ property[0] }}"
+              data-value="{{ property[1] }}"
+            >
+              <strong>{{ property[0] }}:</strong> {{ property[1] }}
+            </li>
+          {%- else -%}
+            <li
+              class="visually-hidden"
+              line_item_property
+              data-key="{{ property[0] }}"
+              data-value="{{ property[1] }}"
+            >
+              <strong>{{ property[0] }}:</strong> {{ property[1] }}
+            </li>
+          {%- endunless -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    <div class="product-info">
+      {% unless item.product.has_only_default_variant %}
+        <p class="p-var" href="{{ item.variant.url }}">
+          {%- for option in item.variant.options -%}
+            {{ option -}}
+            {%- if forloop.last != true %},{% endif %}
+          {%- endfor -%}
+        </p>
+      {% endunless %}
+
+      <div class="policy-link">
+        <a href="#" class="policy" aria-label="Link to Return Policy">Return Policy</a>
+      </div>
+    </div>
+
+    <div class="cart-info">
+      <div class="p-price">
+        <p class="label">Price</p>
+        <p>{{ item.variant.price | money }}</p>
+      </div>
+
+      <div class="p-quantity quantity">
+        <p class="label">Quantity</p>
+        {% render 'gb-quantity-selector-cart', item: item %}
+      </div>
+
+      {% unless item.product.has_only_default_variant %}
+        {%- for option in item.variant.options -%}
+          <div class="p-variant">
+            <p class="label">{{ item.product.options[forloop.index0] }}</p>
+            <p>{{ option }}</p>
+          </div>
+        {%- endfor -%}
+      {% endunless %}
+
+      <div class="p-subtotal">
+        <p class="label">Subtotal</p>
+        <p>{{ item.final_line_price | money }}</p>
+      </div>
+    </div>
+  </div>
+</div>

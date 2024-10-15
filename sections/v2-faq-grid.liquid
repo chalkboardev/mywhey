@@ -1,0 +1,82 @@
+{% comment %}
+  === FUNCTIONALITY ===
+
+  Section notes:
+    - Got from furniture online
+    - tag based FAQs that pull from QF Connector
+    - requires accordion-qf snippet
+    - block based FAQ grid
+
+  Section Author: Matt Parkes
+{% endcomment %}
+
+{{ 'section-v2-faq-grid.min.css' | asset_url | stylesheet_tag }}
+
+{% assign all_faqs = shop.metafields.qfconnector.faqs %}
+
+<div class="page-width">
+  <div class="accordion-faqs-tag-based-container {{ section.settings.padding }}">
+    {% for block in section.blocks %}
+      <div class="accordion-sub-container">
+        <h2 class="heading-md">{{ block.settings.title }}</h2>
+
+        {% assign tags = block.settings.tags | split: ',' %}
+        {% assign selected_faqs = all_faqs %}
+
+
+        {% for faq in selected_faqs %}
+
+          {% assign question = faq[1].question %}
+          {% assign content = faq[1].content %}
+          {% assign faq_tags = faq[1].tags %}
+
+          {% if question != blank and content != blank %}
+            {% if tags == blank %}
+              {% render 'v2-accordion', question: question, content: content %}
+            {% else %}
+              {% for tag in tags %}
+                {% if faq_tags contains tag %}
+                  {% render 'v2-accordion', question: question, content: content %}
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endif %}
+
+
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ grid",
+  "class": "faq-grid vertical-margin",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "name": "Tags to include",
+      "type": "text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "FAQ Section Title"
+        },
+        {
+          "type": "text",
+          "id": "tags",
+          "label": "Tags"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ grid - tag based"
+    }
+  ]
+}
+{% endschema %}

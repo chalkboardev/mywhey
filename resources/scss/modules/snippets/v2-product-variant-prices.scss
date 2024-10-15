@@ -1,0 +1,21 @@
+.variant-prices-container {
+  .variant-price-wrapper {
+
+    span.product-sale-price {
+      margin-right: 5px;
+      font-size: 20px;
+      &.strikethrough {
+        text-decoration: line-through;
+      }
+    }
+
+    .product-price {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    &.hidden {
+      display: none;
+    }
+  }
+}

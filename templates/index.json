@@ -1,0 +1,269 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "v2_hero_slider_iL9iBx": {
+      "type": "v2-hero-slider",
+      "blocks": {
+        "slide_Q3Tj7U": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/hero-image.png",
+            "image_mobile": "shopify:\/\/shop_images\/hero-image_2x_89af5136-3053-43bf-a0d8-19c6740aa18a.png",
+            "overlay": "linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 100%)",
+            "overlay_opacity": 30,
+            "heading": "New Arrivals",
+            "text": "",
+            "link_text": "SHOP NOW",
+            "text_color": "#ffffff",
+            "link": "shopify:\/\/collections\/all",
+            "link_bg_color": "",
+            "link_text_color": "",
+            "horizontal_alignment": "center",
+            "text_alignment": "center"
+          }
+        },
+        "slide_4wmMDD": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Mask_Group_4_2x_f5f2f77a-8cb4-4a0d-b142-87a5b884cd2d.png",
+            "image_mobile": "shopify:\/\/shop_images\/Mask_Group_4_2x_f5f2f77a-8cb4-4a0d-b142-87a5b884cd2d.png",
+            "overlay": "linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 100%)",
+            "overlay_opacity": 30,
+            "heading": "Heading <em>to go<\/em> <strong>here<\/strong>",
+            "text": "Text <em>to go<\/em> <strong>here<\/strong>",
+            "link_text": "",
+            "text_color": "#ffffff",
+            "link": "",
+            "link_bg_color": "",
+            "link_text_color": "",
+            "horizontal_alignment": "flex-start",
+            "text_alignment": "left"
+          }
+        },
+        "slide_B46iDr": {
+          "type": "slide",
+          "settings": {
+            "overlay": "linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 100%)",
+            "overlay_opacity": 30,
+            "heading": "Heading <em>to go<\/em> <strong>here<\/strong>",
+            "text": "Text <em>to go<\/em> <strong>here<\/strong>",
+            "link_text": "",
+            "text_color": "#ffffff",
+            "link": "",
+            "link_bg_color": "",
+            "link_text_color": "",
+            "horizontal_alignment": "flex-start",
+            "text_alignment": "left"
+          }
+        }
+      },
+      "block_order": [
+        "slide_Q3Tj7U",
+        "slide_4wmMDD",
+        "slide_B46iDr"
+      ],
+      "settings": {
+        "hero_height": 600,
+        "autoplay": 0,
+        "pagination": false,
+        "navigation": false,
+        "vert_alignment_mobile": "center",
+        "text_alignment_mobile": "left"
+      }
+    },
+    "v2_usp_banner_WiC9Mj": {
+      "type": "v2-usp-banner",
+      "blocks": {
+        "usp_card_qzjJbk": {
+          "type": "usp-card",
+          "settings": {
+            "title": "Title",
+            "body": "Body Text",
+            "text_align": "center"
+          }
+        },
+        "usp_card_e9Qirp": {
+          "type": "usp-card",
+          "settings": {
+            "title": "Title",
+            "body": "Body Text",
+            "text_align": "center"
+          }
+        },
+        "usp_card_dJNcDW": {
+          "type": "usp-card",
+          "settings": {
+            "title": "Title",
+            "body": "Body Text",
+            "text_align": "center"
+          }
+        }
+      },
+      "block_order": [
+        "usp_card_qzjJbk",
+        "usp_card_e9Qirp",
+        "usp_card_dJNcDW"
+      ],
+      "settings": {
+        "padding": 20,
+        "bg_color": ""
+      }
+    },
+    "v2_collection_slider_n8DPqm": {
+      "type": "v2-collection-slider",
+      "blocks": {
+        "tile_Uc4kx6": {
+          "type": "tile",
+          "settings": {
+            "collection": "frontpage"
+          }
+        },
+        "tile_mLby9q": {
+          "type": "tile",
+          "settings": {
+            "collection": "frontpage"
+          }
+        },
+        "tile_6YDtjn": {
+          "type": "tile",
+          "settings": {
+            "collection": "frontpage"
+          }
+        }
+      },
+      "block_order": [
+        "tile_Uc4kx6",
+        "tile_mLby9q",
+        "tile_6YDtjn"
+      ],
+      "settings": {
+        "heading": "Shop By Category",
+        "link_text": "View all catergories",
+        "link": "",
+        "slidesLarge": "3",
+        "slidesMid": "3",
+        "slidesSmall": "1"
+      }
+    },
+    "collection_slider_DnBwX7": {
+      "type": "collection-slider",
+      "settings": {
+        "section_title": "Best Sellers",
+        "section_desc": "Discover a wardrobe of elegant ready-to-wear dresses, neat jackets and fabulous accessories.",
+        "section_link_value": "All Bestsellers",
+        "section_link": "#",
+        "collection_slider_items": "frontpage",
+        "product_limit": 10,
+        "collection_slider_autoplay": 0,
+        "collection_slider_pagination": false,
+        "collection_slider_navigation": false,
+        "collection_slider_scrollbar": false,
+        "collection_slider_loop": false,
+        "collection_slider_transition_effect": "slide",
+        "collection_slider_slidesperview_mobile": 2.5,
+        "collection_slider_slidesperview_tablet": 3.5,
+        "collection_slider_slidesperview_laptop": 3.5,
+        "collection_slider_slidesperview_desktop": 5.5,
+        "collection_slider_spacebetween_mobile": 10,
+        "collection_slider_spacebetween_tablet": 20,
+        "collection_slider_spacebetween_laptop": 20,
+        "collection_slider_spacebetween_desktop": 30,
+        "padding-top": 5,
+        "padding-bottom": 5
+      }
+    },
+    "v2_hero_slider_TbUbJy": {
+      "type": "v2-hero-slider",
+      "blocks": {
+        "slide_jRQiaX": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Mask_Group_4_2x_f5f2f77a-8cb4-4a0d-b142-87a5b884cd2d.png",
+            "overlay": "linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 100%)",
+            "overlay_opacity": 30,
+            "heading": "Heading <em>to go<\/em> <strong>here<\/strong>",
+            "text": "Text <em>to go<\/em> <strong>here<\/strong>",
+            "link_text": "",
+            "text_color": "#ffffff",
+            "link": "",
+            "link_bg_color": "",
+            "link_text_color": "",
+            "horizontal_alignment": "flex-start",
+            "text_alignment": "left"
+          }
+        }
+      },
+      "block_order": [
+        "slide_jRQiaX"
+      ],
+      "settings": {
+        "hero_height": 400,
+        "autoplay": 0,
+        "pagination": false,
+        "navigation": false,
+        "vert_alignment_mobile": "flex-end",
+        "text_alignment_mobile": "left"
+      }
+    },
+    "collection_slider_yUrihF": {
+      "type": "collection-slider",
+      "settings": {
+        "section_title": "Best of Sale",
+        "section_desc": "Discover a wardrobe of elegant ready-to-wear dresses, neat jackets and fabulous accessories.",
+        "section_link_value": "Shop Our Sale",
+        "section_link": "#",
+        "collection_slider_items": "frontpage",
+        "product_limit": 10,
+        "collection_slider_autoplay": 0,
+        "collection_slider_pagination": false,
+        "collection_slider_navigation": false,
+        "collection_slider_scrollbar": false,
+        "collection_slider_loop": false,
+        "collection_slider_transition_effect": "slide",
+        "collection_slider_slidesperview_mobile": 2.5,
+        "collection_slider_slidesperview_tablet": 3.5,
+        "collection_slider_slidesperview_laptop": 3.5,
+        "collection_slider_slidesperview_desktop": 5.5,
+        "collection_slider_spacebetween_mobile": 10,
+        "collection_slider_spacebetween_tablet": 20,
+        "collection_slider_spacebetween_laptop": 20,
+        "collection_slider_spacebetween_desktop": 30,
+        "padding-top": 5,
+        "padding-bottom": 5
+      }
+    },
+    "v2_article_slider_WhE8XQ": {
+      "type": "v2-article-slider",
+      "settings": {
+        "blog": "news",
+        "articles_to_show": 3
+      }
+    },
+    "v2_instagram_gallery_UgQyYy": {
+      "type": "v2-instagram-gallery",
+      "settings": {
+        "insta_handle": "Share with #ginabaconni",
+        "link_text": "Follow us",
+        "insta_snippet": ""
+      }
+    }
+  },
+  "order": [
+    "v2_hero_slider_iL9iBx",
+    "v2_usp_banner_WiC9Mj",
+    "v2_collection_slider_n8DPqm",
+    "collection_slider_DnBwX7",
+    "v2_hero_slider_TbUbJy",
+    "collection_slider_yUrihF",
+    "v2_article_slider_WhE8XQ",
+    "v2_instagram_gallery_UgQyYy"
+  ]
+}

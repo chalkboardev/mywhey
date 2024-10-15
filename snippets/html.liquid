@@ -1,0 +1,277 @@
+<!--
+  HTML - Common patterns
+  Add your own modules and components for easy theme styling,
+  copy the partials for building a prototype. Or just read
+  the comments to familiarize yourself with HTML.
+-->
+<div
+  class="page-width"
+  style="padding-top:1rem; padding-bottom: 1rem; display: flex; flex-direction: column; gap: 1rem;"
+>
+  <section class="rte">
+    <h1>About First Header H1</h1>
+    <p>
+      At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+      <a href="">voluptatum deleniti</a> atque corrupti quos.
+    </p>
+    <h2>Second Header H2</h2>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <h3>Third Header H3</h3>
+    <p>
+      At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
+      corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
+      qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
+      distinctio.
+    </p>
+    <h4>Fourth Header H4</h4>
+    <p>
+      Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam
+      eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis
+      nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
+      vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem
+      eum fugiat quo voluptas nulla pariatur?"
+    </p>
+    <h5>Fifth Header H5</h5>
+    <p>
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+      aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+      enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
+      ratione voluptatem sequi nesciunt.
+    </p>
+    <h6>Sixth Header H6</h6>
+    <p>
+      At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
+      corrupti quos.
+    </p>
+  </section>
+
+  <section class="rte">
+    <h1>Links</h1>
+    <p>
+      <a href="#">Sample text link</a>
+      <a href="#">Sample button link</a>
+    </p>
+  </section>
+
+  <section class="rte">
+    <h1>Lists</h1>
+    <h2>Unordered list</h2>
+    <p>
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+      aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+      enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
+      ratione voluptatem sequi nesciunt.
+    </p>
+    <ul>
+      <li>Orange</li>
+      <li>Apple</li>
+      <li>Rhubarb</li>
+      <li>Rasberry</li>
+      <li>Blueberry</li>
+      <li>Cherry</li>
+    </ul>
+    <p>
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+      aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+      enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
+      ratione voluptatem sequi nesciunt.
+    </p>
+    <h2>Ordered list</h2>
+    <ol>
+      <li>First</li>
+      <li>Second</li>
+      <li>Third</li>
+      <li>Fourth</li>
+      <li>Fifth</li>
+      <li>Sixth</li>
+    </ol>
+  </section>
+
+  <section class="rte">
+    <h1>Forms</h1>
+
+    <div>
+      <form class="account-form" style="border: 1px solid var(--primary-color); padding: 1rem;">
+        <span class="required-msg">* Required fields</span>
+
+        {% assign select_box_label = 'customer.register.first_name' | t %}
+        {% capture select_options %}
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+          <option value="3">Option 3</option>
+        {% endcapture %}
+        {% render 'v3-form-field',
+          type: 'select',
+          id: 'first_name',
+          name: 'customer[selectbox]',
+          label: select_box_label,
+          value: 'test select box',
+          placeholder: select_box_label,
+          required: true,
+          select_options: select_options
+        %}
+
+        {% assign first_name_label = 'customer.register.first_name' | t %}
+        {% render 'v3-form-field',
+          type: 'text',
+          id: 'first_name',
+          name: 'customer[first_name]',
+          label: first_name_label,
+          value: form.first_name,
+          placeholder: first_name_label,
+          attributes: 'autocomplete="given-name"',
+          required: true
+        %}
+
+        {% assign last_name_label = 'customer.register.last_name' | t %}
+        {% render 'v3-form-field',
+          type: 'text',
+          id: 'last_name',
+          name: 'customer[last_name]',
+          label: last_name_label,
+          value: form.last_name,
+          placeholder: last_name_label,
+          attributes: 'autocomplete="family-name"',
+          required: true
+        %}
+
+        {% assign phone_label = 'customer.register.phone' | t %}
+        {% render 'v3-form-field',
+          type: 'tel',
+          id: 'Phone',
+          name: 'customer[phone]',
+          label: phone_label,
+          value: form.phone,
+          placeholder: phone_label,
+          attributes: 'autocomplete="tel"',
+          required: false
+        %}
+
+        {% assign email_label = 'customer.register.email' | t %}
+        {% render 'v3-form-field',
+          type: 'text',
+          id: 'email',
+          name: 'customer[email]',
+          label: email_label,
+          value: form.email,
+          placeholder: email_label,
+          attributes: 'autocomplete="email"',
+          required: true
+        %}
+
+        {% assign password_label = 'customer.register.password' | t %}
+        {% render 'v3-form-field',
+          type: 'password',
+          id: 'password',
+          name: 'customer[password]',
+          label: password_label,
+          placeholder: password_label,
+          attributes: 'autocomplete="new-password"',
+          required: true
+        %}
+
+        {% assign confirm_password_label = 'customer.activate_account.password_confirm' | t %}
+        {% render 'v3-form-field',
+          type: 'password',
+          id: 'password_confirmation',
+          name: 'customer[password_confirmation]',
+          label: confirm_password_label,
+          placeholder: confirm_password_label,
+          attributes: 'autocomplete="new-password"',
+          required: true
+        %}
+
+        {% assign terms_and_condition_label = 'customer.register.terms_and_conditions_label' | t %}
+        {% render 'v3-form-field',
+          type: 'checkbox',
+          id: 'terms_and_conditions',
+          name: 'customer[terms_and_conditions]',
+          label: terms_and_condition_label,
+          placeholder: terms_and_condition_label,
+          required: true
+        %}
+
+        {% assign marketing_label = 'customer.register.marketing_label' | t %}
+        {% render 'v3-form-field',
+          type: 'checkbox',
+          id: 'marketing',
+          name: 'customer[accepts_marketing]',
+          label: marketing_label,
+          placeholder: marketing_label,
+          required: false
+        %}
+        <div class="form-buttons submit-wrapper">
+          <button class="button-1 submit-register">{{ 'customer.register.submit' | t }}</button>
+          <a class="button-2" href="/account/login">{{ 'customer.register.login_redirect' | t }}</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="rte">
+    <h1>Buttons</h1>
+
+    <div style="margin:1rem 0; display:flex; gap:1rem; background-color: lightgrey; padding:1rem;">
+      <a href="#" class="button-1">Button</a>
+      <button class="button-1">Button</button>
+    </div>
+
+    <div style="margin:1rem 0; display:flex; gap:1rem; background-color: lightblue; padding:1rem;">
+      <a href="#" class="button-2">Button</a>
+      <button class="button-2">Button</button>
+    </div>
+  </section>
+
+  <section class="rte">
+    <figure>
+      <img src="https://picsum.photos/300/200" alt="Figure Example" width="300" height="200" loading="lazy">
+      <figcaption>
+        Photo of the sky at night. Original by <a href="http://flickr.com/photos/heyitsadam/">@mrmrs</a>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="rte">
+    <h1>Tables</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>#999-32ac</td>
+          <td>First Name</td>
+          <td>13 May, 2013</td>
+          <td>999 Spruce Lane, Somewhere, CA 94101</td>
+        </tr>
+        <tr>
+          <td>#888-32dd</td>
+          <td>Sample Name</td>
+          <td>17 May, 1984</td>
+          <td>999 Spruce Lane, Somewhere, CA 94101</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4">Table footer info</td>
+        </tr>
+      </tfoot>
+    </table>
+  </section>
+</div>

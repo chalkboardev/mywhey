@@ -1,0 +1,81 @@
+@import '../../../scss/breakpoints.scss';
+
+.page-header-text-image {
+    overflow: hidden;
+    .page-width {
+        display: flex;
+        @include to-sm() {
+            flex-direction: column-reverse!important;
+        }
+        .text-container {
+            width: 50%;
+            padding: 60px 30px 60px 0;
+            box-sizing: border-box;
+            &.text-width-25 {
+                width: 25%;
+            }
+            &.text-width-33 {
+                width: 33%;
+            }
+            &.text-width-66 {
+                width: 66%;
+            }
+            &.text-width-75 {
+                width: 75%;
+            }
+            @include to-sm() {
+                width: 100%;
+            }
+            h1 {
+                margin-bottom: 25px;
+            }
+        }
+        .image-container {
+            flex: 1;
+            position: relative;
+            min-height: 300px;
+            @include to-sm() {
+                width: 100%;
+            }
+            img, svg, video {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 50vw;
+                height: 100%;
+                object-fit: cover;
+                &.img-width-25 {
+                    width: calc(31vw + 5rem);
+                }
+                &.img-width-34 {
+                    width: 40vw;
+                }
+                &.img-width-66 {
+                    width: 66vw;
+                }
+                &.img-width-75 {
+                    width: 75vw;
+                }
+                @include to-sm() {
+                    width: 100vw!important;
+                    left: -1.5rem;
+                }
+            }
+        }
+        &.text-right {
+            flex-direction: row-reverse;
+            .text-container {
+                padding: 60px 0 60px 30px;
+                @include to-sm() {
+                    width: 100%;
+                }
+            }
+            .image-container {
+                img, svg, video {
+                    left: unset;
+                    right: 0;
+                }
+            }
+        }
+    }
+}

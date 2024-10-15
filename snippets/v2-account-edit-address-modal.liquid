@@ -1,0 +1,7 @@
+{%- assign name = 'edit-' | append: address.id -%}
+{%- capture modalContent -%}
+    {%- render 'v2-account-edit-address-form' address: address, customer: customer, name: name -%}
+{%- endcapture -%}
+
+
+{%- render 'v2-modal-generator', name: name, content: modalContent -%}

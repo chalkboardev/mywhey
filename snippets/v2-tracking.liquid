@@ -1,0 +1,126 @@
+{% comment %}
+  https://www.e2msolutions.com/blog/set-up-ga4-ecommerce-tracking-shopify/
+{% endcomment %}
+
+<script defer>
+  window.dataLayer = window.dataLayer || [];
+
+  {% comment %}
+      Custom logged in dataLayer push
+  {% endcomment %}
+  {% if customer %}
+      window.dataLayer.push({
+          event: "user",
+          user_info: {
+              userType: "account"
+              id: {{ customer.id }},
+              lastOrder: "{{ customer.orders.first.created_at | date: '%B %d, %Y %I:%M%p' }}",
+              orderCount: {{ customer.orders.size }},
+              totalSpent: {% if customer %}{% assign total_spent = 0 %}{% for item in customer.orders %}{% assign total_spent = total_spent | plus: item.total_net_amount %}{% endfor %}{{ total_spent | money_without_currency | remove: "," }}{% else %}""{% endif %},
+              tags: {{- customer.tags | json -}}
+          }
+      });
+  {% else %}
+      window.dataLayer.push({
+          event: "user",
+          user_info: {
+              userType: "guest"
+              id: "",
+              lastOrder: "",
+              orderCount: "",
+              totalSpent: "",
+              tags: ""
+          }
+      });
+  {% endif %}
+
+  {% comment %}
+      PDP dataLayer push
+  {% endcomment %}
+  {% if template.name == 'product' %}
+      {% if product.compare_at_price %}
+        {% assign fullPrice = product.compare_at_price %}
+      {% else %}
+        {% assign fullPrice = product.price %}
+      {% endif %}
+      window.dataLayer.push(
+          {
+              'event': 'product',
+              'ecommerce': {
+                  'currencyCode': '{{ cart.currency.iso_code }}',
+                  'detail': {
+                      'products': [
+                          {
+                              'name': '{{ product.title }}',
+                              'id': '{{ product.id }}',
+                              'price': {{ fullPrice | money_without_currency | replace: ',', '' }},
+                              'brand': '{{ product.vendor }}',
+                              'category': '{{ product.collections.first.title }}',
+                              'quantity': 1,
+                              {% if product.selected_or_first_available_variant %}
+                                  'variant': '{{ product.selected_or_first_available_variant.id }}',
+                                  'variant_title': '{{ product.selected_or_first_available_variant.title | remove: "'" | remove: '"' }}',
+                              {% endif %}
+                          }
+                      ]
+                  }
+              }
+          }
+      );
+  {% endif %}
+
+  {% comment %}
+      Search performed dataLayer push
+      TO DO predictive search push
+  {% endcomment %}
+  {% if search.performed %}
+      window.dataLayer.push({
+          event: "search",
+          search_term: "{{ search.terms }}",
+          ecommerce: {
+              items: [
+                  {% for item in search.results %}
+                      {%- case item.object_type -%}
+                          {%- when 'product' -%}
+                              {
+                                  'type': 'product',
+                                  'name': '{{ item.title }}',
+                                  'id': '{{ item.id }}',
+                                  'price': {{ item.price | money_without_currency | replace: ',', '' }},
+                              },
+                          {%- when 'article' -%}
+                              {
+                                  'type': 'article',
+                                  'title': '{{ item.title }}',
+                                  'id': '{{ item.id }}',
+                                  'author': '{{ item.author }}',
+                              },
+                          {%- when 'page' -%}
+                              {
+                                  'type': 'page',
+                                  'title': '{{ item.title }}',
+                                  'id': '{{ item.id }}',
+                                  'author': '{{ item.author }}',
+                              },
+                          {%- when 'collection' -%}
+                              {
+                                  'type': 'collection',
+                                  'title': '{{ item.title }}',
+                                  'id': '{{ item.id }}',
+                              },
+                      {%- endcase -%}
+
+                  {% endfor %}
+              ]
+          }
+      });
+  {% endif %}
+
+  {% comment %}
+      TODO
+          - add to cart
+          - product impressions
+          - remove from cart
+
+  {% endcomment %}
+</script>

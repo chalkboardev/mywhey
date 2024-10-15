@@ -1,0 +1,11 @@
+.collection-card {
+  .img-wrap {
+    img,
+    svg {
+      height: unset;
+      aspect-ratio: 1;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+}

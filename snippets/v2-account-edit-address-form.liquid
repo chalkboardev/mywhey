@@ -1,0 +1,166 @@
+<div id="EditAddress_{{ address.id }}" class="address-form-wrapper">
+    <h2 class="heading-md edit-address-title">{{ 'customer.addresses.edit_address' | t }}</h2>
+    {%- form 'customer_address', address, class: 'edit-address-form address-form', return_to: 'back' -%}
+      <div class="field name-input first-name">
+        <input
+          type="text"
+          id="AddressFirstName_{{ form.id }}"
+          name="address[first_name]"
+          value="{{ form.first_name }}"
+          autocomplete="given-name"
+          placeholder="{{ 'customer.addresses.first_name' | t }}"
+        >
+        <label for="AddressFirstName_{{ form.id }}">{{ 'customer.addresses.first_name' | t }}</label>
+      </div>
+  
+      <div class="field name-input last-name">
+        <input
+          type="text"
+          id="AddressLastName_{{ form.id }}"
+          name="address[last_name]"
+          value="{{ form.last_name }}"
+          autocomplete="family-name"
+          placeholder="{{ 'customer.addresses.last_name' | t }}"
+        >
+        <label for="AddressLastName_{{ form.id }}">{{ 'customer.addresses.last_name' | t }}</label>
+      </div>
+  
+      <div class="field address-input">
+        <input
+          type="text"
+          id="AddressCompany_{{ form.id }}"
+          name="address[company]"
+          value="{{ form.company }}"
+          autocomplete="organization"
+          placeholder="{{ 'customer.addresses.company' | t }}"
+        >
+        <label for="AddressCompany_{{ form.id }}">{{ 'customer.addresses.company' | t }}</label>
+      </div>
+  
+      <div class="field address-input">
+        <input
+          type="text"
+          id="AddressAddress1_{{ form.id }}"
+          name="address[address1]"
+          value="{{ form.address1 }}"
+          autocomplete="address-line1"
+          placeholder="{{ 'customer.addresses.address1' | t }}"
+        >
+        <label for="AddressAddress1_{{ form.id }}">{{ 'customer.addresses.address1' | t }}</label>
+      </div>
+  
+      <div class="field address-input">
+        <input
+          type="text"
+          id="AddressAddress2_{{ form.id }}"
+          name="address[address2]"
+          value="{{ form.address2 }}"
+          autocomplete="address-line2"
+          placeholder="{{ 'customer.addresses.address2' | t }}"
+        >
+        <label for="AddressAddress2_{{ form.id }}">{{ 'customer.addresses.address2' | t }}</label>
+      </div>
+  
+      <div class="field city-input">
+        <input
+          type="text"
+          id="AddressCity_{{ form.id }}"
+          name="address[city]"
+          value="{{ form.city }}"
+          autocomplete="address-level2"
+          placeholder="{{ 'customer.addresses.city' | t }}"
+        >
+        <label for="AddressCity_{{ form.id }}">{{ 'customer.addresses.city' | t }}</label>
+      </div>
+  
+      <div class="field country-input">
+        <div class="select">
+          <label for="AddressCountry_{{ form.id }}">
+            {{ 'customer.addresses.country' | t }}
+          </label>
+  
+          <select
+            id="AddressCountry_{{ form.id }}"
+            name="address[country]"
+            data-address-country-select
+            data-default="{{ form.country }}"
+            data-form-id="{{ form.id }}"
+            autocomplete="country"
+            value="{{ address.country }}"
+          >
+            {{ all_country_option_tags }}
+          </select>
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+            <use href="#icon-caret" />
+          </svg>
+        </div>
+      </div>
+  
+      <div id="AddressProvinceContainer_{{ form.id }}" class="field province-input" style="display: none;">
+        <label for="AddressProvince_{{ form.id }}">
+          {{ 'customer.addresses.province' | t }}
+        </label>
+        <div class="select">
+          <select
+            id="AddressProvince_{{ form.id }}"
+            name="address[province]"
+            data-default="{{ form.province }}"
+            autocomplete="address-level1"
+          ></select>
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+            <use href="#icon-caret" />
+          </svg>
+        </div>
+      </div>
+  
+      <div class="field zip-input">
+        <input
+          type="text"
+          id="AddressZip_{{ form.id }}"
+          name="address[zip]"
+          value="{{ form.zip }}"
+          autocapitalize="characters"
+          autocomplete="postal-code"
+          placeholder="{{ 'customer.addresses.zip' | t }}"
+        >
+        <label for="AddressZip_{{ form.id }}">{{ 'customer.addresses.zip' | t }}</label>
+      </div>
+  
+      <div class="field phone-input">
+        <input
+          type="tel"
+          id="AddressPhone_{{ form.id }}"
+          name="address[phone]"
+          value="{{ form.phone }}"
+          autocomplete="tel"
+          placeholder="{{ 'customer.addresses.phone' | t }}"
+          pattern="(((\+44)? ?(\(0\))? ?)|(0))( ?[0-9]{3,4}){3}"
+        >
+        <label for="AddressPhone_{{ form.id }}">{{ 'customer.addresses.phone' | t }}</label>
+      </div>
+  
+      <div class="field default-input">
+        {%- capture label -%} {{ 'customer.addresses.set_default' | t }} {%- endcapture -%}
+        {%- assign checked = false -%}
+        {%- if customer.default_address == address -%}
+          {%- assign checked = true -%}
+        {%- endif -%}
+  
+        {%- render 'v2-custom-checkbox',
+          id: 'address_default_address_new',
+          name: 'address[default]',
+          label: label,
+          value: 1,
+          required: false,
+          checked: checked
+        -%}
+      </div>
+  
+      <div class="field submit-input">
+        <button class="button-1 update-address">{{ 'customer.addresses.update' | t }}</button>
+        <button data-modal-close="{{ name }}" type="reset" class="button-3 cancel-edit-btn">
+          {{ 'customer.addresses.cancel' | t }}
+        </button>
+      </div>
+    {%- endform -%}
+  </div>

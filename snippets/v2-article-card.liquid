@@ -1,0 +1,65 @@
+{% comment %} 
+
+    To enable lazy loading with a swiper add the variable "swiper: true" to the render code.
+
+    Eg: {% render 'v2-article-card', article: article, swiper: true %}
+
+{% endcomment %}
+
+<a href="{{ article.url }}" class="article-card">
+
+    <div class="article-card-image">
+
+        
+        {{ article.image | image_url: width: 400, format: "jpg" | image_tag: loading: 'lazy', decoding: "async" }}
+        {%- if swiper == true -%}
+
+            <div class="swiper-lazy-preloader"></div>
+        
+        {%- endif -%}
+
+    </div>
+
+    <div class="article-card-title heading-sm">
+
+        {{ article.title | strip_html }}
+
+    </div>
+
+    <div class="article-card-author">
+
+        {{ article.author }} - {{ article.updated_at | date: '%d/%m/%Y' }}
+
+    </div>
+
+    <div class="article-card-excerpt">
+
+        {{ article.excerpt_or_content | strip_html }}
+
+    </div>
+
+    <div class="article-card-link button-2">
+
+        Read full article
+
+    </div>
+
+    {%- if article.tags.size > 0 -%}
+
+        <div class="article-card-tags">
+
+            {% for tag in article.tags limit: 3 %}
+
+                <div class="article-card-tag">
+
+                    {{ tag }}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {%- endif -%}
+    
+</a>

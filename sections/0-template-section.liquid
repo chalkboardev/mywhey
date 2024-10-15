@@ -1,0 +1,87 @@
+{% comment %}
+
+  This is a template for a brand new section.
+  It has a dummy schema setting for a heading which needs to be removed, but is in there as reference. 
+  Add the section name as a class and to the schema. Also with the relevant padding class.
+
+  === SCHEMA ===
+
+  Shopify schema builder - https://crea8ivestaging.com/
+
+  === CSS ===
+
+  - Create a SCSS file of the same name in resources/scss/modules/sections
+  - Add to webpack.mix.js
+
+  If inline CSS is needed use the liquid stylesheet tags
+
+  === JS ===
+
+  If JS is needed with the section use the liquid javascript tags
+
+  Liquid stylesheet tags reference - https://shopify.dev/themes/architecture/sections/section-assets
+
+  
+  === FUNCTIONALITY ===
+
+  Add section notes from project developer notes. See announcement bar example below.
+
+  Section notes:
+
+  - Static at top of page when scrolling up but not down
+  - Marquee (one at a time on mobile)
+  - Speed Customisable
+  - Stops on hover
+  - Each optionally linkable to another page
+  - GA event when one is clicked
+  - Ability to change background/text colour and edit content/links
+
+  
+  === SECTION RENDERING API ===
+
+  If this section is used in a section rendering API call, include where this is happening and a brief description of its functionality.
+
+
+  Section Author: Your name
+
+{% endcomment %}
+
+{{ 'section-SECTION-NAME.min.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+
+</div>
+
+
+{% schema %}
+{
+  "name": "SECTION-NAME",
+  "tag": "section",
+  "class": "SECTION-NAME vertical-margin vertical-padding",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Slideshow"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SECTION-NAME"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,50 @@
+<div
+  cart-items-container
+  class="cart"
+  data-items-count="{{ cart.item_count }}"
+>
+  <div class="items-wrapper">
+    {%- liquid
+      capture additional_items
+        for item in cart.items
+          render 'gb-side-cart-item', item: item, key: item.key
+        endfor
+      endcapture
+    -%}
+
+    {% if cart.item_count == 0 %}
+      <div class="empty-cart">
+        <h2>{{ 'side_cart.side_cart_messages.empty_cart' | t }}</h2>
+        <button class="button-1 button--small closeSideCart">{{ 'general.continue_shopping' | t }}</button>
+        {% if settings.enable_foryou %}
+          <p>
+            <a class="cart-tab--forYou" data-tab="for-you">
+              {{ 'side_cart.side_cart_messages.see_recommended_products' | t }}
+            </a>
+          </p>
+        {% endif %}
+      </div>
+    {% elsif cart.item_count >= 1 %}
+      <div class="items">
+        {{ additional_items }}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="cart-details">
+    {% if settings.enable_foryou %}
+      <button class="cart-tab--forYou" data-tab="for-you">
+        {{ settings.foryou_heading }}
+        {% render 'gb-icon', icon: 'chevron-down' %}
+      </button>
+    {% endif %}
+
+    <div class="total-wrapper">
+      <div class="heading-sm">{{ 'side_cart.side_cart_buttons_and_tabs.total' | t }}</div>
+
+      <div side-cart-total class="sub-total heading-sm" data-sub-total="{{ cart.items_subtotal_price }}">
+        {{ cart.items_subtotal_price | money }}
+      </div>
+    </div>
+  </div>
+</div>

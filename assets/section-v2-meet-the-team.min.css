@@ -1,0 +1,52 @@
+@media only screen and (max-width: 767.98px) {
+  .meet-team-section {
+    margin-right: -1.5rem;
+  }
+}
+.meet-team-section .meet-the-team-swiper-wrapper {
+  position: relative;
+}
+.meet-team-section .meet-the-team-swiper-wrapper .swiper-slide .image-container {
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+.meet-team-section .meet-the-team-swiper-wrapper .swiper-slide .image-container img {
+  width: 100%;
+  height: 100%;
+}
+.meet-team-section .meet-the-team-swiper-wrapper .swiper-team-prev {
+  left: -30px;
+}
+.meet-team-section .meet-the-team-swiper-wrapper .swiper-team-next {
+  right: -30px;
+}
+@media only screen and (max-width: 767.98px) {
+  .meet-team-section .meet-the-team-swiper-wrapper .swiper-team-prev,
+  .meet-team-section .meet-the-team-swiper-wrapper .swiper-team-next {
+    display: none;
+  }
+}
+
+.meet-team-text {
+  width: 100%;
+  text-align: center;
+}
+.meet-team-text .title {
+  margin: 15px 0px;
+  font-size: 16px;
+  color: var(--text-primary-color);
+}
+.meet-team-text .body-text {
+  margin-bottom: 20px;
+  font-size: 14px;
+  padding: 0;
+  line-height: normal;
+}
+.meet-team-text .icon {
+  color: var(--text-primary-color);
+  width: 20px;
+  height: 20px;
+}

@@ -1,0 +1,96 @@
+<div class="account-module details">
+  <div class="heading-button">
+    <h2 class="heading-md">{{ 'customer.account.details_title' | t }}</h2>
+    <!--
+      <button class="button-1 add-address-btn" data-modal-trigger="add-address">
+      Add Address
+      </button>
+    -->
+  </div>
+
+  <div class="details-module">
+    <div class="details-table">
+      <div class="column column-1">
+        <div class="row name">
+          <div class="label">Name:</div>
+          <div class="content">
+            {{ customer.first_name | capitalize }}
+            {{- customer.last_name | capitalize -}}
+          </div>
+        </div>
+        {% comment %}
+          <div class="row tel">
+            <div class="label">Tel:</div>
+            <div class="content">{{ customer.phone }}</div>
+          </div>
+        {% endcomment %}
+        <div class="row email">
+          <div class="label">Email:</div>
+          <div class="content">{{ customer.email }}</div>
+        </div>
+      </div>
+
+      {% comment %} Addresses  {% endcomment %}
+
+      <div class="address-wrapper">
+        {%- for item in customer.addresses -%}
+          <div class="column">
+            <div class="row">
+              <div class="label">
+                {%- if forloop.first -%}Address{%- endif -%}
+              </div>
+              <div class="content">
+                <div class="address-inner">
+                  {{ item | format_address }}
+
+                  {%- if item == customer.default_address -%}
+                    <div class="table-button-container default-address">
+                      <div class="table-icon">
+                        {%- render 'gb-icon', icon: 'tick' -%}
+                      </div>
+                      Default Address
+                    </div>
+                  {%- endif -%}
+                </div>
+
+                <div class="edit-delete-buttons">
+                  <button
+                    type="button"
+                    id="EditFormButton_{{ item.id }}"
+                    class="edit-address-trigger-2"
+                    aria-label="{{ 'customer.addresses.edit_address' | t }} {{ forloop.index }}"
+                    aria-controls="EditAddress_{{ item.id }}"
+                    aria-expanded="false"
+                    data-address-id="{{ item.id }}"
+                    data-modal-trigger="edit-{{ item.id }}"
+                  >
+                    {%- render 'gb-icon', icon: 'edit' -%}
+                    {{ 'customer.addresses.edit' | t }}
+                  </button>
+
+                  <form class="address-delete-form" method="post" action="/account/addresses/{{ item.id }}">
+                    <input type="hidden" name="_method" value="delete" class="button-4 delete-address">
+                    <input type="hidden" name="return_to" value="/">
+                    <button class="delete-address" data-modal-trigger="delete-address">
+                      {%- render 'gb-icon', icon: 'remove' -%}
+                      {{ 'customer.addresses.delete' | t }}
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            {% comment %} Delete Address {% endcomment %}
+          </div>
+        {%- endfor -%}
+
+        <button class="table-button-container add-address" data-modal-trigger="add-address">
+          <div class="table-icon">
+            {%- render 'gb-icon', icon: 'plus' -%}
+          </div>
+          Add new address
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

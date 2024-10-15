@@ -1,0 +1,63 @@
+section.account-form-page {
+  position: relative;
+  background-color: #F0F0F0;
+  
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+  .account-form-wrapper {
+    min-height: 450px;
+
+    // Transition Styles
+    opacity: 1; 
+    translate: 0 0px;
+    pointer-events: all;
+    transition: opacity .2s ease-in-out .4s, translate .3s ease .4s;
+    &:not(.active) { 
+      opacity: 0;
+      translate: 0 60px;
+      pointer-events: none;
+      transition: opacity .2s ease-in-out, translate .3s ease;
+    }
+    
+    
+    
+    // Login Form Styles
+    &.login-form {
+      
+      // Forgot Password + Password Input Wrapper
+      .forgot-wrapper {
+        width: 100%;
+        
+        .forgot-password { 
+          font-size: 14px;
+          text-align: right; 
+          
+          a { 
+            font-size: inherit; 
+            &:hover { text-decoration: underline; }
+          } 
+        }
+      }
+      
+      .reactivate {
+        margin-top: 15px;
+      }
+      
+    }
+
+    // Account Recovery Form Styles
+    &.account-recover-form {
+      position: absolute;
+      inset: 50% 50% auto auto;
+      translate: 50% calc( -50% - 60px - var(--spacing-sections-desktop) );
+      
+      &.active {
+        translate: 50% calc( -50% - var(--spacing-sections-desktop) );
+      }
+    }
+
+  }
+}

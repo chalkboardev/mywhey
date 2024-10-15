@@ -1,0 +1,67 @@
+{% comment %}
+  === FUNCTIONALITY ===
+
+  Section notes:
+
+  - Change title text
+  - Carousel of products or limited to ‘X’ number
+  - Scroll off screen on mobile
+
+  Section Author: Dan Hall
+{% endcomment %}
+
+{{ 'section-v2-recommended-products.min.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width" id="{{ section.id }}">
+  <div
+    class="product-recommendations"
+    data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}"
+  >
+    {%- if recommendations.performed and recommendations.products_count > 0 -%}
+      <div class="recommended-heading">
+        <h2 class="heading-lg">
+          {{ section.settings.heading }}
+        </h2>
+      </div>
+
+      <div class="swiper recommendations-slider">
+        <div class="swiper-wrapper">
+          {%- for product in recommendations.products -%}
+            <div class="product swiper-slide">
+              {% render 'gb-product-card', product: product, swiper: true %}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script src="{{ 'recommended-products.min.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Recommended products",
+  "tag": "section",
+  "class": "recommended-products vertical-margin",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Recommended products",
+      "label": "Heading"
+    },
+    {
+      "type": "number",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "default": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recommended products"
+    }
+  ]
+}
+{% endschema %}

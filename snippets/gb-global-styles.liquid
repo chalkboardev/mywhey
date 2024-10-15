@@ -1,0 +1,9 @@
+{% comment %} 
+    Description: 
+    - Include css that is required on all pages
+{% endcomment %}
+
+{{ 'global.min.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'snippet.min.css' | asset_url | stylesheet_tag: preload: true }}
+
+    

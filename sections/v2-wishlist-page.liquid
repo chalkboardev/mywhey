@@ -1,0 +1,226 @@
+{% comment %}
+  Shopify Wishlist
+  Usage:
+    - Create a new page in the Shopify admin
+      - Admin > Online store > Pages > Add page
+    - Set the new page's template to: 'page.wishlist'
+    - Do NOT remove the `grid-wishlist` attribute
+
+  Notes:
+  - The grid will be populated with product cards using Javascript
+  - Any content inside of the `[grid-wishlist]` element will be completely replaced by the product cards
+
+  Tip:
+  - Place a loading element inside the `[grid-wishlist]` element and it will automatically be removed once the product cards have loaded
+  - Add any liquid code before/after the grid element
+{% endcomment %}
+
+<link rel="stylesheet" href="{{ 'section-v2-wishlist.min.css' | asset_url }}">
+
+<div class="wishlist-page page-width">
+  {% render 'v2-breadcrumbs' %}
+
+  {% comment %}
+    <div style='display: flex; justify-content: space-between; margin-bottom: 25px; align-items: center;'>
+
+      <h1 class="heading-md">My Wishlist</h1>
+      <button class='clear-wishlist'>Clear Wishlist</button>
+
+    </div>
+
+    <div class="wishlist__grid vertical-margin" grid-wishlist>
+      <p class="wishlist__loader full-width text-center">Loading...</p>
+    </div>
+  {% endcomment %}
+
+  <div class="wishlist-grid-container">
+    <h1 class="heading-lg">
+      {{ section.settings.wishlist_heading }}
+    </h1>
+    <div class="wishlist__grid vertical-margin" grid-wishlist></div>
+    <div class="empty-wishlist">
+      <div class="empty-wishlist-message">
+        <h2 class="heading-md">
+          {{ section.settings.empty_heading }}
+        </h2>
+        {% if section.settings.empty_message != '' %}
+          <span>
+            {{ section.settings.empty_message }}
+          </span>
+        {% endif %}
+      </div>
+
+      <div class="featured-products-heading-wrapper">
+        <div class="featured-products-heading">
+          <h2 class="heading-lg">
+            {{ section.settings.empty_recommended_heading }}
+          </h2>
+        </div>
+
+        {%- if section.settings.link_text != blank
+          and section.settings.link != blank
+          or section.settings.empty_collection != blank
+        -%}
+          <div class="featured-products-link">
+            <a
+              href="{%- if section.settings.empty_collection != blank -%}{{ section.settings.empty_collection.url }}{%- else -%}{{ section.settings.link }}{%- endif -%}"
+              class="button-1"
+              aria-label="Link to {{ section.settings.link_text }}"
+            >
+              {{ section.settings.link_text }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="swiper featured-products-slider-{{ section.id }}">
+        <div class="swiper-wrapper">
+          {%- if section.settings.product_list != blank -%}
+            {% for featured_product in section.settings.product_list %}
+              <div class="swiper-slide">
+                {% render 'gb-product-card', product: featured_product, swiper: true %}
+              </div>
+            {% endfor %}
+
+          {%- elsif section.settings.empty_collection != blank -%}
+            {% for featured_collection_product in section.settings.empty_collection.products limit: 10 %}
+              <div class="swiper-slide">
+                {% render 'gb-product-card', product: featured_collection_product, swiper: true %}
+              </div>
+            {% endfor %}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    <div class="loader"></div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', ()=>{
+      const product_card_class = '.product-card'
+      const wishlist_button_class = '.button-wishlist';
+      const grid = document.querySelector('[grid-wishlist]');
+
+      if(!grid){
+        return
+      }
+
+
+    document.addEventListener('click', e => {
+      const button = e.target.closest(wishlist_button_class);
+      const grid =  e.target.closest('[grid-wishlist]')
+
+
+      if(button){
+        if(!grid){
+          window.wishlist.initGrid();
+        }
+        else {
+          const card = button?.closest(product_card_class);
+          card.remove();
+        }
+      }
+    })
+    var swiper_{{ section.id | replace: "-", "" }} = new window.swiper(".featured-products-slider-{{ section.id }}", {
+        slidesPerView: 1.4,
+        spaceBetween: 30,
+        lazy: {
+            enabled: true,
+            checkInView: true,
+            loadOnTransitionStart: true,
+            loadPrevNext: true,
+            loadPrevNextAmount: 1
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 3
+            },
+            992: {
+                slidesPerView: 4
+            },
+            1200: {
+                slidesPerView: 5
+            }
+        },
+    });
+  })
+</script>
+
+{% schema %}
+{
+  "name": "Wishlist Page V2",
+  "tag": "section",
+  "class": "page-header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Wishlist Header"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "wishlist_heading",
+      "default": "Wishlist",
+      "label": "Heading"
+    },
+    {
+      "type": "header",
+      "content": "Empty Wishlist Message"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "empty_heading",
+      "default": "You have no Saved Items",
+      "label": "Empty Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "empty_message",
+      "label": "Empty Message"
+    },
+    {
+      "type": "header",
+      "content": "Empty Wishlist Recommended Products"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "empty_recommended_heading",
+      "default": "Featured products",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text",
+      "default": "View all products"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link",
+      "info": "If a collection is selected the link will use the collection URL."
+    },
+    {
+      "type": "collection",
+      "id": "empty_collection",
+      "label": "Collection",
+      "info": "A maximum of 10 products from the collection will show."
+    },
+    {
+      "type": "product_list",
+      "id": "empty_product_list",
+      "label": "Products",
+      "limit": 10,
+      "info": "This will override the collection set."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wishlist Page V2"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["page"]
+  }
+}
+{% endschema %}

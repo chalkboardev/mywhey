@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="{{ 'section-v2-main-list-collections.min.css' | asset_url }}" >
+
+<div class="main-collections-list page-width vertical-margin">  
+
+    <h1 class="heading-lg">Collections</h1>
+
+    <div class="collection-grid">
+
+        {% for collection in collections %}
+            {% render 'v2-collection-card' collection: collection %}
+        {% endfor %}
+
+    </div>
+</div>

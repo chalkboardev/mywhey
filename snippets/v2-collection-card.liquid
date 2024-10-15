@@ -1,0 +1,12 @@
+<div class="collection-card">
+    <a href="{{ collection.url }}" aria-label="Link to {{ collection.title }}">
+        <div class="img-wrap">
+            {% if collection.featured_image != blank %}
+                {{ collection.featured_image | image_url: width: 500, format: "jpg" | image_tag: alt: collection.name, loading: "lazy", decoding: "async" }}
+            {% else %}
+                {{ 'collection-6' | placeholder_svg_tag }}
+            {% endif %}
+        </div>
+        <p>{{ collection.title }}</p>
+    </a>
+</div>

@@ -1,0 +1,44 @@
+<div
+  side-cart-recommendations-section
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id=&limit=10"
+  class="hidden"
+  aria-hidden="true"
+>
+  <div class="side-cart-product-recommendations--swiper">
+    <div class="recommended-heading">
+      <h2>{{ settings.youMayAlsoLike_heading }}</h2>
+    </div>
+
+    {%- if recommendations.performed and recommendations.products_count > 0 -%}
+      <div class="swiper side-cart-recommendations-slider">
+        <div class="swiper-wrapper">
+          {%- for product in recommendations.products -%}
+            <div class="product swiper-slide">
+              {% render 'gb-product-card', product: product, swiper: true %}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="swiper-button-next cart-rec"></div>
+      <div class="swiper-button-prev cart-rec"></div>
+    {%- endif -%}
+  </div>
+
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <div class="side-cart-product-recommendations--foryou">
+      {%- for product in recommendations.products -%}
+        {% render 'gb-product-card', product: product %}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Side cart recommendations",
+  "tag": "section",
+  "class": "slideshow",
+  "settings": []
+}
+{% endschema %}

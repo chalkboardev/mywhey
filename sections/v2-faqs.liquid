@@ -1,0 +1,104 @@
+{% comment %}
+  === FUNCTIONALITY ===
+
+  Section notes:
+    - Got from furniture online
+    - tag based FAQs that pull from QF Connector
+    - requires accordion snippet
+
+  Section Author: Matt Parkes / Dan Hall
+{% endcomment %}
+
+{{ 'section-v2-faqs.min.css' | asset_url | stylesheet_tag }}
+
+{% assign all_faqs = shop.metafields.qfconnector.faqs %}
+{% assign tags = section.settings.tags | split: ',' %}
+
+{%- if template.name == 'product' -%}
+
+  {% if product.metafields.product_data.faq_tags != blank %}
+    {% assign tags = product.metafields.product_data.faq_tags | split: ',' %}
+  {% endif %}
+
+{% endif %}
+
+{%- if template.name == 'collection' -%}
+
+  {% if collection.metafields.collection_data.faq_tags != blank %}
+    {% assign tags = collection.metafields.collection_data.faq_tags | split: ',' %}
+  {% endif %}
+
+{% endif %}
+
+{%- if template.name == 'article' -%}
+
+  {% if article.metafields.custom.faq_tags != blank %}
+    {% assign tags = article.metafields.custom.faq_tags | split: ',' %}
+  {% endif %}
+
+{% endif %}
+ 
+<div class="vertical-padding faqs-tags-based-wrapper{% if template.name == 'collection' %} white-bg{% endif %}">
+
+  <div class="page-width">
+
+    <div class="faqs-tags-based-container">
+
+      <div class="faq-header-container">
+        
+          <div class="heading-md">FAQs</div>
+          <a href="/pages/faqs" class="button-2" aria-label="Link to All FAQs">All FAQs</a>
+
+      </div>
+
+      <div class="faq-container">
+        {% for faq in all_faqs %}
+          {%- liquid
+            assign question = faq[1].question
+            assign content = faq[1].content
+            assign faq_tags = faq[1].tags
+          -%}
+
+          {% if question != blank and content != blank %}
+            {% if tags == blank %}
+              {%- if template.name != 'article' or template.name != 'collection' -%}
+                {% render 'v2-accordion', question: question, content: content %}
+              {%- endif -%}
+            {% else %}
+              {% for tag in tags %}
+                {% if faq_tags contains tag %}
+                  {% render 'v2-accordion', question: question, content: content %}
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "FAQs - tag based",
+  "class": "faqs-tags-based",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tags",
+      "label": "Tags to include",
+      "info": "Comma separated list of tags to include (i.e faqs with 'tag1, tag2, tag3' will be shown)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQs - tag based"
+    }
+  ]
+}
+{% endschema %}

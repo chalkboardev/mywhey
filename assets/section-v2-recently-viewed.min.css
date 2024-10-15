@@ -1,0 +1,99 @@
+.recently-viewed .swiper-slide {
+  display: flex;
+  height: auto;
+}
+.recently-viewed input {
+  display: none;
+}
+.recently-viewed input + label {
+  display: inline-block;
+}
+.recently-viewed input ~ .tab {
+  display: none;
+}
+.recently-viewed #tab1:checked ~ .tab.content1,
+.recently-viewed #tab2:checked ~ .tab.content2,
+.recently-viewed #tab3:checked ~ .tab.content3 {
+  display: block;
+}
+.recently-viewed input + label {
+  padding: 4px 12px;
+  position: relative;
+  top: 1px;
+  font-weight: normal;
+  cursor: pointer;
+}
+.recently-viewed input + label:first-of-type {
+  padding-left: 0;
+}
+.recently-viewed input:checked + label {
+  font-weight: 700;
+  transition: 0.3s all;
+  text-decoration: underline;
+}
+.recently-viewed input ~ .tab {
+  padding: 12px 0;
+}
+.recently-viewed .custom-select {
+  display: none;
+}
+.recently-viewed .heading-md {
+  text-decoration: underline;
+}
+@media only screen and (max-width: 767.98px) {
+  .recently-viewed .heading-md {
+    font-size: 24px;
+  }
+  .recently-viewed input, .recently-viewed label {
+    display: none !important;
+  }
+  .recently-viewed .custom-select {
+    position: relative;
+    display: block;
+  }
+  .recently-viewed .custom-select .select-chevron {
+    content: "HELLO";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .recently-viewed .custom-select select {
+    width: 100%;
+    border: none;
+    padding: 10px 0;
+    background: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  .recently-viewed .custom-select select:focus-visible {
+    outline: none;
+  }
+  .recently-viewed .custom-select select option {
+    padding: 5px 10px;
+  }
+}
+.recently-viewed .page-width {
+  position: relative;
+}
+.recently-viewed .page-width .recently-viewed-button {
+  position: absolute;
+  top: 10px;
+  right: 5rem;
+}
+@media only screen and (max-width: 767.98px) {
+  .recently-viewed .page-width .pipe {
+    display: none;
+  }
+}
+.recently-viewed .page-width .recently-viewed-button {
+  padding: 15px 30px;
+}
+@media only screen and (max-width: 767.98px) {
+  .recently-viewed .page-width .recently-viewed-button {
+    display: none;
+  }
+}

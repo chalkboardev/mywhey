@@ -1,0 +1,13 @@
+@import '../../../scss/breakpoints.scss';
+
+.recommended-products {
+    min-height: 457px;
+    .recommended-heading {
+        margin-bottom: 25px;
+    }
+    .recommendations-slider {
+        @include to-sm() {
+            margin-right: -1.5rem
+        }
+    }
+}

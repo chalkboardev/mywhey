@@ -1,0 +1,28 @@
+.text-section-container {
+  position: relative;
+}
+.text-section-container .text-section-background, .text-section-container .text-section-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.text-section-container .text-section-background img, .text-section-container .text-section-overlay img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.text-section-container .page-width {
+  position: relative;
+}
+.text-section-container .page-width h1, .text-section-container .page-width h2, .text-section-container .page-width h3 {
+  max-width: 700px;
+  margin: 0 auto;
+  margin-bottom: 25px;
+}
+.text-section-container .page-width p {
+  max-width: 700px;
+  margin: 0 auto;
+}

@@ -1,0 +1,20 @@
+<button class="accordion {% if active == true %}active{% endif %}" style="color: {{ section.settings.color }};">
+  <div class="accordion__heading">
+    {{ question }}
+  </div>
+
+  <div class="chevron">
+    {% render 'gb-icon', icon: 'caret' %}
+  </div>
+</button>
+
+<div
+  class="panel"
+  {% if active == true %}
+    style="max-height: max-content"
+  {% endif %}
+>
+  <div class="content">
+    {{ content }}
+  </div>
+</div>

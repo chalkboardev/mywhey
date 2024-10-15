@@ -1,0 +1,27 @@
+.text-section-container {
+    position: relative;
+    .text-section-background, .text-section-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .page-width {
+        position: relative;
+        h1, h2, h3 {
+            max-width: 700px;
+            margin: 0 auto;
+            margin-bottom: 25px;
+        }
+        p {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+    }
+}

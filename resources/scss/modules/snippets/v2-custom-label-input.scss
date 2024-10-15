@@ -1,0 +1,31 @@
+.label-input{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.label-input label {
+    font-weight: 700;
+}
+
+.label-input input {
+    border: none;
+    font-size: 14px;
+    border-radius: 21px;
+    padding: 10px 11px 10px 17px;
+}
+
+.errormessage {
+    visibility: hidden;
+    color: red;
+    padding: 5px 10px;
+
+  }
+  
+  [aria-invalid="true"] {
+    outline: 2px solid red;
+  }
+  
+  [aria-invalid="true"] ~ .errormessage {
+    visibility: visible;
+  }

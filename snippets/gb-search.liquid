@@ -1,0 +1,16 @@
+<form class="search-bar-qf qf-form" action="{{ routes.search_url }}">
+  <input
+    type="text"
+    placeholder="{{ placeholder }}"
+    name="q"
+    class="search-trigger {{ class }}"
+    id="header-search"
+  >
+  <input type="hidden" name="type" value="product">
+  <div class="submit-group">
+    <label for="submit_search">
+      {%- render 'gb-icon', icon: 'search' %}
+      <input type="submit" id="submit_search" value="">
+    </label>
+  </div>
+</form>

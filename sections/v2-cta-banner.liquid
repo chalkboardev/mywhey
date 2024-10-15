@@ -1,0 +1,208 @@
+{% comment %}
+  Section notes:
+
+  - Full Width
+  - Title, Description, CTA Button ( Limited to one )
+  - Background image with overlay/gradient (Y/N)
+  - Background colour editable
+  - Text colour editable
+  - Text alignment (Left/Central/Right)
+
+  Section Author: jo@quickfiredigital.com
+{% endcomment %}
+
+{{ 'section-v2-cta-banner.min.css' | asset_url | stylesheet_tag }}
+
+{% assign title = section.settings.title %}
+{% assign url = section.settings.url %}
+{% assign url_text = section.settings.url_text %}
+{% assign button_style = section.settings.button_style %}
+
+{% assign layout = section.settings.layout %}
+{% assign size = section.settings.size %}
+{% assign colour = section.settings.colour %}
+{% assign gradient = section.settings.gradient %}
+{% assign background = section.settings.background %}
+{% assign image = section.settings.image %}
+
+{% assign show_button = false %}
+
+{% if url == blank or url_text == blank %}
+  {% assign height = 'thin' %}
+{% endif %}
+
+{% if show_button == true or title != blank %}
+  <section
+    class="cta-banner {{ height }} {{ gradient -}}"
+    style="{% if background != blank %}{{- background | prepend: 'background: ' | append: ';' -}}{% endif %}"
+  >
+
+    {%- if image != blank -%}
+      {{ image | image_url: width: 1600, format: "jpg" | image_tag: loading: 'lazy', decoding: "async", class: 'image' }}
+    {%- endif -%}
+
+    <div class="page-width {{ layout -}}">
+      {% if title != blank %}
+        <p class="title {{ size -}}" style="color:{{- colour -}};">{{ title }}</p>
+      {% endif %}
+
+      {% if url != blank and url_text != blank %}
+        {% assign show_button = true %}
+        <a class="{{- button_style -}}" href="{{- url -}}" aria-label="Link to {{ url_text }}">{{- url_text -}}</a>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "CTA Banner",
+  "tag": "section",
+  "class": "cta-banner-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "CTA Banner - Lorem ipsum dolor sit amet"
+    },
+    {
+      "type": "text",
+      "id": "url_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Button link",
+      "info": "The button will only display with a Link and Text"
+    },
+    {
+      "type": "header",
+      "content": "Content Styles"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "middle",
+          "label": "Middle"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "middle"
+    },
+    {
+      "type": "select",
+      "id": "size",
+      "label": "Title Size",
+      "options": [
+        {
+          "value": "heading-sm",
+          "label": "Small"
+        },
+        {
+          "value": "heading-md",
+          "label": "Medium"
+        },
+        {
+          "value": "heading-lg",
+          "label": "Large"
+        }
+      ],
+      "default": "heading-md"
+    },
+    {
+      "type": "color",
+      "id": "colour",
+      "label": "Text Colour",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button Style",
+      "options": [
+        {
+          "value": "button-1",
+          "label": "Style 1"
+        },
+        {
+          "value": "button-2",
+          "label": "Style 2"
+        },
+        {
+          "value": "button-3",
+          "label": "Style 3"
+        },
+        {
+          "value": "button-4",
+          "label": "Style 4"
+        },
+        {
+          "value": "button-5",
+          "label": "Style 5"
+        },
+        {
+          "value": "button-6",
+          "label": "Style 6"
+        }
+      ],
+      "default": "button-1"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Colour"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "gradient",
+      "label": "Gradient",
+      "options": [
+        {
+          "value": "",
+          "label": "None"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
+      ],
+      "default": ""
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "CTA Banner"
+    }
+  ]
+}
+{% endschema %}

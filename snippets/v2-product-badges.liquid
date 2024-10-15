@@ -1,0 +1,229 @@
+
+{% comment %}
+    
+    * This Snippet Generates Product Badges Dynamically to help boost conversions/promtions to the user. 
+
+    * PARAMETERS:
+        - PRODUCT: The Product Liquid Object you want badges for.
+        - LIMIT: 1, 2, all. ( Anything that isn't '1' or '2' defaults to all and default value is 1 )
+    
+    * Here are all of the different types of badges currently available: 
+        - PERCENTAGE DISCOUNTS
+        - NEW ARRIVALS 
+        - LIMITED EDITION 
+        - LOW STOCK 
+        - BESTSELLER
+
+{% endcomment %}
+
+{% comment %} CHECK FOR LIMIT {% endcomment %}
+{% if limit == blank %}
+    {% assign limit = 1 %}
+{% else %}
+    {% assign limit = limit %}
+{% endif %}
+
+{% comment %} ARRIVAL BADGE {% endcomment %}
+    {% capture new_arrival_badge %}
+        {% assign date = "now" | date: '%s' | plus: 0 %}
+        
+        
+        {% assign one_week_seconds = 7 | times: 24 | times: 60 | times: 60 %}
+        {% assign product_published_at = product.published_at | date: '%s' | plus: 0 %}
+        {% assign first_week_published = product_published_at | plus: one_week_seconds %}
+
+        {% assign new_arrival = false %}
+
+        {% if first_week_published > date %}
+            {% assign new_arrival = true %}
+        {% endif %}
+    {% endcapture %}
+
+
+{% comment %} DISCOUNT BADGE {% endcomment %}
+    {% capture discount_percentage_badge %}
+        {% assign price = product.compare_at_price %}
+        {% assign sale_price = product.price %}
+        
+        {% assign percentage_saved = sale_price | times: 1.0 | divided_by: price | times: 100 | round: 0 %}
+        {% assign percentage_saved_left = 100 | minus: percentage_saved %}
+
+        {% assign discount_badge = false %}
+        
+        {% if percentage_saved_left > 15 and percentage_saved_left < 100 %}
+            {% assign discount_badge = true %}
+            
+            {% if   percentage_saved_left == 15
+                or   percentage_saved_left == 20
+                or   percentage_saved_left == 25
+                or   percentage_saved_left == 30
+                or   percentage_saved_left == 35
+                or   percentage_saved_left == 40
+                or   percentage_saved_left == 45
+                or   percentage_saved_left == 50
+            %} 
+                {% assign percentage_saved_output = percentage_saved_left | prepend: 'Save ' | append: '%' %}
+            {% elsif percentage_saved_left  > 50 %}
+                {% assign percentage_saved_output = 'Save' %}
+            {% endif %}
+
+        {% endif %}
+    {% endcapture %}
+
+
+{% comment %} LIMITED EDITION BADGE {% endcomment %}
+    {% capture limited_edition_badge %}
+        {% assign limited_edition = false %}
+        {% if product.tags contains "limited-edition" %}
+            {% assign limited_edition = true %}
+        {% endif %}
+    {% endcapture %}
+
+
+{% comment %} BESTSELLERS BADGE {% endcomment %}
+    {% capture bestseller_badge %}
+        {% assign bestsellers = false %}
+        {% assign is_bestseller = false %}
+
+        {% for collection in product.collections %}
+            
+            {% if collection.handle == 'bestsellers' %}
+                {% assign is_bestseller = true %}
+            {% endif %}
+        {% endfor %}
+
+        {% if is_bestseller == true or product.tags contains 'bestseller' %}
+            {% assign bestsellers = true %}
+        {% endif %}
+    {% endcapture %}
+
+
+{% comment %} LOW STOCK BADGE {% endcomment %}
+    {% capture low_stock_badge %}
+        {% assign low_stock = false %}
+        {% assign stock_count = 0 %}
+        {% assign stock_threshold = 15 %}
+
+        {% for variant in product.variants %}
+            {% assign stock_count = stock_count | plus: variant.inventory_quantity %}
+        {% endfor %}
+            
+        {% if stock_count <= stock_threshold and stock_count > 0 %}
+            {% assign low_stock = true %}
+        {% endif %}
+    {% endcapture %}
+
+
+
+{% comment %} SORT BADGES TO DISPLAY {% endcomment %}
+    {% capture all_product_badges %}
+        {{ new_arrival_badge }}
+        {{ discount_percentage_badge }}
+        {{ limited_edition_badge }}
+        {{ bestseller_badge }}
+
+            {% if new_arrival == true %}
+                <span class="product-badge new-arrival-badge">New Arrival</span>
+            {% endif %}
+    
+            {% if discount_badge == true %}
+                <span class="product-badge discount-percentage-badge">{{ percentage_saved_output }}</span>
+            {% endif %}
+    
+            {% if limited_edition == true %}
+                <span class="product-badge limited-edition-badge">Limited Edition</span>
+            {% endif %}
+    
+            {% if bestsellers == true %}
+                <span class="product-badge bestseller-badge">Bestseller</span>
+            {% endif %}
+            
+            {% if low_stock == true %}
+                <span class="product-badge low-stock-badge">Only {{ stock_count }} Left</span>
+            {% endif %}
+
+    {% endcapture %}
+    
+    
+    {% comment %}
+        ----------------------------------------------
+        PRODUCT BADGE HIERACHY [ SHOW UP TO 2 BADGES ]
+        ----------------------------------------------
+        
+        * Group these three badges together and only display one, 1 being most important. 
+            1. LIMITED EDITION Badge
+            2. NEW ARRIVAL Badge
+            3. BESTSELLER Badge
+        
+        * Group these as secondary badges
+            1. DISCOUNT Badge 
+            2. LOW STOCK Badge 
+        
+        * If there are no primary badges you can display two secondary badges. 
+        * If there are no secondary badges do not display two primary badges.
+        
+    {% endcomment %}
+    
+        {% capture show_two_badges %}
+        {% comment %} PRIMARY BADGES {% endcomment %}
+            {% if limited_edition == true %}
+                <span class="product-badge limited-edition-badge">Limited Edition</span>
+            {% elsif new_arrival == true %}
+                <span class="product-badge new-arrival-badge">New Arrival</span>
+            {% elsif bestsellers == true %}
+                <span class="product-badge bestseller-badge">Bestseller</span>
+            {% endif %}
+    
+        {% comment %} SECONDARY BADGES {% endcomment %}
+            {% if discount_badge %}
+                <span class="product-badge discount-percentage-badge">{{ percentage_saved_output }}</span>
+            {% elsif low_stock %}
+                <span class="product-badge low-stock-badge">Only {{ stock_count }} Left</span>
+            {% endif %}
+        {% endcapture %}
+    
+
+{% comment %}
+------------------------------------------------
+    PRODUCT BADGE HIERACHY [ SHOW ONE BADGE ]   
+------------------------------------------------
+    * Group these badges together and only display one, 1 being most important. 
+        1. LIMITED EDITION Badge
+        2. NEW ARRIVAL Badge
+        3. BESTSELLER Badge
+        4. DISCOUNT Badge 
+        5. LOW STOCK Badge 
+{% endcomment %}
+    
+        {% capture show_one_badge %}
+        {% comment %} PRIMARY BADGES {% endcomment %}
+            {% if limited_edition == true %}
+                <span class="product-badge limited-edition-badge">Limited Edition</span>
+            {% elsif new_arrival == true %}
+                <span class="product-badge new-arrival-badge">New Arrival</span>
+            {% elsif bestsellers == true %}
+                <span class="product-badge bestseller-badge">Bestseller</span>
+            {% elsif discount_badge %}
+                <span class="product-badge discount-percentage-badge">{{ percentage_saved_output }}</span>
+            {% elsif low_stock %}
+                <span class="product-badge low-stock-badge">Only {{ stock_count }} Left</span>
+            {% endif %}
+        {% endcapture %}
+    
+
+
+{% comment %} 
+---------------------------
+    PRODUCT BADGES OUTPUT
+---------------------------
+{% endcomment %}
+
+<div class="product-badges" data-product-id="{{ product.id }}">
+    {% if limit == 1 %}
+        {{ show_one_badge }}
+    {% elsif limit == 2 %}
+        {{ show_two_badges }}
+    {% else %}
+        {{ all_product_badges }}
+    {% endif %}
+</div>

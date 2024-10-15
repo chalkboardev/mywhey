@@ -1,0 +1,22 @@
+<script>
+  {%- if template.name == "product" -%}
+  {%- unless max_quantity -%}
+      {%- assign max_quantity = 8 -%}
+  {%- endunless -%}
+      (function(){
+          let lsRecentProducts = localStorage.getItem("recentlyViewedProductHandles");
+          let recentProducts = [];
+          if (lsRecentProducts) {
+              recentProducts = JSON.parse(lsRecentProducts);
+          }
+          const currentProduct = "{{ product.handle }}";
+          const productIndex = recentProducts.indexOf(currentProduct);
+          if(productIndex!=-1) {
+              recentProducts.splice(productIndex,1);
+          }
+          recentProducts.unshift(currentProduct);
+          recentProducts = recentProducts.slice(0,{{ max_quantity }});
+          localStorage.setItem("recentlyViewedProductHandles",JSON.stringify(recentProducts));
+      })();
+  {%- endif -%}
+</script>

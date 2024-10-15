@@ -1,0 +1,71 @@
+{% comment %}
+  This is a template for a brand new section.
+  It has a dummy schema setting for a heading which needs to be removed, but is in there as reference.
+  Add the section name as a class and to the schema. Also with the relevant padding class.
+
+  === CSS ===
+
+  - Create a SCSS file of the same name in resources/scss/modules/sections
+  - Add to webpack.mix.js
+
+  If inline CSS is needed use the liquid stylesheet tags
+
+  === JS ===
+
+  If JS is needed with the section use the liquid javascript tags
+
+  Liquid stylesheet tags reference - https://shopify.dev/themes/architecture/sections/section-assets
+
+
+  === FUNCTIONALITY ===
+
+  Section notes:
+
+  - Background image with overlay/gradient
+
+  Section Author: Dan Hall
+{% endcomment %}
+
+{{ 'section-v2-full-width-image.min.css' | asset_url | stylesheet_tag }}
+
+<div class="full-width-image">
+  {%- if section.settings.image != blank -%}
+    {{ section.settings.image | image_url: width: 1400, format: "jpg" | image_tag }}
+  {%- else -%}
+    {{ 'lifestyle-1' | placeholder_svg_tag }}
+  {%- endif -%}
+
+  {%- if section.settings.show_gradient_overlay -%}
+    <div class="full-width-image-overlay" style="background:{{ section.settings.background }}"></div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Full width image",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gradient_overlay",
+      "label": "Show overlay",
+      "default": false
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background overlay"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Full width image"
+    }
+  ]
+}
+{% endschema %}

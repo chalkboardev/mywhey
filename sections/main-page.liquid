@@ -1,0 +1,61 @@
+<div class="page-width">
+
+  {% for block in section.blocks %}
+    {% case block.type %}
+
+      {% when "title" %}
+        <h1 class="main-page-title page-title h0">
+          {{ page.title | escape }}
+        </h1>
+
+      {% when "content" %}
+        <div class="rte">
+          {{ page.content }}
+        </div>
+
+      {% when "author" %}
+        <div>
+          {{ page.author }}
+        </div>
+
+      {% when "published-at" %}
+        <div>
+          {{ page.published_at }}
+        </div>
+
+    {% endcase %}
+  {% endfor %}
+
+</div>
+
+{% schema %}
+{
+  "name": "Page",
+  "tag": "section",
+  "class": "section vertical-margin",
+  "settings": [
+  ],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "Page Title",
+      "limit": 1
+    },
+    {
+      "type": "content",
+      "name": "Page Content",
+      "limit": 1
+    },
+    {
+      "type": "author",
+      "name": "Page Author",
+      "limit": 1
+    },
+    {
+      "type": "published-at",
+      "name": "Published At",
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}

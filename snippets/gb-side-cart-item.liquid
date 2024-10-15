@@ -1,0 +1,75 @@
+<div
+  class="item"
+  data-variant-key="{{ key }}"
+  data-variant-id="{{ item.variant_id }}"
+  data-product-id="{{ item.product_id }}"
+>
+  <div class="img-wrapper">
+    {%- if item.image -%}
+      {{ item | image_url: width: 80, height: 106 | image_tag: srcset: null, loading: 'lazy', decoding: 'async' }}
+
+    {%- elsif settings.product_fallback -%}
+      {{
+        settings.product_fallback
+        | image_url: width: 80, height: 106
+        | image_tag: srcset: null, loading: 'lazy', decoding: 'async'
+      }}
+
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag }}
+    {%- endif -%}
+  </div>
+
+  <div class="info-wrapper">
+    <div class="top">
+      <div>
+        <a href="{{ item.url }}" aria-label="Link to {{ item.product.title }}">
+          <p>{{ item.product.title | capitalize }}</p>
+        </a>
+
+        {% render 'gb-cart-item-remove', item: item %}
+      </div>
+    </div>
+
+    {%- unless item.product.has_only_default_variant -%}
+      <div class="mid">
+        {{ item.variant.title }}
+      </div>
+    {%- endunless -%}
+
+    {% comment %} SK TODO - THIS NEEDS TO BE CHECKED ONCE COLORS ARE ADDED TO PRODUCTS {% endcomment %}
+    {%- if item.properties != blank -%}
+      <ul>
+        {%- for property in item.properties -%}
+          {% assign first_char = property[0] | slice: 0 %}
+          {%- unless first_char == '_' -%}
+            <li
+              line_item_property
+              data-key="{{ property[0] }}"
+              data-value="{{ property[1] }}"
+            >
+              <strong>{{ property[0] }}:</strong> {{ property[1] }}
+            </li>
+          {%- else -%}
+            <li
+              class="visually-hidden"
+              line_item_property
+              data-key="{{ property[0] }}"
+              data-value="{{ property[1] }}"
+            >
+              <strong>{{ property[0] }}:</strong> {{ property[1] }}
+            </li>
+          {%- endunless -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    <div class="bottom">
+      <div class="quantity">
+        {% render 'gb-quantity-selector-cart', item: item %}
+      </div>
+
+      <span>{{ item.final_line_price | money }}</span>
+    </div>
+  </div>
+</div>

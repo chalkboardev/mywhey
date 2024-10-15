@@ -1,0 +1,378 @@
+{{ 'section-v3-collection-grid.min.css' | asset_url | stylesheet_tag }}
+{% assign count = 1 %}
+
+{%- if collection.metafields.custom.collection_advert != blank -%}
+  {% for advert in collection.metafields.custom.collection_advert.value %}
+    {% if count == 1 %}
+      {% assign heading_one = advert.heading %}
+      {% assign image_one = advert.image %}
+      {% assign body_one = advert.body %}
+      {% assign link_one = advert.link %}
+      {% assign link_text_one = advert.link_text %}
+    {% endif %}
+
+    {% if count == 2 %}
+      {% assign heading_two = advert.heading %}
+      {% assign image_two = advert.image %}
+      {% assign body_two = advert.body %}
+      {% assign link_two = advert.link %}
+      {% assign link_text_two = advert.link_text %}
+    {% endif %}
+    {% assign count = count | plus: 1 %}
+  {% endfor %}
+{%- endif -%}
+
+{% capture collection_advert_1 %}
+  <div id="collection-grid-cta">
+
+    {%- if image_one != blank -%}
+      {{ image_one | image_url: width: 800, format: "jpg" | image_tag }}
+    {%- elsif section.settings.banner_bg_img_1 != blank -%}
+      {{ section.settings.banner_bg_img_1 | image_url: width: 800, format: "jpg" | image_tag }}
+    {%- endif -%}
+
+    <div class="overlay" style="opacity:0.5"></div>
+
+    <div class="cta-content">
+
+      {%- if heading_one != blank -%}
+        <div class="heading-md">
+          {{ heading_one }}
+        </div>
+      {%- elsif section.settings.banner_heading_1 != blank -%}
+        <div class="heading-md">
+          {{ section.settings.banner_heading_1 }}
+        </div>
+      {%- endif -%}
+
+      {%- if body_one != blank -%}
+        <div class="banner-text">
+          {{ body_one }}
+        </div>
+      {%- elsif section.settings.banner_text_1 != blank -%}
+        <div class="banner-text">
+          {{ section.settings.banner_text_1 }}
+        </div>
+      {%- endif -%}
+
+      {%- if link_text_one != blank and link_one != blank -%}
+        <a href="{{ link_one }}" class="{{ section.settings.button_style_1 }}" aria-label="Link to {{ link_text_one }}">
+          {{ link_text_one }}
+        </a>
+      {%- elsif section.settings.banner_link_text_1 != blank and section.settings.banner_link_1 != blank -%}
+        <a href="{{ section.settings.banner_link_1 }}" class="{{ section.settings.button_style_1 }}" aria-label="Link to {{ section.settings.banner_link_text_1 }}">
+          {{ section.settings.banner_link_text_1 }}
+        </a>
+      {%- endif -%}
+
+    </div>
+  </div>
+  {% endcapture %}
+
+{% capture collection_advert_2 %}
+  <div id="collection-grid-cta-2">
+
+    {%- if image_two != blank -%}
+        {{ image_two | image_url: width: 900, format: "jpg" | image_tag: loading: "lazy", decoding: "async" }}
+    {%- elsif section.settings.banner_bg_img_2 != blank -%}
+        {{ section.settings.banner_bg_img_2 | image_url: width: 900, format: "jpg" | image_tag: loading: "lazy", decoding: "async" }}
+    {%- endif -%}
+
+    <div class="overlay" style="opacity:0.5"></div>
+
+    <div class="cta-content">
+
+      {%- if heading_two != blank -%}
+        <div class="heading-md">
+          {{ heading_two }}
+        </div>
+      {%- elsif section.settings.banner_heading_2 != blank -%}
+        <div class="heading-md">
+          {{ section.settings.banner_heading_2 }}
+        </div>
+      {%- endif -%}
+
+      {%- if body_two != blank -%}
+        <div class="banner-text">
+          {{ body_two }}
+        </div>
+      {%- elsif section.settings.banner_text_2 != blank -%}
+        <div class="banner-text">
+          {{ section.settings.banner_text_2 }}
+        </div>
+      {%- endif -%}
+
+      {%- if link_text_two != blank and link_two != blank -%}
+        <a href="{{ link_two }}" class="{{ section.settings.button_style_2 }}" aria-label="Link to {{ section.settings.link_text_two }}">
+          {{ link_text_two }}
+        </a>
+      {%- elsif section.settings.banner_link_text_2 != blank and section.settings.banner_link_2 != blank -%}
+        <a href="{{ section.settings.banner_link_2 }}" class="{{ section.settings.button_style_2 }}" aria-label="Link to {{ section.settings.banner_link_text_2 }}">
+          {{ section.settings.banner_link_text_2 }}
+        </a>
+      {%- endif -%}
+
+    </div>
+
+  </div>
+  {% endcapture %}
+
+{%- liquid
+  # Decrease grid item size if adverts are shown
+  if section.settings.show_banner_1 and section.settings.show_banner_2
+    assign grid_items = section.settings.grid_size | minus: 3
+  elsif section.settings.show_banner_1
+    assign grid_items = section.settings.grid_size | minus: 2
+  elsif section.settings.show_banner_2
+    assign grid_items = section.settings.grid_size | minus: 1
+  else
+    assign grid_items = section.settings.grid_size
+  endif
+-%}
+
+<section class="vertical-margin" id="collection-grid">
+  {%- paginate collection.products by grid_items -%}
+    <div id="qf-filter-wrapper" class="page-width">
+      {% render 'v3-collection-filters' %}
+      <div class="collection-grid-wrapper">
+        <div class="collection-grid" data-next-url="{{ paginate.next.url }}">
+          <div class="spinner">
+            {% render 'gb-icon', icon: 'animated-spinner' %}
+          </div>
+          {%- liquid
+            if collection.products.size == 0
+              echo '<div class="heading-lg">No results</div>'
+            else
+              if section.settings.show_banner_1 and section.settings.show_banner_2
+                for product in collection.products limit: 7
+                  if forloop.index > 4
+                    render 'gb-product-card', product: product, lazy: true
+                  else
+                    render 'gb-product-card', product: product, lazy: false
+                  endif
+                endfor
+                if collection.products.size > 7
+                  echo collection_advert_1
+                  echo collection_advert_2
+                endif
+                for product in collection.products offset: 7
+                  render 'gb-product-card', product: product, lazy: true
+                endfor
+              elsif section.settings.show_banner_1
+                for product in collection.products limit: 7
+                  if forloop.index > 4
+                    render 'gb-product-card', product: product, lazy: true
+                  else
+                    render 'gb-product-card', product: product, lazy: false
+                  endif
+                endfor
+                if collection.products.size > 7
+                  echo collection_advert_1
+                endif
+                for product in collection.products offset: 7
+                  render 'gb-product-card', product: product, lazy: true
+                endfor
+              elsif section.settings.show_banner_2
+                for product in collection.products limit: 8
+                  if forloop.index > 4
+                    render 'gb-product-card', product: product, lazy: true
+                  else
+                    render 'gb-product-card', product: product, lazy: false
+                  endif
+                endfor
+                if collection.products.size > 7
+                  echo collection_advert_2
+                endif
+                for product in collection.products offset: 8
+                  render 'gb-product-card', product: product, lazy: true
+                endfor
+              else
+                for product in collection.products
+                  if forloop.index > 4
+                    render 'gb-product-card', product: product, lazy: true
+                  else
+                    render 'gb-product-card', product: product, lazy: false
+                  endif
+                endfor
+              endif
+            endif
+          -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <div class="custom-filter-load-more button-2">
+            {{ 'collections.load_more' | t }}
+            <div class="load-more-spinner">
+              {% render 'gb-icon', icon: 'animated-spinner' %}
+            </div>
+            <div class="pagination-links">
+              {%- if paginate.previous.url != blank -%}
+                <a
+                  class="prev-link"
+                  href="{{ paginate.previous.url | replace: '?page=1', '' }}"
+                  aria-label="Previous collection page"
+                ></a>
+              {%- endif -%}
+              {%- if paginate.next.url != blank -%}
+                <a class="next-link" href="{{ paginate.next.url }}" aria-label="Next collection page"></a>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endpaginate -%}
+</section>
+
+<script src="{{ 'v3-collection-grid.min.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Collection Grid",
+  "class": "vertical-margin",
+  "settings": [
+    {
+      "type": "range",
+      "id": "grid_size",
+      "min": 4,
+      "max": 32,
+      "step": 4,
+      "label": "Grid item size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Filter settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_selected_filters",
+      "label": "Show selected filter tabs",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filter_count",
+      "label": "Show filter count on labels",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Collection banner 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner_1",
+      "label": "Show banner",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_bg_img_1",
+      "label": "Image"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "banner_heading_1",
+      "label": "Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "banner_text_1",
+      "label": "Text"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "banner_link_text_1",
+      "label": "Link text"
+    },
+    {
+      "type": "url",
+      "id": "banner_link_1",
+      "label": "Link"
+    },
+    {
+      "type": "select",
+      "id": "button_style_1",
+      "label": "Button Style",
+      "options": [
+        {
+          "value": "button-1",
+          "label": "Style 1"
+        },
+        {
+          "value": "button-2",
+          "label": "Style 2"
+        },
+        {
+          "value": "button-3",
+          "label": "Style 3"
+        },
+        {
+          "value": "button-4",
+          "label": "Style 4"
+        }
+      ],
+      "default": "button-1"
+    },
+    {
+      "type": "header",
+      "content": "Collection banner 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner_2",
+      "label": "Show banner",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_bg_img_2",
+      "label": "Image"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "banner_heading_2",
+      "label": "Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "banner_text_2",
+      "label": "Text"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "banner_link_text_2",
+      "label": "Link text"
+    },
+    {
+      "type": "url",
+      "id": "banner_link_2",
+      "label": "Link"
+    },
+    {
+      "type": "select",
+      "id": "button_style_2",
+      "label": "Button Style",
+      "options": [
+        {
+          "value": "button-1",
+          "label": "Style 1"
+        },
+        {
+          "value": "button-2",
+          "label": "Style 2"
+        },
+        {
+          "value": "button-3",
+          "label": "Style 3"
+        },
+        {
+          "value": "button-4",
+          "label": "Style 4"
+        }
+      ],
+      "default": "button-1"
+    }
+  ]
+}
+{% endschema %}

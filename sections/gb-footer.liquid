@@ -1,0 +1,234 @@
+{{ 'section-gb-footer.min.css' | asset_url | stylesheet_tag }}
+{{ 'section-gb-newsletter.min.css' | asset_url | stylesheet_tag }}
+
+<footer class="footer-section">
+  <div class="page-width">
+
+    <div class="footer-wrapper">
+      <div class="logo-wrapper">
+        <div class="logo-container">
+          {% if section.settings.logo != blank %}
+            <a href="{{ routes.root_url }}" aria-label="Link to {{ shop.name }}">
+              {{ section.settings.logo | image_url: width: 600 | image_tag }}
+            </a>
+          {% elsif shop.brand.logo != blank %}
+            <a href="{{ routes.root_url }}" aria-label="Link to {{ shop.name }}">
+              {{ shop.brand.logo | image_url: width: 600 | image_tag }}
+            </a>
+          {% else %}
+
+          {% endif %}
+        </div>
+
+        {% render 'gb-social-icons'
+          , direction: 'row' %}
+      </div>
+
+      {% if section.settings.sign_up == true %}
+        <div class="newsletter">
+
+          <div class="newsletter-wrapper">
+
+            {% if section.settings.sign_up_heading != blank %}
+              <div class="heading">
+                {{ section.settings.sign_up_heading }}
+              </div>
+            {% endif %}
+
+            {% if section.settings.sign_up_description != blank %}
+              <div class="description">
+                {{ section.settings.sign_up_description }}
+              </div>
+            {% endif %}
+
+            <div class="form">
+              {%- if section.settings.form_html != blank -%}
+                {{ section.settings.form_html }}
+              {%- else -%}
+                {% form 'customer'
+                  , class: 'newsletter-form' %}
+                  <input
+                    type="hidden"
+                    name="contact[tags]"
+                    value="newsletter">
+
+                  <div class="newsletter-form__field-wrapper">
+                    <div class="field">
+
+                      <label class="sr-only" for="NewsletterForm--{{ section.id }}">
+                        {{ 'newsletter.label' | t }}
+                      </label>
+
+                      <input
+                        id="NewsletterForm--{{ section.id }}"
+                        type="email"
+                        name="contact[email]"
+                        class="field__input"
+                        value="{{ form.email }}"
+                        aria-required="true"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        autocomplete="email"
+                        {% if form.errors %}
+                        autofocus
+                        aria-invalid="true"
+                        aria-describedby="Newsletter-error--{{ section.id }}"
+                        {% elsif form.posted_successfully? %}
+                        aria-describedby="Newsletter-success--{{ section.id }}"
+                        {% endif %}
+                        placeholder="{{ 'newsletter.label' | t }}"
+                        required>
+
+                      <button
+                        type="submit"
+                        class="button-1"
+                        name="commit"
+                        id="Subscribe">
+                        Sign up
+                      </button>
+
+
+                    </div>
+
+                    {% if section.settings.terms != blank %}
+                      <p class="terms">{{ section.settings.terms }}</p>
+                    {% endif %}
+
+                  </div>
+
+                  {%- if form.errors -%}
+                    <div class="newsletter-form__message form__message" id="Newsletter-error--{{ section.id }}">
+                      {% render 'gb-icon'
+                        , icon: 'error' -%}
+                      {{- form.errors.translated_fields.email | capitalize }}
+                      {{ form.errors.messages.email }}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if form.posted_successfully? -%}
+                    <div
+                      class="newsletter-form__message newsletter-form__message--success form__message"
+                      id="Newsletter-success--{{ section.id }}"
+                      tabindex="-1"
+                      autofocus>
+                      {% render 'gb-icon'
+                        , icon: 'checkmark' -%}
+                      {{- 'newsletter.success' | t }}
+                    </div>
+                  {%- endif -%}
+                {% endform %}
+              {%- endif -%}
+            </div>
+          </div>
+
+        </div>
+      {% endif %}
+
+      {% if section.blocks.size > 0 %}
+        <nav>
+          {% for block in section.blocks %}
+            {% assign footer_links = block.settings.footer_links %}
+
+            <div class="footer-item">
+              <div class="link-title">
+                {{ footer_links.title }}
+              </div>
+
+              <ul class="footer-item-list">
+                {% for link in footer_links.links %}
+                  <li>
+                    <a href="{{ link.url }}" aria-label="Link to {{ link.title }}">{{ link.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endfor %}
+        </nav>
+      {% endif %}
+
+    </div>
+    {% if section.settings.copyright != blank %}
+      <div class="copyright">
+        &copy {{ "now" | date: '%Y' }} {{ shop.name }}. All Rights Reserved.
+        <sup>*</sup>Terms and conditions apply
+      </div>
+    {% endif %}
+  </div>
+</footer>
+
+
+{% schema %}
+  {
+    "name": "Footer",
+    "tag": "section",
+    "class": "site-footer",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo",
+        "info": "This will override the default logo. Leave blank to use the default logo."
+      },
+      {
+        "type": "inline_richtext",
+        "id": "copyright",
+        "default": "&copy; {{ 'now' | date: '%Y' }} {{ shop.name }} . All Rights Reserved. *Terms and conditions apply",
+        "label": "Copyright"
+      },
+      {
+        "type": "header",
+        "content": "Newsletter"
+      },
+      {
+        "type": "checkbox",
+        "id": "sign_up",
+        "label": "Show Sign Up",
+        "default": true
+      },
+      {
+        "type": "inline_richtext",
+        "id": "sign_up_heading",
+        "default": "Sign up <i>to our</i> <b>newsletter</b>",
+        "label": "Heading"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "sign_up_description",
+        "default": "Sign up to receive style updates, fashion news and promotions via email from Gina Bacconi.",
+        "label": "Description"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "terms",
+        "default": "By signing up you agree to our terms & conditions",
+        "label": "Terms & Conditions"
+      },
+      {
+        "type": "liquid",
+        "id": "form_html",
+        "label": "Form HTML",
+        "info": "This will override the default form. Leave blank to use the default form.",
+        "default": "<p>The form will eventually be here!</p>"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "footer_item",
+        "name": "Menu",
+        "limit": 6,
+        "settings": [
+          {
+            "type": "link_list",
+            "id": "footer_links",
+            "label": "Footer Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Footer"
+      }
+    ]
+  }
+{% endschema %}

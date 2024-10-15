@@ -1,0 +1,221 @@
+<div class="gallery-container">
+  <div class="thumb-gallery">
+    <div thumbsSlider="" class="swiper thumb-swiper">
+      <div class="swiper-wrapper">
+        {%- if product.media != blank -%}
+          {% for media in product.media %}
+            {% case media.media_type %}
+              {% when 'image' %}
+                <div class="swiper-slide thumb">
+                  <div class="gallery-image-holder">
+                    {%- if media != blank -%}
+                      {%- liquid
+                        if forloop.index <= 4
+                          echo media | image_url: width: 150 | image_tag: fetchpriority: 'high', loading: 'eager', preload: true
+                        else
+                          echo media | image_url: width: 150 | image_tag: loading: 'lazy', decoding: 'async'
+                        endif
+                      -%}
+
+                    {%- else -%}
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    {%- endif -%}
+                  </div>
+                </div>
+
+              {% when 'model' %}
+                <div class="swiper-slide thumb">
+                  <div class="gallery-image-holder">
+                    {%- liquid
+                      if forloop.index <= 4
+                        echo media.preview_image | image_url: width: 150 | image_tag: fetchpriority: 'high', loading: 'eager', preload: true
+                      else
+                        echo media.preview_image | image_url: width: 150 | image_tag: loading: 'lazy', decoding: 'async'
+                      endif
+                    -%}
+                  </div>
+                </div>
+
+              {% when 'video' %}
+                <div class="swiper-slide thumb">
+                  <div class="gallery-image-holder">
+                    {%- liquid
+                      if forloop.index <= 4
+                        echo media.preview_image | image_url: width: 150 | image_tag: fetchpriority: 'high', loading: 'eager', preload: true
+                      else
+                        echo media.preview_image | image_url: width: 150 | image_tag: loading: 'lazy', decoding: 'async'
+                      endif
+                    -%}
+                  </div>
+                </div>
+
+              {% when 'external_video' %}
+                <div class="swiper-slide thumb">
+                  <div class="gallery-image-holder">
+                    {%- liquid
+                      if forloop.index <= 4
+                        echo media.preview_image | image_url: width: 150 | image_tag: fetchpriority: 'high', loading: 'eager', preload: true
+                      else
+                        echo media.preview_image | image_url: width: 150 | image_tag: loading: 'lazy', decoding: 'async'
+                      endif
+                    -%}
+                  </div>
+                </div>
+            {% endcase %}
+          {% endfor %}
+
+        {%- else -%}
+          <div class="swiper-slide thumb">
+            <div class="gallery-image-holder">
+              {{ 'product-1' | placeholder_svg_tag }}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="main-gallery">
+    {% render 'v2-product-badges', product: product, limit: 2 %}
+
+    <div class="swiper main-swiper">
+      <div class="swiper-wrapper">
+        {%- if product.media != blank -%}
+          {% for media in product.media %}
+            {% case media.media_type %}
+              {% when 'image' %}
+                <div class="swiper-slide main-swiper-slide">
+                  <div class="gallery-image-holder">
+                    {%- if media != blank -%}
+                      {%- liquid
+                        if forloop.first
+                          echo media | image_url: width: 1000 | image_tag: fetchpriority: 'high', loading: 'eager', preload: true
+                        else
+                          echo media | image_url: width: 1000 | image_tag: loading: 'lazy', decoding: 'async'
+                        endif
+                      -%}
+
+                      {% assign media_url = media | image_url: width: 1000, format: 'jpg' %}
+
+                      {% render 'v2-lightbox-trigger', image_url: media_url %}
+
+                    {%- else -%}
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    {%- endif -%}
+                  </div>
+                </div>
+
+              {% when 'model' %}
+                <div class="swiper-slide main-swiper-slide">
+                  <div class="gallery-image-holder">
+                    {{ media | model_viewer_tag: image_size: '600x' }}
+                  </div>
+                </div>
+
+              {% when 'video' %}
+                <div class="swiper-slide main-swiper-slide">
+                  <div class="gallery-image-holder">
+                    {{ media | video_tag: image_size: 600, autoplay: true, loop: true, muted: true, controls: true }}
+                  </div>
+                </div>
+
+              {% when 'external_video' %}
+                <div class="swiper-slide main-swiper-slide">
+                  <div class="gallery-image-holder">
+                    {% if media.host == 'youtube' %}
+                      {{ media | external_video_url: color: 'white' | external_video_tag }}
+
+                    {% elsif media.host == 'vimeo' %}
+                      {{ media | external_video_url: loop: '1', muted: '1' | external_video_tag }}
+                    {% endif %}
+                  </div>
+                </div>
+            {% endcase %}
+          {% endfor %}
+
+        {%- else -%}
+          <div class="swiper-slide main-swiper-slide">
+            <div class="gallery-image-holder">
+              {{ 'product-1' | placeholder_svg_tag }}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {% comment %} If we need navigation buttons {% endcomment %}
+      <div class="swiper-button-prev">
+        {% render 'gb-icon', icon: 'chevron-left' %}
+      </div>
+
+      <div class="swiper-button-next">
+        {% render 'gb-icon', icon: 'chevron-right' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const thumbSwiper = new window.swiper('.thumb-swiper', {
+    spaceBetween: 10,
+    slidesPerView: 5,
+    freeMode: true,
+    watchSlidesProgress: true,
+    direction: 'horizontal',
+    loop: false,
+    breakpoints: {
+      992: {
+        slidesPerView: 4,
+        direction: 'vertical',
+      },
+    },
+  });
+
+  const mainSwiper = new window.swiper('.main-swiper', {
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    spaceBetween: 10,
+    zoom: true,
+    thumbs: {
+      swiper: thumbSwiper,
+    },
+    on: {
+      init: () => {
+        var main_swiper_slide = document.querySelector('.main-swiper-slide');
+        var thumb_swiper_slide = document.querySelector('.swiper-slide.thumb');
+        var thumb_swiper = document.querySelector('.thumb-swiper');
+
+        var main_swiper_width = main_swiper_slide.offsetWidth;
+        var thumb_swiper_width = thumb_swiper_slide.offsetWidth;
+
+        main_swiper_slide.style.height = main_swiper_width + 'px';
+
+        if (window.innerWidth > 991.98) {
+          thumb_swiper.style.height = main_swiper_width + 'px';
+        } else {
+          thumb_swiper.style.height = thumb_swiper_width + 'px';
+        }
+
+        document.querySelector('.gallery-container').style.opacity = 1;
+
+        window.addEventListener('resize', () => {
+          var main_swiper_slide = document.querySelector('.main-swiper');
+          var thumb_swiper_slide = document.querySelector('.swiper-slide.thumb');
+          var thumb_swiper = document.querySelector('.thumb-swiper');
+
+          var main_swiper_width = main_swiper_slide.offsetWidth;
+          var thumb_swiper_width = thumb_swiper_slide.offsetWidth;
+
+          main_swiper_slide.style.height = main_swiper_width + 'px';
+
+          if (window.innerWidth > 991.98) {
+            thumb_swiper.style.height = main_swiper_width + 'px';
+          } else {
+            thumb_swiper.style.height = thumb_swiper_width + 'px';
+          }
+        });
+      },
+    },
+  });
+</script>

@@ -1,0 +1,129 @@
+{% comment %}
+  OVERVIEW:
+  	This snippet was built to allow for the Account 'Reorder' tab.
+  	It is a product card with a quantity selector and the ability to quick add.
+
+  PARAMETERS:
+  	* Item  [Line Item Object]
+  	* Order [Order Object]
+
+  STYLES:
+  	The styles are inherited from product card but some additional styles can be
+  	found in account.scss
+{% endcomment %}
+
+{% assign order_date = order.created_at | date: '%m/%d/%Y' | prepend: 'Last Ordered: ' %}
+{% assign product = item.product %}
+{% assign variant = item.variant %}
+
+{% if variant.featured_image != blank %}
+  {% assign image = variant.featured_image %}
+{% elsif product.featured_image != blank %}
+  {% assign image = product.featured_image %}
+{% endif %}
+
+{% capture quantity_selector %}
+	<div class="quantity-wrapper">
+		<div class="minus"> - </div>
+		<div class="quantity"> <span data-variant-id="{{ item.variant_id }}" data-inventory-policy="{{ item.variant.inventory_policy }}" data-stock="{% if item.variant.inventory_management == "shopify"  and item.variant.inventory_policy != "continue" %}{{ item.variant.inventory_quantity | minus: item.quantity }}{% else %}10000000{% endif %}">{{ item.quantity }}</span></div>
+		<div class="plus"> + </div>
+		<input style="display: none!important" type="number" id="quantity" name="quantity" value="{{ quantity | default: 1 }}" min="1"  max="{%- if product.selected_or_first_available_variant.inventory_management == "shopify"  and product.selected_or_first_available_variant.inventory_policy != "continue" -%}{{- product.selected_or_first_available_variant.inventory_quantity -}}{%- else -%}10000000{%- endif -%}" class="quantity-input" >
+	</div>
+{% endcapture %}
+
+<div class="product-card variant-card" data-product-id="{{ product.id }}">
+  <a
+    class="product-image"
+    href="{{- variant.url | within: collection | default: '#' -}}"
+    aria-label="Link to {{ product.title }}"
+  >
+    {% if image != blank %}
+      {%- if swiper == true -%}
+        {{
+          image
+          | image_url: width: 400, format: 'jpg'
+          | image_tag: loading: 'lazy', decoding: 'async', class: 'primary-image'
+        }}
+        <div class="swiper-lazy-preloader"></div>
+      {%- else -%}
+        {%- if lazy == true -%}
+          {{
+            image
+            | image_url: width: 400, format: 'jpg'
+            | image_tag: loading: 'lazy', decoding: 'async', class: 'primary-image'
+          }}
+        {%- else -%}
+          {{
+            image
+            | image_url: width: 400, format: 'jpg'
+            | image_tag: loading: 'eager', fetchpriorty: 'high', class: 'primary-image'
+          }}
+        {%- endif -%}
+      {%- endif -%}
+
+    {% else %}
+      {% if settings.product_fallback != blank %}
+        {%- if lazy == true -%}
+          {{
+            settings.product_fallback
+            | image_url: width: 400, format: 'jpg'
+            | image_tag: loading: 'lazy', decoding: 'async'
+          }}
+        {%- else -%}
+          {{
+            settings.product_fallback
+            | image_url: width: 400, format: 'jpg'
+            | image_tag: loading: 'eager', fetchpriorty: 'high'
+          }}
+        {%- endif -%}
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag }}
+      {% endif %}
+    {% endif %}
+
+    <div class="wishlist-heart">{%- render 'gb-button-wishlist', product: product -%}</div>
+
+    {%- render 'v2-product-badges', product: product -%}
+  </a>
+
+  {% if product.brand != blank %}
+    <div class="product-brand">{{ product.brand }}</div>
+  {% endif %}
+  <a
+    class="product-title"
+    href="{{- variant.url | within: collection | default: '#' -}}"
+    aria-label="{{- product.title | prepend: "Link to " -}}"
+  >
+    {{- product.title -}}
+  </a>
+
+  <div class="product-price" data-price="{{- product.price -}}" data-product-id="{{- product.id -}}">
+    {% if item.variant.available %}
+      {%- render 'v2-price', product: product -%}
+    {% else %}
+      <div class="oos-message">Out of stock</div>
+    {% endif %}
+  </div>
+
+  <div class="product-buttons {% if item.variant.available != true %} oos-buttons{%- endif -%}">
+    {% comment %} <a class="button-1 product-link" href="{{- variant.url | within: collection | default: '#' -}}" aria-label="{{- product.title | prepend: "Link to " -}}">More Info</a> {% endcomment %}
+    {%- if item.variant.available -%}
+      {{- quantity_selector -}}
+      <button class="button-1 quick-add-cart" quick-add-qf data-id="{{- variant.id -}}" data-quantity="1">
+        Buy Again
+      </button>
+      {% comment %} <button class="button-3 quick-view-btn" open-quick-view data-product-handle="{{ product.handle }}" data-product-simple="{{ product.has_only_default_variant }}">Quick Add</button> {% endcomment %}
+    {% else %}
+      <button
+        class="button-2 alternatives"
+        open-view-alternatives
+        data-product-handle="{{ product.handle  }}"
+        data-modal-trigger="view-alternatives"
+      >
+        View Alternatives
+      </button>
+    {%- endif -%}
+  </div>
+
+  <div class="order-date">{{ order_date }}</div>
+</div>

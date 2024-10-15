@@ -1,0 +1,62 @@
+@import "../../breakpoints.scss";
+
+.meet-team-section {
+  @include to-sm() {
+    margin-right: -1.5rem;
+  }
+  .meet-the-team-swiper-wrapper {
+    position: relative;
+    .swiper-slide {
+      .image-container {
+        height: 200px;
+        width: 200px;
+        overflow: hidden;
+        border-radius: 50%;
+        margin: 0 auto;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .swiper-team-prev {
+      left: -30px;
+    }
+
+    .swiper-team-next {
+      right: -30px;
+    }
+
+    .swiper-team-prev,
+    .swiper-team-next {
+      @include to-sm() {
+        display: none;
+      }
+    }
+  }
+}
+
+.meet-team-text {
+  width: 100%;
+  text-align: center;
+
+  .title {
+    margin: 15px 0px;
+    font-size: 16px;
+    color: var(--text-primary-color);
+  }
+
+  .body-text {
+    margin-bottom: 20px;
+    font-size: 14px;
+    padding: 0;
+    line-height: normal;
+  }
+
+  .icon {
+    color: var(--text-primary-color);
+    width: 20px;
+    height: 20px;
+  }
+}

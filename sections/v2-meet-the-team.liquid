@@ -1,0 +1,143 @@
+{% comment %}
+  === CSS ===
+
+  - Create a SCSS file of the same name in resources/scss/modules/sections
+  - Add to webpack.mix.js
+  - Includes the breakpoint scss
+
+  === JS ===
+
+  Swiper JS
+
+  === FUNCTIONALITY ===
+
+  Section notes:
+
+  - Carousel of profile images with optional navigation.
+  - Image blocks with an image selector and optional name, description and linkedIn links.
+  - future iterations may include  multiple social media links.
+
+
+  Section Author: Harry Penfold
+{% endcomment %}
+
+{{ 'section-v2-meet-the-team.min.css' | asset_url | stylesheet_tag }}
+
+<div class="container page-width" id="{{ section.id }}">
+  <div class="meet-the-team-swiper-wrapper">
+    <div class="meet-the-team swiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+            <div class="swiper-lazy-preloader"></div>
+            <div class="image-container">
+              {{
+                block.settings.image
+                | image_url: width: 400, format: 'jpg'
+                | image_tag: loading: 'lazy', decoding: 'async'
+              }}
+            </div>
+
+            <div class="meet-team-text">
+              <h4 class="title heading-small">{{ block.settings.name }}</h4>
+              <p class="body-text">{{ block.settings.description }}</p>
+              {% if block.settings.linkedinlink != blank %}
+                <a href="{{ block.settings.linkedinlink }}" aria-label="Link to LinkedIn">
+                  {%- render 'gb-icon', icon: 'linkedin' -%}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% if section.settings.show_navigation %}
+      <div class="swiper-button-prev swiper-team-prev"></div>
+      <div class="swiper-button-next swiper-team-next"></div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  const swiper = new window.swiper('#{{ section.id }} .meet-the-team', {
+    direction: 'horizontal',
+    loop: true,
+    navigation: {
+      nextEl: '#{{ section.id }} .swiper-button-next.swiper-team-next',
+      prevEl: '#{{ section.id }} .swiper-button-prev.swiper-team-prev',
+    },
+    slidesPerView: 1.5,
+    spaceBetween: 40,
+    lazy: {
+      enabled: true,
+      loadOnTransitionStart: true,
+      loadPrevNext: true,
+      loadPrevNextAmount: 1,
+      checkInView: true,
+    },
+    breakpoints: {
+      576: {
+        slidesPerView: 2,
+        spaceBetween: 50,
+      },
+      992: {
+        slidesPerView: 3,
+        spaceBetween: 70,
+      },
+
+      // when window width is >= 640px
+      1200: {
+        slidesPerView: 4,
+        spaceBetween: 80,
+      },
+    },
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Meet The Team",
+  "class": "meet-team-section vertical-margin",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show navigation",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Team member",
+      "type": "team_member",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "name",
+          "label": "Name"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "url",
+          "id": "linkedinlink",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meet The Team"
+    }
+  ]
+}
+{% endschema %}

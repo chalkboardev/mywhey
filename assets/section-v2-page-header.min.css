@@ -1,0 +1,33 @@
+.page-header .page-header-container {
+  position: relative;
+  min-height: 200px;
+  box-sizing: border-box;
+}
+.page-header .page-header-container .header-image-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.page-header .page-header-container .header-image-video img, .page-header .page-header-container .header-image-video video {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.page-header .page-header-container .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.page-header .page-header-container .page-width {
+  position: relative;
+}
+.page-header .page-header-container .page-width .header-text-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}

@@ -1,0 +1,25 @@
+{% comment %}
+  * This snippet accepts multiple parameters, listed below:
+
+      * question
+      * content
+
+      * header-color
+      * header-bg
+      * content-bg
+      * content-color
+{% endcomment %}
+
+<div class="accordion-wrapper">
+  <button class="accordion{% if open_default == true %} active{% endif %}" style="background: {{ header-bg }};">
+    {{ question }}
+    <span class="custom-arrow">{% render 'gb-icon', icon: 'chevron' %}</span>
+  </button>
+
+  <div
+    class="panel{% if open_default == true %} panel-active panel-open-default{% endif %}"
+    style="background: {{ content-bg }};"
+  >
+    {{ content }}
+  </div>
+</div>

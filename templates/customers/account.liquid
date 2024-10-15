@@ -1,0 +1,166 @@
+<section id="account" class="page-width vertical-margin">
+  <h1 class="heading-lg">{{ customer.name | prepend: 'Welcome back ' }}</h1>
+
+  <div class="account-dashboard">
+    <div class="account-dashboard_controls">
+      <button class="tab account active" data-tab-type="account">{{ 'customer.account.account_title' | t }}</button>
+      <button
+        class="tab reorder"
+        data-tab-type="reorder"
+      >
+        {{ 'customer.account.reorder_title' | t }}
+      </button>
+      <a
+        href="pages/wishlist"
+        class="tab wishlist"
+        data-tab-type="link"
+      >
+        {{ 'customer.account.wishlist_title' | t }}
+      </a>
+      <a
+        href="pages/contact"
+        class="tab contact"
+        data-tab-type="link"
+      >
+        {{ 'customer.account.contact_title' | t }}
+      </a>
+      <a
+        class="tab logout"
+        data-tab-type="link"
+        href="{{ routes.account_logout_url }}"
+      >
+        {{- 'customer.account.log_out' | t -}}
+      </a>
+    </div>
+
+    <div class="account-dashboard_sections">
+      <div class="account-section account active" data-section-type="account">
+        <div class="full-title">
+          <h2 class="heading-lg welcome-back">{{ customer.name | prepend: 'Welcome back ' }}</h2>
+          {% assign ref = settings.membership_cta | handleize %}
+          {% assign cta = shop.metaobjects['cta_banner'][ref] %}
+          {% assign title = cta.title %}
+          {% assign body = cta.description %}
+          {% assign url = cta.url_link %}
+          {% assign link = cta.url_text %}
+
+            {%- if customer.tags contains "membership-legacy" or request.design_mode -%}
+
+              <div class="membership-cta">
+
+                <h2 class="heading-sm">{{ title }}</h2>
+
+                <p>{{ body }}</p>
+
+                {% if url != blank and link != blank %}
+                    {% assign show_button = true %}
+                    <a class="button-1" href="{{- url -}}" aria-label="Link to {{ link }}">{{- link -}}</a>
+                {% endif %}
+
+              </div>
+
+            {%- endif -%}
+
+          {% render 'v2-account-details' %}
+
+          <div class="heading-button">
+            <h2 class="heading-md">Recent Orders</h2>
+          </div>
+          {% render 'v2-account-orders' %}
+        </div>
+      </div>
+      <div class="account-section reorder" data-section-type="reorder">
+        <div class="account-module orders">
+          {% assign seen_variants = blank %}
+          {% assign reorder_count = 1 | plus: 0 %}
+
+          <div class="full">
+            <h2 class="heading-md">{{ 'customer.reorders.title' | t }}</h2>
+            <p class="subtext">{{ 'customer.reorders.subtext' | t }}</p>
+          </div>
+
+          {% if customer.orders.size > 0 %}
+            <div class="reorder-grid">
+              {% for order in customer.orders %}
+                {% for item in order.line_items %}
+                  {% unless seen_variants contains item.variant_id %}
+                    {% assign reorder_count = reorder_count | plus: 1 %}
+                    {% assign seen_variants = seen_variants | append: item.variant_id | append: '|||' %}
+                    {% render 'v2-variant-card', item: item, order: order, quantity: item.quantity %}
+                  {% endunless %}
+                  
+                  {% if reorder_count == 12 %} {% break %} {% endif %}
+                  
+                {% endfor %}
+                  {% if reorder_count == 12 %} {% break %} {% endif %}
+                  
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="no-orders">{{ 'customer.orders.none' | t }}.</p>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'addresses.min.js' | asset_url }}" defer></script>
+<script src="{{ 'account.min.js' | asset_url }}" defer></script>
+<script>
+   attachTabClickListener()
+
+  function attachTabClickListener() {
+    const controls = document.querySelector('.account-dashboard_controls');
+    const sections = document.querySelectorAll('.account-section');
+    // Check Controls + Sections Exists
+    if ( controls && sections ) {
+
+      controls.onclick =  (e) => {
+        let target = e.target;
+      
+        if ( target.classList.contains('tab') && !target.classList.contains('active') && !target.classList.contains('logout') ) {
+              const selected = target.getAttribute('data-tab-type')   
+              updateTab( selected )
+              updateHistory(selected)
+        }
+      }
+    }
+  }
+
+
+  function updateBreadcrumbs(){
+    let active_tab = document.querySelector('#account-dashboard .account-controls .tab.active'); 
+    {% comment %} let active_tab_handle = active_tab.innerHTML.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '').replace(/^-/, '');;  {% endcomment %}
+    const active_tab_handle = active_tab.getAttribute('data-tab-type')
+
+
+    const breadcrumbsContainer = document.querySelector('.account-breadcrumbs .breadcrumbs ul');
+
+    if(breadcrumbsContainer.querySelector('.account-breadcrumb-target')){
+     breadcrumbsContainer.lastChild.innerHTML = `<a href="/account?tab=${active_tab_handle}">${ active_tab.innerHTML }</a>`
+   } 
+   else{
+     breadcrumbsContainer.innerHTML += `<li class="account-breadcrumb-target"><a href="/account?tab=${active_tab_handle}">${ active_tab.innerHTML }</a></li>`
+   }
+  }
+
+  function updateHistoryTrack(selected , track){
+    window.history.pushState({tab: selected}, null, `/account?tab=${selected}&track=${track}`);
+  }
+  function updateHistory(selected){
+    window.history.pushState({tab: selected}, null, `/account?tab=${selected}`);
+  }
+
+  function updateTab(selected){
+      document.querySelector('.tab.active').classList.remove('active')
+      document.querySelector(`.tab.${selected}`).classList.add('active')
+
+      document.querySelector('.active.account-section').classList.remove('active')
+      document.querySelector(`[data-section-type="${selected}"]`).classList.add('active')
+
+      //updateBreadcrumbs()
+  }
+</script>
+

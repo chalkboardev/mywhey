@@ -1,0 +1,116 @@
+{% comment %}
+  === FUNCTIONALITY ===
+
+  Add section notes from project developer notes. See announcement bar example below.
+
+  Section notes:
+
+  - Manually added by the client
+  - Quote and Name
+  - Carousel - Desktop (Y/N)
+  - Carousel or stack - Mobile
+  - Number of reviews in view (Desktop)
+
+  Section Author: Dan Hall
+{% endcomment %}
+
+{{ 'section-v2-testimonials.min.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+  <div class="testimonials-heading">
+    <h2 class="heading-lg">{{ section.settings.heading }}</h2>
+  </div>
+
+  <div class="testimonials-slider-wrapper">
+    <div class="swiper testimonials-slider">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+            <div class="stars">
+              {% for i in (1..block.settings.stars) %}
+                {% render 'gb-icon', icon: 'star' %}
+              {% endfor %}
+            </div>
+
+            <div class="review">
+              "<i>{{ block.settings.review }}</i>"
+            </div>
+
+            <div class="name">
+              {{ block.settings.name }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="swiper-button-next testimonials-next"></div>
+    <div class="swiper-button-prev testimonials-prev"></div>
+  </div>
+</div>
+
+<script>
+  var swiper = new window.swiper('.testimonials-slider', {
+    slidesPerView: 1,
+    spaceBetween: 10,
+    navigation: {
+      nextEl: '.swiper-button-next.testimonials-next',
+      prevEl: '.swiper-button-prev.testimonials-prev',
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    },
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "class": "testimonials vertical-margin",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Testimonials"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Testimonial",
+      "type": "testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "stars",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Stars",
+          "default": 5
+        },
+        {
+          "type": "inline_richtext",
+          "id": "review",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+          "label": "Review"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Name here"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials"
+    }
+  ]
+}
+{% endschema %}

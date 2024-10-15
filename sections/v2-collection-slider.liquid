@@ -1,0 +1,178 @@
+{{ 'section-v2-collection-slider.min.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+
+    <div class="collection-slider-heading-wrapper">
+
+        <div class="collection-slider-heading">
+
+            <h2 class="heading-lg">
+
+                {{ section.settings.heading }}
+
+            </h2>
+
+        </div>
+
+        {%- if section.settings.link_text != blank and section.settings.link != blank or section.settings.collection != blank -%}
+
+            <div class="collection-slider-link">
+
+                <a href="{%- if section.settings.collection != blank -%}{{ section.settings.collection.url }}{%- else -%}{{ section.settings.link }}{%- endif -%}" class="button-1" aria-label="Link to {{ section.settings.link_text }}">
+
+                    {{ section.settings.link_text }}
+
+                </a>
+
+            </div>
+
+        {%- endif -%}
+
+    </div>
+
+    <div class="swiper collection-slider-{{ section.index }}">
+
+        <div class="swiper-wrapper">
+
+            {% for block in section.blocks %}
+                <div class="swiper-slide">
+                    {% render 'v2-collection-card', collection: block.settings.collection, swiper: true %}
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+<div>
+
+<script>
+  var swiper_{{ section.index }} = new window.swiper(".collection-slider-{{ section.index }}", {
+      slidesPerView: 1.4,
+      spaceBetween: 30,
+      lazy: {
+          enabled: true,
+          checkInView: true,
+          loadOnTransitionStart: true,
+          loadPrevNext: true,
+          loadPrevNextAmount: 1
+      },
+      breakpoints: {
+
+          768: {
+              slidesPerView: {{ section.settings.slidesSmall }}
+          },
+          992: {
+              slidesPerView: {{ section.settings.slidesMid }}
+          },
+          1200: {
+              slidesPerView: {{ section.settings.slidesLarge }}
+          }
+
+      },
+  });
+</script>
+
+
+
+
+{% schema %}
+{
+  "name": "Collection Slider",
+  "tag": "section",
+  "class": "collection-slider vertical-margin",
+  "settings": [
+    {
+        "type": "inline_richtext",
+        "id": "heading",
+        "default": "Shop By Category",
+        "label": "Heading"
+    },
+    {
+        "type": "text",
+        "id": "link_text",
+        "label": "Link text",
+        "default": "View all catergories"
+    },
+    {
+        "type": "url",
+        "id": "link",
+        "label": "Link",
+        "info": "If a collection is selected the link will use the collection URL."
+    },
+    {
+        "type": "select",
+        "id": "slidesLarge",
+        "label": "Slides per view at largest breakpoint",
+        "options": [
+          {
+            "value": "7",
+            "label": "7"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          }
+        ],
+        "default": "5"
+      },
+      {
+          "type": "select",
+          "id": "slidesMid",
+          "label": "Slides per view at middle breakpoint",
+          "options": [
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            }
+          ],
+          "default": "3"
+        },
+        {
+            "type": "select",
+            "id": "slidesSmall",
+            "label": "Slides per view at smallest breakpoint",
+            "options": [
+              {
+                "value": "3",
+                "label": "3"
+              },
+              {
+                "value": "2",
+                "label": "2"
+              },
+              {
+                "value": "1",
+                "label": "1"
+              }
+            ],
+            "default": "2"
+          }
+
+  ],
+  "blocks": [
+    {
+        "name": "Collection Tile",
+        "type": "tile",
+        "settings": [{ "type": "collection", "id": "collection", "label": "Collection" }]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Slider"
+    }
+  ]
+}
+{% endschema %}

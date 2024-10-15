@@ -1,0 +1,757 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Quickfire",
+    "theme_version": "3.0.0",
+    "theme_author": "Quickfire Digital",
+    "theme_documentation_url": "https:\/\/quickfiredigital.com",
+    "theme_support_url": "https:\/\/quickfiredigital.com"
+  },
+  {
+    "name": "Colours",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Theme Colours"
+      },
+      {
+        "type": "color",
+        "id": "theme_primary_color",
+        "default": "#FFFFFF",
+        "label": "Primary Colour"
+      },
+      {
+        "type": "color",
+        "id": "theme_secondary_color",
+        "default": "#FFFFFF",
+        "label": "Secondary Colour"
+      },
+      {
+        "type": "color",
+        "id": "theme_accent_1_color",
+        "default": "#FFFFFF",
+        "label": "Accent 1"
+      },
+      {
+        "type": "color",
+        "id": "theme_accent_2_color",
+        "default": "#FFFFFF",
+        "label": "Accent 2"
+      },
+      {
+        "type": "color",
+        "id": "theme_accent_3_color",
+        "default": "#816219",
+        "label": "Accent 3"
+      },
+      {
+        "type": "header",
+        "content": "Text Colours"
+      },
+      {
+        "type": "color",
+        "id": "text_main_color",
+        "default": "#121212",
+        "label": "Main Colour"
+      },
+      {
+        "type": "color",
+        "id": "text_alternate_color",
+        "default": "#121212",
+        "label": "Alternate Colour"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.typography.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Heading Sizes Desktop"
+      },
+      {
+        "type": "number",
+        "id": "heading_sm_size",
+        "default": 18,
+        "label": "Heading Small Size"
+      },
+      {
+        "type": "number",
+        "id": "heading_md_size",
+        "default": 30,
+        "label": "Heading Medium Size"
+      },
+      {
+        "type": "number",
+        "id": "heading_lg_size",
+        "default": 42,
+        "label": "Heading Large Size"
+      },
+      {
+        "type": "header",
+        "content": "Heading Sizes Tablet"
+      },
+      {
+        "type": "number",
+        "id": "heading_md_size_tablet",
+        "default": 24,
+        "label": "Heading Medium Size"
+      },
+      {
+        "type": "number",
+        "id": "heading_lg_size_tablet",
+        "default": 30,
+        "label": "Heading Large Size"
+      },
+      {
+        "type": "header",
+        "content": "Heading Sizes Mobile"
+      },
+      {
+        "type": "number",
+        "id": "heading_md_size_mobile",
+        "default": 18,
+        "label": "Heading Medium Size"
+      },
+      {
+        "type": "number",
+        "id": "heading_lg_size_mobile",
+        "default": 24,
+        "label": "Heading Large Size"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.layout.name",
+    "settings": [
+      {
+        "type": "number",
+        "id": "mobile_menu_break_point",
+        "default": 1285,
+        "label": "Mobile menu break point"
+      },
+      {
+        "type": "number",
+        "id": "page_width",
+        "default": 1200,
+        "label": "t:settings_schema.layout.settings.page_width.label"
+      },
+      {
+        "type": "number",
+        "id": "spacing_sections",
+        "label": "Section vertical padding",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Buttons",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type": "number",
+        "id": "button_h_padding",
+        "label": "Horizontal",
+        "default": 20
+      },
+      {
+        "type": "number",
+        "id": "button_v_padding",
+        "label": "Vertical",
+        "default": 10
+      },
+      {
+        "type": "range",
+        "id": "button_transition",
+        "min": 0,
+        "max": 1,
+        "step": 0.1,
+        "unit": "s",
+        "label": "Button Transition",
+        "default": 0.3
+      },
+      {
+        "type": "range",
+        "id": "button_font_size",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "Button Font Size",
+        "default": 14
+      },
+      {
+        "type": "header",
+        "content": "Button 1"
+      },
+      {
+        "type": "color",
+        "id": "button_1_color",
+        "default": "#000000",
+        "label": "Background Colour"
+      },
+      {
+        "type": "color",
+        "id": "button_1_text_color",
+        "default": "#ffffff",
+        "label": "Text colour"
+      },
+      {
+        "type": "range",
+        "id": "button_1_radius",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius",
+        "default": 0
+      },
+      {
+        "type": "color",
+        "id": "button_1_border_color",
+        "default": "#ffffff",
+        "label": "Border colour"
+      },
+      {
+        "type": "header",
+        "content": "Button 1 Hover"
+      },
+      {
+        "type": "color",
+        "id": "button_1_hover_color",
+        "default": "#ffffff",
+        "label": "Background Colour"
+      },
+      {
+        "type": "color",
+        "id": "button_1_hover_text_color",
+        "default": "#000000",
+        "label": "Text colour"
+      },
+      {
+        "type": "range",
+        "id": "button_1_hover_radius",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius",
+        "default": 0
+      },
+      {
+        "type": "color",
+        "id": "button_1_hover_border_color",
+        "default": "#ffffff",
+        "label": "Border Hover Colour"
+      },
+      {
+        "type": "header",
+        "content": "Button 2"
+      },
+      {
+        "type": "color",
+        "id": "button_2_color",
+        "default": "#000000",
+        "label": "Background Colour"
+      },
+      {
+        "type": "color",
+        "id": "button_2_text_color",
+        "default": "#ffffff",
+        "label": "Text colour"
+      },
+      {
+        "type": "range",
+        "id": "button_2_radius",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius",
+        "default": 0
+      },
+      {
+        "type": "color",
+        "id": "button_2_border_color",
+        "default": "#ffffff",
+        "label": "Border colour"
+      },
+      {
+        "type": "header",
+        "content": "Button 2 Hover"
+      },
+      {
+        "type": "color",
+        "id": "button_2_hover_color",
+        "default": "#ffffff",
+        "label": "Background Colour"
+      },
+      {
+        "type": "color",
+        "id": "button_2_hover_text_color",
+        "default": "#000000",
+        "label": "Text colour"
+      },
+      {
+        "type": "range",
+        "id": "button_2_hover_radius",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius",
+        "default": 0
+      },
+      {
+        "type": "color",
+        "id": "button_2_hover_border_color",
+        "default": "#ffffff",
+        "label": "Border Hover Colour"
+      }
+    ]
+  },
+  {
+    "name": "Fallback images",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "product_fallback",
+        "label": "Product fallback image"
+      },
+      {
+        "type": "image_picker",
+        "id": "collection_fallback",
+        "label": "Collection fallback image"
+      },
+      {
+        "type": "image_picker",
+        "id": "collection_banner_fallback",
+        "label": "Collection banner fallback image"
+      }
+    ]
+  },
+  {
+    "name": "Terms & Conditions",
+    "settings": [
+      {
+        "type": "inline_richtext",
+        "id": "tc",
+        "label": "Terms and Conditions checkbox text",
+        "default": "T&C's Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "agree",
+        "label": "Marketing checkbox text",
+        "default": "Agree to receiving marketing material wording Lorem ipsum dolor sit amet, consetetur"
+      }
+    ]
+  },
+  {
+    "name": "Company Details",
+    "settings": [
+      {
+        "type": "text",
+        "id": "company_trade_number",
+        "label": "Company Trademark Number"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social accounts"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook",
+        "info": "https:\/\/facebook.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest",
+        "info": "https:\/\/pinterest.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram",
+        "info": "http:\/\/instagram.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "Tiktok",
+        "info": "https:\/\/tiktok.com\/@shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_tumblr_link",
+        "label": "Tumblr",
+        "info": "https:\/\/shopify.tumblr.com"
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat_link",
+        "label": "Snapchat",
+        "info": "https:\/\/www.snapchat.com\/add\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube",
+        "info": "https:\/\/www.youtube.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_link",
+        "label": "Vimeo",
+        "info": "https:\/\/vimeo.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_linkedin_link",
+        "label": "LinkedIn",
+        "info": "https:\/\/linkedin.com\/shopify"
+      }
+    ]
+  },
+  {
+    "name": "SEO",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "collection_list_seo_description",
+        "label": "Collection list description"
+      }
+    ]
+  },
+  {
+    "name": "Products",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "add_to_cart_toast",
+        "label": "Add to cart notification",
+        "info": "Check this if you want to show a notification after adding a product to the cart via AJAX (This option is ignored if open side cart is enabled )",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "add_to_cart_open_side_cart",
+        "label": "Add to cart open side cart",
+        "info": "Check this if you want to open the side cart after adding a product to the cart via AJAX",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "include_quick_view",
+        "label": "Include product quick view",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "Product Badges",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "This changes various aspects of the default theme badges for products."
+      },
+      {
+        "type": "header",
+        "content": "Sale Badge"
+      },
+      {
+        "type": "checkbox",
+        "id": "pb_show_sale",
+        "label": "Show 'Sale' Badge",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "pb_sale_text",
+        "label": "'Sale' Text",
+        "default": "Sale"
+      },
+      {
+        "type": "header",
+        "content": "New Arrival Badge"
+      },
+      {
+        "type": "checkbox",
+        "id": "pb_show_new_arrival",
+        "label": "Show 'New Arrival' Badge",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "pb_new_arrival_text",
+        "label": "'New Arrival' Badge Text",
+        "default": "New"
+      },
+      {
+        "type": "header",
+        "content": "Out of Stock Badge"
+      },
+      {
+        "type": "checkbox",
+        "id": "pb_show_oos",
+        "label": "Show 'Out of Stock' Badge",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "pb_oos_text",
+        "label": "'Out of Stock' Badge Text",
+        "default": "Out of Stock"
+      },
+      {
+        "type": "header",
+        "content": "Low Stock Badge"
+      },
+      {
+        "type": "checkbox",
+        "id": "pb_show_low_stock",
+        "label": "Show 'Low Stock' Badge",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "pb_low_stock_text",
+        "label": "'Low Stock' Text",
+        "info": "Replace where you want the stock to show with {{ stock }} e.g. 'Only {{ stock }} Left'",
+        "default": "Only {{ stock }} Left"
+      }
+    ]
+  },
+  {
+    "name": "Search",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_predictive_search",
+        "label": "Enable Predictive Search",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Country and language selector",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_country_language_selector",
+        "label": "Show Country and Language Selector",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "country_selector_style",
+        "label": "Country Selector Style",
+        "options": [
+          {
+            "value": "dropdown",
+            "label": "Dropdown"
+          },
+          {
+            "value": "modal",
+            "label": "Modal"
+          }
+        ],
+        "default": "modal"
+      }
+    ]
+  },
+  {
+    "name": "Developer",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "developerMode",
+        "label": "Developer Mode",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Side Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "side_cart",
+        "label": "Include Side Cart",
+        "info": "Check this if you want to use the side cart throughout the site",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Recommended products (desktop)"
+      },
+      {
+        "type": "product_list",
+        "id": "recommended_product_list",
+        "label": "Recommended products",
+        "limit": 10,
+        "info": "Selected products to show for when there are no products in the cart."
+      },
+      {
+        "type": "collection",
+        "id": "recommended_collection",
+        "label": "Recommended collection",
+        "info": "This appears as a fallback if the above products aren't selected."
+      },
+      {
+        "type": "header",
+        "content": "Empty Wishlist Message"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "empty_heading",
+        "default": "You have no Saved Items",
+        "label": "Empty Heading"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "empty_message",
+        "label": "Empty Message"
+      },
+      {
+        "type": "header",
+        "content": "For You Section"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_foryou",
+        "label": "Enable For You Section",
+        "info": "Check this to enable the 'For You' tab",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "foryou_heading",
+        "label": "For You Heading",
+        "default": "See 6 products we think you will love"
+      },
+      {
+        "type": "header",
+        "content": "You may also like slider"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_youMayAlsoLike",
+        "label": "Enable ou may also like slider Section",
+        "info": "Check this to enable the 'ou may also like' slider",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "youMayAlsoLike_heading",
+        "label": "You may also like Heading",
+        "default": "You may also like"
+      }
+    ]
+  },
+  {
+    "name": "Free delivery",
+    "settings": [
+      {
+        "type": "text",
+        "id": "free_delivery",
+        "label": "Free delivery amount",
+        "info": "Enter the amount in which free delivery is activated as per your shipping settings. Do not put currency symbol."
+      }
+    ]
+  },
+  {
+    "name": "Padding",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Theme Section Padding"
+      },
+      {
+        "type": "range",
+        "id": "section_padding_s",
+        "min": 1,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding Small",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "section_padding_m",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding Medium",
+        "default": 50
+      },
+      {
+        "type": "range",
+        "id": "section_padding_l",
+        "min": 50,
+        "max": 150,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding Large",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Margin",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Theme Section Margin"
+      },
+      {
+        "type": "range",
+        "id": "section_margin_s",
+        "min": 1,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Margin Small",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "section_margin_m",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Margin Medium",
+        "default": 50
+      },
+      {
+        "type": "range",
+        "id": "section_margin_l",
+        "min": 50,
+        "max": 150,
+        "step": 1,
+        "unit": "px",
+        "label": "Margin Large",
+        "default": 100
+      }
+    ]
+  },
+]

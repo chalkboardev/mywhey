@@ -1,0 +1,24 @@
+@import '../../../scss/breakpoints.scss';
+
+.instagram-gallery {
+    background-color: #eee;
+    .heading-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 25px;
+        @include to-xs() {
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+        }
+        .insta-handle {
+            display: flex;
+            align-items: center;
+            .icon {
+                width: 32px;
+                height: 32px;
+                margin-right: 5px;
+            }
+        }
+    }
+}

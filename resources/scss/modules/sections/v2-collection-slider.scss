@@ -1,0 +1,20 @@
+@import '../../../scss/breakpoints.scss';
+
+.collection-slider {
+    .collection-slider-heading-wrapper {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        margin-bottom: 25px;
+        @include to-xs() {
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+        }
+    }
+    .swiper {
+        @include to-sm() {
+            margin-right: -1.5rem;
+        }
+    }
+}

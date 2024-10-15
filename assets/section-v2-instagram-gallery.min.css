@@ -1,0 +1,24 @@
+.instagram-gallery {
+  background-color: #eee;
+}
+.instagram-gallery .heading-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+@media only screen and (max-width: 575.98px) {
+  .instagram-gallery .heading-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+  }
+}
+.instagram-gallery .heading-container .insta-handle {
+  display: flex;
+  align-items: center;
+}
+.instagram-gallery .heading-container .insta-handle .icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+}

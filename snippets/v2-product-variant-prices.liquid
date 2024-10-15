@@ -1,0 +1,18 @@
+<div class="variant-prices-container">
+
+    {% for variant in product.variants %}
+
+        <div class=" variant-price-wrapper {% if variant.price < variant.compare_at_price %} old-price {% endif %}{% if variant.id != product.selected_or_first_available_variant.id %} hidden {% endif %}" data-price="{{ variant.price }}" data-variant-id="{{ variant.id }}">
+
+            {% if variant.price < variant.compare_at_price %}
+                <span class="product-sale-price strikethrough">{{ variant.compare_at_price | money }}</span>
+            {% endif %}
+
+            <span class="product-price"> {{ variant.price | money }} </span>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+

@@ -1,0 +1,72 @@
+@import '../../breakpoints.scss';
+
+.usp-banner-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    @include from-md {
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    @include from-xs {
+      gap: 35px;
+    }
+
+    .usp-card {
+      max-width: 375px;
+      line-height: 0;
+      flex-basis: 100%;
+
+      @include from-width(390px) {
+        flex-basis: 45%;
+
+        &:nth-child(4n), &:nth-child(3n) {
+          padding-top: 20px;
+        }
+      }
+
+      @include from-md {
+        flex-basis: 30%;
+
+        &:nth-child(4n), &:nth-child(3n) {
+          padding-top: 0;
+        }
+      }
+
+      .icon {
+        height: 78px;
+        width: 78px;
+        object-fit: cover;
+        border-radius: 50%;
+
+        @include from-xs {
+          width: 174px;
+          height: 174px;
+        }
+      }
+
+      .title {
+        margin: 17px 0px 15px;
+        font-size: 18px;
+      }
+
+      .body {
+        margin: 0px;
+        font-size: 14px;
+        padding: 0;
+        text-align: center;
+      }
+    }
+  }
+}

@@ -1,0 +1,221 @@
+{% comment %}
+
+  === CSS ===
+
+  - Create a SCSS file of the same name in resources/scss/modules/sections
+  - Add to webpack.mix.js
+  - Includes the breakpoint scss
+  - USES FLEX GAP
+
+  === JS ===
+
+  Swiper
+
+  === FUNCTIONALITY ===
+
+  Section notes:
+
+  - Static row of USPs
+  - Stacks - tablet/mobile
+  - Number of USPs (max of 4)
+  - Icon or image, Title, Description/textarea (Info added to the section to help limit the character limit)
+  - Background colour
+
+  Section Author: Billy Bainbridge
+
+{% endcomment %}
+
+{{ 'section-v3-usp-banner.min.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+    assign url = section.settings.url
+    assign url_text = section.settings.url_text
+    assign button_style = section.settings.button_style
+
+    assign colour = section.settings.colour
+    assign background = section.settings.background
+-%}
+
+<section class="usp-banner-section {% if background == '' or background == 'rgba(0,0,0,0)' %}vertical-margin{% else %}vertical-padding{% endif %}" style="background:{{ background }};color: {{ colour }};" id="image-text-{{ section.id }}">
+  <div class="container page-width">
+      <div class="swiper usp-slider">
+          <div class="swiper-wrapper">
+              {% for block in section.blocks %}
+                <div class="usp-card swiper-slide" style="text-align: {{ block.settings.text_align }} ;">
+
+                  {%- if block.settings.icon != blank -%}
+                    <div class="swiper-lazy-preloader"></div>
+
+                    <img
+                      data-srcset="{%- if block.settings.icon.width >= 165 -%}{{ block.settings.icon | image_url: width: 165 }} 165w,{%- endif -%}
+                      {%- if block.settings.icon.width >= 360 -%}{{ block.settings.icon | image_url: width: 360 }} 360w,{%- endif -%}
+                      {%- if block.settings.icon.width >= 533 -%}{{ block.settings.icon | image_url: width: 533 }} 533w,{%- endif -%}
+                      {%- if block.settings.icon.width >= 720 -%}{{ block.settings.icon | image_url: width: 720 }} 720w,{%- endif -%}
+                      {%- if block.settings.icon.width >= 940 -%}{{ block.settings.icon | image_url: width: 940 }} 940w,{%- endif -%}
+                      {%- if block.settings.icon.width >= 1066 -%}{{ block.settings.icon | image_url: width: 1066 }} 1066w,{%- endif -%}
+                      {{ block.settings.icon | image_url }} {{ block.settings.icon.width }}w"
+                      data-src="{{ block.settings.icon | image_url: width: 400 }}"
+                      alt="{{ block.settings.icon.alt | escape }}"
+                      class="swiper-lazy icon"
+                      width="{{ block.settings.icon.width }}"
+                      height="{{ block.settings.icon.height }}"
+                    >
+                  {%- else -%}
+                    {{ 'lifestyle-1' | placeholder_svg_tag }}
+                  {%- endif -%}
+
+                  <span class="subtitle">{{ block.settings.subtitle }}
+                  </span>
+                  <h3 class="title">{{ block.settings.title }}
+                  </h3>
+                  <p class="body">{{ block.settings.body }}
+                  </p>
+
+                </div>
+              {% endfor %}
+          </div>
+          <div class="swiper-pagination ve-usp-banner-swiper-pagination"></div>
+      </div>
+      <div class="button-container">
+        {% if url != blank and url_text != blank %}
+          {% assign show_button = true %}
+          <a class="{{ button_style }}" href="{{ url }}">{{- url_text -}}</a>
+        {% endif %}
+      </div>
+  </div>
+</section>
+
+<script>
+  const main_container = document.querySelector('.main-sections-container');
+
+  var swiper_{{ section.id | replace: "-", "" }} = new window.swiper('.usp-slider', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      breakpointsBase: 'container',
+      autoHeight: true,
+
+      lazy: {
+          enabled: true,
+          checkInView: true,
+          loadOnTransitionStart: true,
+          loadPrevNext: true,
+          loadPrevNextAmount: 1,
+      },
+      pagination: {
+        el: '.swiper-pagination.usp-banner-swiper-pagination',
+        type: 'bullets',
+        clickable: 'true',
+      },
+      breakpoints: {
+          768: {
+              slidesPerView: 2,
+              spaceBetween: 40,
+          },
+          992: {
+              slidesPerView: {{ section.blocks.size }},
+              spaceBetween: 80,
+          },
+      },
+  });
+</script>
+
+{% schema %}
+{
+  "name": "USP Section",
+  "class": "usp-banner",
+  "settings": [
+    {
+      "type": "color",
+      "id": "colour",
+      "label": "Text colour"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "type": "text",
+      "id": "url_text",
+      "label": "Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Button Link",
+      "info": "The button will only display with a Link and Text"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button Style",
+      "options": [
+        {
+          "value": "button-1",
+          "label": "Style 1"
+        },
+        {
+          "value": "button-2",
+          "label": "Style 2"
+        },
+        {
+          "value": "button-3",
+          "label": "Style 3"
+        },
+        {
+          "value": "button-4",
+          "label": "Style 4"
+        },
+        {
+          "value": "button-5",
+          "label": "Style 5"
+        },
+        {
+          "value": "button-6",
+          "label": "Style 6"
+        }
+      ],
+      "default": "button-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "usp-card",
+      "name": "USP Card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "default": "Subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "default": "Body Text",
+          "label": "Body for USP Card",
+          "info": "Keep within 5 lines / 200 characters"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "USP Section (New)"
+    }
+  ]
+}
+{% endschema %}

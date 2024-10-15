@@ -1,0 +1,19 @@
+<div class="pagination-navigation">
+  {%- if paginate.previous.is_link -%}
+    <a href="{{- paginate.previous.url -}}" class="pagination-arrow">{%- render 'gb-icon', icon: 'chevron-left' -%}</a>
+  {%- endif -%}
+
+  {%- for part in paginate.parts -%}
+    {%- if part.is_link or paginate.current_page == part.title -%}
+      <a class="page-number {%- if paginate.current_page == part.title %} active{%- endif -%}" href="{{ part.url }} ">
+        {{- part.title -}}
+      </a>
+    {% else %}
+      <div class="page-number page-gap" href="{{ part.url }} ">{{- part.title -}}</div>
+    {% endif %}
+  {%- endfor -%}
+
+  {%- if paginate.next.is_link -%}
+    <a href="{{ paginate.next.url }}" class="pagination-arrow"> {% render 'gb-icon', icon: 'chevron-right' %} </a>
+  {%- endif -%}
+</div>

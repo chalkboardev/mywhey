@@ -1,0 +1,102 @@
+#predictive-search-results .search-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media only screen and (min-width: 992px) {
+  #predictive-search-results .search-wrapper {
+    grid-template-columns: 1fr 3fr;
+    gap: 3rem;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  #predictive-search-results .search-wrapper {
+    grid-template-columns: 1fr 4fr;
+    gap: 3rem;
+  }
+}
+#predictive-search-results .search-wrapper .search-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+@media only screen and (min-width: 390px) {
+  #predictive-search-results .search-wrapper .search-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (min-width: 992px) {
+  #predictive-search-results .search-wrapper .search-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+#predictive-search-results .search-sidebar {
+  padding: 1rem 0;
+}
+@media only screen and (min-width: 992px) {
+  #predictive-search-results .search-sidebar {
+    position: sticky;
+    top: 0;
+  }
+}
+#predictive-search-results .search-sidebar .accordion__heading {
+  font-size: var(--font-size-14);
+  text-transform: uppercase;
+  letter-spacing: 1.12px;
+}
+@media only screen and (min-width: 992px) {
+  #predictive-search-results .search-sidebar .chevron {
+    display: none;
+  }
+}
+@media only screen and (min-width: 992px) {
+  #predictive-search-results .search-sidebar .panel {
+    max-height: none !important;
+  }
+}
+#predictive-search-results .search-sidebar .content {
+  padding-top: 0;
+}
+#predictive-search-results .search-sidebar .content ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+}
+#predictive-search-results .search-sidebar .content ul a {
+  display: block;
+  font-size: var(--font-size-12);
+  text-decoration: none;
+}
+#predictive-search-results .search-products {
+  margin-bottom: 4rem;
+  padding: 1rem 0;
+}
+#predictive-search-results .search-all {
+  text-align: center;
+  margin-top: 2rem;
+}
+#predictive-search-results .search-products__heading {
+  font-size: var(--font-size-14);
+  text-transform: uppercase;
+  letter-spacing: 1.12px;
+  border-bottom: 1px solid var(--secondary-color);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+#predictive-search-results .search-products__heading a {
+  margin-left: 2rem;
+}
+@media only screen and (min-width: 992px) {
+  #predictive-search-results .search-products__heading {
+    border-bottom: 0;
+    padding: 1rem 0 0;
+  }
+}
+#predictive-search-results .no-results {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: var(--font-size-20);
+}

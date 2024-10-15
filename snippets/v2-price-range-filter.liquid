@@ -1,0 +1,85 @@
+{% if maxPrice %}
+<div class="price-filter-container">
+  <div class="filter-heading">
+      Price:
+  </div>
+
+  <div class="price-wrapper">
+
+      <div class="custom-range" id="price-container">
+      <div class="slider">
+          <div class="progress"></div>
+      </div>
+      <div class="range-input">
+          <input type="range" class="range-min" min="0" max="{{ maxPrice }}" value="0" step="1">
+          <input type="range" class="range-max" min="0" max="{{ maxPrice }}" value="{{ maxPrice }}" step="1">
+      </div>
+      <div class="price-input">
+          <div class="field left">
+          {% comment %} <input type="number" class="input-min" value="0" data-theme="price" data-term="0"> {% endcomment %}
+          <span>£</span>
+          <div class="price-input-show input-min" data-theme="price" data-term="0">0</div>
+          </div>
+          <div class="field right">
+          <span>£</span>
+          <div class="price-input-show input-max" data-theme="price" data-term="{{ maxPrice }}">{{ maxPrice }}</div>
+          </div>
+      </div>
+      </div>
+
+      <button id="applyPriceRange" class="button-2">Apply</button>
+  </div>
+</div>
+
+
+  <script>
+      const rangeInput = document.querySelectorAll(".range-input input"),
+      priceInput = document.querySelectorAll(".price-input-show"),
+      range = document.querySelector(".slider .progress");
+      let priceGap = 1;
+
+      priceInput.forEach(input =>{
+          input.addEventListener("input", e =>{
+              let minPrice = parseInt(priceInput[0].innerHTML),
+              maxPrice = parseInt(priceInput[1].innerHTML);
+              
+              if((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max){
+                  if(e.target.className === "input-min"){
+                      rangeInput[0].value = minPrice;
+                      rangeInput[0].setAttribute("data-term",minPrice);
+                      range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
+                  }else{
+                      rangeInput[1].value = maxPrice;
+                      range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+                  }
+              }
+          });
+      });
+
+      rangeInput.forEach(input =>{
+          input.addEventListener("input", e =>{
+              let minVal = parseInt(rangeInput[0].value),
+              maxVal = parseInt(rangeInput[1].value);
+
+              if ((maxVal - minVal) < priceGap){
+                  if (e.target.className === "range-min"){
+                      rangeInput[0].value = maxVal - priceGap
+                  } else {
+                      rangeInput[1].value = minVal + priceGap;
+                  }
+              } else {
+                  priceInput[0].innerHTML = minVal;
+                  priceInput[1].innerHTML = maxVal;
+                  priceInput[0].setAttribute("data-term",minVal)
+                  priceInput[1].setAttribute("data-term",maxVal)
+                  range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
+                  range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
+              }
+          });
+      });
+
+  </script>
+
+{% else %}
+  <p style="color: red;">PRICE RANGE FILTER REQUIRES A MAX PRICE TO BE PASSED IN</p>
+{% endif %}

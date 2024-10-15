@@ -1,0 +1,83 @@
+{% comment %}
+  === FUNCTIONALITY ===
+
+  Add section notes from project developer notes. See announcement bar example below.
+
+  - Tiles including image, title, author, date published, intro, link/button to read more
+  - Allow tags on individual tiles
+  - Carousel - Desktop (Y/N)
+  - Carousel or stack - Mobile
+  - Number of tiles - X
+  - Link to ‘All Blogs’
+  - Tile clickable to view full article
+
+  Section Author: Dan Hall
+{% endcomment %}
+
+{{ 'section-v2-article-slider.min.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+  <div class="article-slider-header">
+    <h2 class="heading-lg">{{ section.settings.blog.title }}</h2>
+
+    <a href="{{ section.settings.blog.url }}" class="button-2" aria-label="View all articles">View all articles</a>
+  </div>
+
+  <div class="swiper article--slider">
+    <div class="swiper-wrapper">
+      {% for article in section.settings.blog.articles limit: section.settings.articles_to_show %}
+        <div class="swiper-slide">
+          {% render 'v2-article-card', article: article, swiper: true %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var swiper = new window.swiper('.article--slider', {
+      slidesPerView: 1.4,
+      spaceBetween: 30,
+      lazy: {
+        enabled: true,
+        checkInView: true,
+        loadOnTransitionStart: true,
+        loadPrevNext: true,
+        loadPrevNextAmount: 1,
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Article slider",
+  "tag": "section",
+  "class": "article-slider vertical-margin",
+  "settings": [
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "number",
+      "id": "articles_to_show",
+      "label": "Number of articles to show",
+      "default": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "Article slider"
+    }
+  ]
+}
+{% endschema %}

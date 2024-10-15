@@ -1,0 +1,74 @@
+<div class="account-module orders">
+    {%- if customer.orders.size > 0 -%}
+      <div class="table-container">
+          <table class="table_orders">
+            <thead>
+              <tr class="heading_row">
+                <th>{{ 'customer.orders.order_number' | t }}</th>
+                <th>{{ 'customer.orders.date' | t }}</th>
+                <th>{{ 'customer.orders.order_method' | t }}</th>
+                <th>{{ 'customer.orders.order_status' | t }}</th>
+                <th>{{ 'customer.orders.payment_status' | t }}</th>
+                <th>{{ 'customer.orders.total' | t }}</th>
+                <th>{{ 'customer.orders.action' | t }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%- for order in customer.orders -%}
+                <tr class="content-row d-none">
+                  <td>
+                    <p>{{ order.order_number | prepend: '#' }}</p>
+                  </td>
+                  <td>
+                    <p>{{ order.created_at | date: '%d.%m.%Y' }}</p>
+                  </td>
+                  <td>
+                      <p > {% if order.metafields.method != blank %} {{ order.metafields.method }} {% endif %} Online</p>
+                  </td>
+                  <td>
+                    <p >{{ order.fulfillment_status }}</p>
+                  </td>
+                  <td>
+                    <p >{{ order.financial_status }}</p>
+                  </td>
+                  <td>
+                    <p>{{ order.total_price | money }}</p>
+                  </td>
+                  <td class="actions">
+                    {% comment %} <span class="mobile-title">{{ 'customer.orders.action' | t }}</span> {% endcomment %}
+                    <a href="{{ order.order_status_url }}" class="action-link">View</a>
+                    {%- assign modal_name = order.id | prepend: "order-modal_" -%}
+                    <a class="action-link reorder" data-modal-trigger="{{ modal_name }}">Reorder</a>
+                  </td>
+                </tr>
+              {%- endfor -%}
+            </tbody>
+          </table>
+          <button class="button-1 orders-load-more" >Load More</button>
+      </div>
+    {%- else -%}
+      <p class="no-orders">{{ 'customer.orders.none' | t }}.</p>
+    {%- endif -%}
+  </div>
+
+  {%- capture reorder_modals -%}
+  {%- for order in customer.orders -%}
+    {%- assign modal_name = order.id | prepend: "order-modal_" -%}
+
+    {%- capture reorder_content -%}
+      <div class="reorder-grid-wrapper">
+        <div class="reorder-grid">
+          {%- for item in order.line_items -%}
+            {%- if item.variant.available and item.variant != blank -%}
+              {%- render 'v2-variant-card', item: item, order: order, quantity: item.quantity -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endcapture -%}
+
+    {%- render 'v2-modal-generator', name: modal_name, content: reorder_content -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{{ reorder_modals }}

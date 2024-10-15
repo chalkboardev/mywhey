@@ -1,0 +1,45 @@
+{% comment %}
+  This Snippet is built to handle all  modals.
+
+  == DEPENDANCIES ==
+
+      * The JS is to hide and show a modal is handled by the modalController class in /resources/js/qf_modal.js
+      * each modal is given a 'name' that is used to find on page to show
+      * add the data-modal-trigger="name" to any element you wish to use to use to open the modal
+      * any buttons within the modal to close it needs data-modal-close="name"
+      * you can programmatically present the modal by passing the name to the window.modalController.presentModal('name') method
+      * you can programmatically hide the modal by passing the name to the window.modalController.hideModal('name') method
+
+  == PARAMATERS ==
+
+      * name - The name of your modal ( Should be unique )
+      * content - This is the html/liquid to put in the modal ( Should be a liquid capture )
+
+  == EXAMPLE ==
+
+      {% capture modalContent %}
+      {% endcapture %}
+      {% render 'v2-modal-generator', name: 'myModal', content: modalContent %}
+
+  == TO DO ==
+
+      * The trigger button could also be a capture that is passed into the <div> with the data-modal-trigger attribute
+
+
+  Section Author: jo@quickfiredigital.com & darrell@quickfiredigtal
+{% endcomment %}
+
+<!-- Modal -->
+<div
+  class="modal-container {{ name | append: '--modal-container' }}"
+  data-modal="{{ name }}"
+  data-modal-close="{{ name }}"
+>
+  <div class="modal slide-in-enter">
+    <button aria-label="Close" class="close-button" data-modal-close="{{ name }}">
+      {% render 'gb-icon', icon: 'close-md' -%}
+    </button>
+
+    {{ content }}
+  </div>
+</div>

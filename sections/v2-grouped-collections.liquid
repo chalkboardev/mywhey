@@ -1,0 +1,86 @@
+{% comment %}
+
+  === FUNCTIONALITY ===
+
+  Add section notes from project developer notes. See announcement bar example below.
+
+  Section notes:
+
+  - Title with intro relevant sub collections
+  - 2 columns - Stacked on mobile
+  - Tile animated on hover (Y/N)
+  - Full box clickable
+
+  Colelction group will be created by making a link_list in the navigation settings
+
+
+  Section Author: Dan Hall
+{% endcomment %}
+
+{{ 'section-v2-grouped-collections.min.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+  <div class="group-collections-grid">
+    {% assign parent_collection_links = section.settings.collection_list.links %}
+
+    {% for parent_collection_link in parent_collection_links %}
+      {% assign parent_collection = collections[parent_collection_link.handle] %}
+
+      <div class="collection-grid-item">
+        <a href="{{ parent_collection.url }}" aria-label="Link to {{ parent_collection.title }}">
+          <h2 class="heading-md">{{ parent_collection.title }}</h2>
+        </a>
+
+        <p>{{ parent_collection.description }}</p>
+
+        <div class="child-collection-grid">
+          {% for child_link in parent_collection_link.links %}
+            <a href="{{ child_collection.url }}" class="child-grid-item">
+              <div class="child-image">
+                {% assign child_collection = collections[child_link.handle] %}
+
+                {%- if child_collection.featured_image != blank -%}
+                  {{
+                    child_collection.featured_image
+                    | image_url: width: 300, format: 'jpg'
+                    | image_tag: loading: 'lazy', decoding: 'async'
+                  }}
+
+                {%- else -%}
+                  {{ 'collection-1' | placeholder_svg_tag }}
+                {%- endif -%}
+              </div>
+
+              <div class="collection-title">
+                <h3 class="title">{{ child_collection.title }}</h3>
+
+                <div>{% render 'gb-icon', icon: 'chevron' %}</div>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Grouped collections",
+  "tag": "section",
+  "class": "grouped-collections vertical-margin",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "collection_list",
+      "label": "Collections",
+      "info": "Create a menu with the parent collection as a menu item and add collections as sub menu items."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grouped collections"
+    }
+  ]
+}
+{% endschema %}

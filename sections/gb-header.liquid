@@ -1,0 +1,293 @@
+{% comment %}
+  Section notes:
+
+  - Menu opens on hover (on focus for accessibility)
+  - Top level menu items links
+  - Menu title, list of multiple links (Max 10 per column)
+  - Images on the right with links (Max 3) - Full box clickable
+
+  Section Author: jo@quickfiredigital.com
+{% endcomment %}
+
+{{- 'section-gb-header.min.css' | asset_url | stylesheet_tag: preload: true -}}
+
+<section class="mega-menu">
+  <div class="page-width mega-menu-wrapper">
+    <div class="mega-menu-controls mega-menu-controls--left">
+      <span class="mobile-control" id="open-mobile-menu">
+        <button
+          class="burger openMenu"
+          data-hover="anim-grow"
+          aria-label="Open Menu"
+        >
+          {%- render 'gb-icon', icon: 'menu-open' -%}
+        </button>
+        <button
+          class="cross closeMenu"
+          data-hover="anim-grow"
+          aria-label="Close Menu"
+        >
+          {%- render 'gb-icon', icon: 'menu-close' -%}
+        </button>
+      </span>
+
+      <button
+        class="desktop-hide search"
+        data-hover="anim-grow"
+        aria-label="Open Search"
+        data-open-search
+      >
+        {%- render 'gb-icon', icon: 'search' -%}
+      </button>
+
+      <div class="header-search-bar-wrapper">
+        {% render 'gb-search', placeholder: 'Search', class: 'header-search' %}
+      </div>
+    </div>
+
+    {% if section.settings.logo != blank %}
+      <a
+        href="{{ routes.root_url }}"
+        class="store-logo"
+        aria-label="Link to {{ shop.name }}"
+      >
+        {{ section.settings.logo | image_url: width: 600 | image_tag }}
+      </a>
+    {% elsif shop.brand.logo != blank %}
+      <a
+        href="{{ routes.root_url }}"
+        class="store-logo"
+        aria-label="Link to {{ shop.name }}"
+      >
+        {{ shop.brand.logo | image_url: width: 600 | image_tag }}
+      </a>
+    {% else %}
+      <a
+        href="{{ routes.root_url }}"
+        class="store-logo"
+        aria-label="Link to {{ shop.name }}"
+      >
+        {{ shop.name }}
+      </a>
+    {% endif %}
+
+    {% comment %} Main Header Controls {% endcomment %}
+    <div class="mega-menu-controls mega-menu-controls--right">
+      {% comment %} SK TODO: Need to replace with GlobalE {% endcomment %}
+      <div class="mobile-hide">
+        <div class="lang-selector">
+          GDP
+          {%- render 'gb-icon', icon: 'chevron-down' -%}
+        </div>
+      </div>
+
+      <a
+        class="wishlist"
+        data-hover="anim-grow"
+        aria-label="Go To Wishlist"
+        href="/pages/wishlist"
+      >
+        {%- render 'gb-icon', icon: 'heart-empty' -%}
+        <span id="wishlistCount" class="is-hidden icon-count"></span>
+      </a>
+
+      <a
+        class="account mobile-hide"
+        data-hover="anim-grow"
+        aria-label="Go To Account"
+        href="/account"
+      >
+        {%- render 'gb-icon', icon: 'account' -%}
+      </a>
+
+      {%- if settings.side_cart and template != 'cart' -%}
+        <button
+          open-side-cart
+          class="basket openSideCart"
+          data-hover="anim-grow"
+          aria-label="Open Basket"
+        >
+          {%- render 'gb-icon', icon: 'package' -%}
+          <span cart-count class="cart-count icon-count {%- if cart.item_count == 0 %} empty-cart{%- endif -%}">
+            {{- cart.item_count -}}
+          </span>
+        </button>
+      {%- elsif template == 'cart' -%}
+        <button class="basket" aria-label="Basket">
+          {%- render 'gb-icon', icon: 'package' -%}
+        </button>
+      {%- else -%}
+        <a
+          href="/cart"
+          class="basket"
+          data-hover="anim-grow"
+          aria-label="Open Basket"
+        >
+          {%- render 'gb-icon', icon: 'package' -%}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {% liquid
+    render 'gb-mega-menu'
+    if settings.enable_predictive_search
+      render 'gb-predictive-search-results'
+    endif
+  %}
+</section>
+
+{% render 'gb-mobile-menu', menu: section.settings.mobile_menu, logo: section.settings.logo, placeholder: 'Search' %}
+
+<script>
+  const el = document.querySelector('.mega-menu-outer-shopify-wrapper');
+  const observer = new IntersectionObserver(([e]) => e.target.classList.toggle('is-pinned', e.intersectionRatio < 1), {
+    threshold: [1],
+  });
+
+  observer.observe(el);
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "section",
+  "class": "mega-menu-outer-shopify-wrapper",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Mega Menu"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Picker"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "mobile_menu",
+      "label": "Menu Links"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Mega menu",
+      "type": "mega_menu",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Menu Item Settings"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu Links"
+        },
+        {
+          "type": "text",
+          "id": "link_title",
+          "label": "Menu Item Title",
+          "info": "This overrides the existing title of the menu"
+        },
+        {
+          "type": "color",
+          "id": "link_color",
+          "label": "Link color",
+          "info": "This overrides the default nav colour",
+          "default": "#000000"
+        },
+        {
+          "type": "header",
+          "content": "Block Link Settings"
+        },
+        {
+          "type": "url",
+          "id": "block_link_1",
+          "label": "Block Link 1"
+        },
+        {
+          "type": "text",
+          "id": "block_link_1_title",
+          "label": "Block Link 1 Title ",
+          "info": "Overrides Block Link 1 Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_link_1_img",
+          "label": "Block Link 1 Image"
+        },
+        {
+          "type": "url",
+          "id": "block_link_2",
+          "label": "Block Link 2"
+        },
+        {
+          "type": "text",
+          "id": "block_link_2_title",
+          "label": "Block Link 2 Title ",
+          "info": "Overrides Block Link 2 Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_link_2_img",
+          "label": "Block Link 2 Image"
+        },
+        {
+          "type": "url",
+          "id": "block_link_3",
+          "label": "Block Link 3"
+        },
+        {
+          "type": "text",
+          "id": "block_link_3_title",
+          "label": "Block Link 3 Title ",
+          "info": "Overrides Block Link 3 Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_link_3_img",
+          "label": "Block Link 3 Image"
+        }
+      ]
+    },
+    {
+      "name": "Menu Item",
+      "type": "menu_link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "link_title",
+          "label": "Link title"
+        },
+        {
+          "type": "color",
+          "id": "link_color",
+          "label": "Link color",
+          "info": "This overrides the default nav colour",
+          "default": "#000000"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header"
+    }
+  ]
+}
+{% endschema %}

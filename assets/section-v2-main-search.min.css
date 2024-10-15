@@ -1,0 +1,99 @@
+.main-search .result_amount {
+  text-align: center;
+}
+.main-search .heading-lg {
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 31px;
+}
+.main-search .search-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: space-between;
+}
+.main-search .search-wrapper .search-sidebar-container {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+.main-search .search-wrapper .search-sidebar-container a {
+  color: var(--text-primary-color);
+}
+.main-search .search-wrapper .search-sidebar-container:not(:first-of-type) {
+  margin-top: 20px;
+}
+.main-search .search-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-top: 10px;
+}
+@media only screen and (max-width: 991.98px) {
+  .main-search .search-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media only screen and (max-width: 767.98px) {
+  .main-search .search-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+@media only screen and (max-width: 575.98px) {
+  .main-search .search-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+  }
+}
+
+.pagination-navigation {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 50px auto 50px;
+  padding: 0.5rem 0;
+  font-size: 18px;
+  width: -moz-fit-content;
+  width: fit-content;
+  color: var(--text-primary-color);
+  cursor: pointer;
+}
+.pagination-navigation .page-number,
+.pagination-navigation .pagination-arrow {
+  width: 40px;
+  height: 40px;
+  aspect-ratio: 1;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px #ddd;
+  font-size: 14px;
+  color: var(--text-primary-color);
+  background: white;
+  transition: 0.25s;
+}
+.pagination-navigation .page-number svg,
+.pagination-navigation .pagination-arrow svg {
+  height: 30px;
+  width: 20px;
+  fill: var(--text-primary-color);
+}
+.pagination-navigation .page-number.page-gap,
+.pagination-navigation .pagination-arrow.page-gap {
+  cursor: auto; /*border: none;*/
+}
+.pagination-navigation .page-number:hover:not(.page-gap), .pagination-navigation .page-number.active:not(.page-gap),
+.pagination-navigation .pagination-arrow:hover:not(.page-gap),
+.pagination-navigation .pagination-arrow.active:not(.page-gap) {
+  color: white;
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.pagination-navigation .page-number:hover:not(.page-gap) svg, .pagination-navigation .page-number.active:not(.page-gap) svg,
+.pagination-navigation .pagination-arrow:hover:not(.page-gap) svg,
+.pagination-navigation .pagination-arrow.active:not(.page-gap) svg {
+  fill: white;
+}

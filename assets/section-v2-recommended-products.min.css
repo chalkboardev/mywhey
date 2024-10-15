@@ -1,0 +1,11 @@
+.recommended-products {
+  min-height: 457px;
+}
+.recommended-products .recommended-heading {
+  margin-bottom: 25px;
+}
+@media only screen and (max-width: 767.98px) {
+  .recommended-products .recommendations-slider {
+    margin-right: -1.5rem;
+  }
+}

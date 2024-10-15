@@ -1,0 +1,8 @@
+.product-information-section h2 {
+  width: 100%;
+  text-align: center;
+}
+.product-information-section .product-accordions-wrapper {
+  max-width: 750px;
+  margin: 0 auto;
+}

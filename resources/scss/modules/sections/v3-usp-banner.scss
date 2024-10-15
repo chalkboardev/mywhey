@@ -1,0 +1,93 @@
+@import '../../breakpoints.scss';
+
+.side-cart-active .usp-banner-section .swiper-wrapper {
+  padding-bottom: 55px !important;
+}
+
+.usp-banner-section {
+  .container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    @include from-md {
+      justify-content: space-between;
+      gap: 30px;
+    }
+    
+    .swiper-wrapper {
+      @include to-lg {
+        padding-bottom: 55px;
+      }
+    }
+
+    .swiper-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+        background-color: #1C1C1C;
+        &.swiper-pagination-bullet-active {
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+
+    .usp-card {
+      text-align: center;
+      .icon {
+        height: 78px;
+        width: auto;
+        margin-bottom: 12px;
+
+        @include from-xs {
+          height: 78px;
+          width: auto;
+          margin-bottom: 24px;
+        }
+      }
+      .subtitle {
+        font-size: 12px;
+        text-transform: uppercase;
+        font-family: "Gotham A","Gotham B","Gotham","Helvetica Neue",Helvetica,Arial,sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Avenir Next",Avenir,"Segoe UI","Lucida Grande","Helvetica Neue",Helvetica,"Fira Sans",Roboto,Noto,"Droid Sans",Cantarell,Oxygen,Ubuntu,"Franklin Gothic Medium","Century Gothic","Liberation Sans",sans-serif;
+        line-height: 1;
+        display: block;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+      .title {
+        font-size: 22px;
+        font-family: Archer;
+        line-height: 30px;
+        max-width: 250px;
+        margin: 0 auto;
+        margin-bottom: 14px;
+      }
+
+      .body {
+        margin: 0px;
+        font-size: 14px;
+        padding: 0;
+        font-family: "Gotham A","Gotham B","Gotham","Helvetica Neue",Helvetica,Arial,sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Avenir Next",Avenir,"Segoe UI","Lucida Grande","Helvetica Neue",Helvetica,"Fira Sans",Roboto,Noto,"Droid Sans",Cantarell,Oxygen,Ubuntu,"Franklin Gothic Medium","Century Gothic","Liberation Sans",sans-serif;
+        line-height: 21px;
+        @include from-md {
+          padding: 0 1rem;
+        }
+      }
+    }
+    .button-container {
+      width: 100%;
+      display: block;
+      text-align: center;
+      a {
+        margin: 0 auto;
+      }
+    }
+  }
+}

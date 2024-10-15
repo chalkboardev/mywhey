@@ -1,0 +1,65 @@
+<div id="cookieNotice-v3">
+    
+    <div id="cookieNoticeModal">
+        <div class="title-wrap">
+            <div>{{ 'general.cookie_policy.cookie_policy_title' | t }}</div>
+        </div>
+        
+        <div class="content-wrap">
+            <div class="msg-wrap">
+                <p>{{ 'general.cookie_policy.cookie_policy_description_html' | t }}</p>
+            </div>
+    
+            <form>
+                <div class="form-row">
+                    <div class="flex-wrap" id="necessaryInput">
+                        <label for="necessary">{{ 'general.cookie_policy.cookies.necessary' | t }}</label>
+                        <div class="check-box">
+                            <input id="necessary" type="checkbox" name="necessary" checked disabled>
+                        </div>
+                    </div>
+    
+                    <div class="flex-wrap">
+                        <label for="analytics">{{ 'general.cookie_policy.cookies.analytics' | t }}</label>
+                        <div class="check-box">
+                            <input id="analytics" type="checkbox" name="analytics">
+                        </div>
+                    </div>
+    
+                    <div class="flex-wrap">
+                        <label for="marketing">{{ 'general.cookie_policy.cookies.marketing' | t }}</label>
+                        <div class="check-box">
+                            <input id="marketing" type="checkbox" name="marketing">
+                        </div>
+                    </div>
+    
+                    <div class="flex-wrap" id="saleOfData">
+                        <label for="sale_of_data">{{ 'general.cookie_policy.cookies.sale_of_data' | t }}</label>
+                        <div class="check-box">
+                            <input id="sale_of_data" type="checkbox" name="sale_of_data">
+                        </div>
+                    </div>
+    
+                    <div class="flex-wrap">
+                        <label for="preferences">{{ 'general.cookie_policy.cookies.preferences' | t }}</label>
+                        <div class="check-box">
+                            <input id="preferences" type="checkbox" name="preferences">
+                        </div>
+                    </div>
+    
+                </div>
+    
+                <div class="button-row">
+                    <button class="button-2" data-submit-type="deny">{{ 'general.cookie_policy.buttons.deny' | t }}</button>
+                    <button class="button-2" data-submit-type="allow-selection">{{ 'general.cookie_policy.buttons.selection' | t }}</button>
+                    <button class="button-1" data-submit-type="allow-all">{{ 'general.cookie_policy.buttons.all' | t }}</button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+    
+    
+</div>
+
+<script src="{{ 'v3-gdpr-consent.min.js' | asset_url }}" async></script>

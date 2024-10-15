@@ -1,0 +1,209 @@
+{% comment %}
+
+  === FUNCTIONALITY ===
+
+  Section notes:
+
+  - Title, Text (max width 700px)
+  - Alignment (Left/Central/Right)
+  - Background image
+  - Overlay opacity and colour
+  - Background colour editable
+  - Text colour editable
+  - Heading tag select
+  - Heading size
+
+  Section Author: Dan Hall
+
+{% endcomment %}
+
+{{ 'section-v2-text.min.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+    if section.settings.h_size == 'medium'
+        assign h_size = 'heading-md'
+    elsif section.settings.h_size == 'small'
+        assign h_size = 'heading-sm'
+    else
+        assign h_size = 'heading-lg'
+    endif
+
+    if section.settings.background_color == true
+        assign background_color = section.settings.background
+    endif
+
+    if section.settings.overlay_opacity == 5
+        assign opacity = '05'
+    else
+        assign opacity = section.settings.overlay_opacity
+    endif
+-%}
+
+<style>
+    .text-section-container h1, .text-section-container h2, .text-section-container h3, .text-section-container p{
+        {% if section.settings.change_text_color %}
+            color: {{ section.settings.text_color }}
+        {% endif %}
+    }
+</style>
+
+<div class="text-section-container {% if section.settings.background_color == true %}vertical-padding{% else %}vertical-margin{% endif %}" style="background:{{ background_color }};text-align:{{ section.settings.text_alignment }}">
+
+    {%- if section.settings.background_image != blank -%}
+
+        <div class="text-section-background">
+            {{ section.settings.background_image | image_url: width: 1400, format: "jpg" | image_tag: loading: 'lazy', decoding: "async" }}
+        </div>
+
+        <div class="text-section-overlay" style="opacity:0.{{ opacity }};background:{{ section.settings.overlay_background }};"></div>
+
+    {%- endif -%}
+
+    <div class="page-width">
+
+        <{{ section.settings.heading_tag }} class="{{ h_size }}">{{ section.settings.heading }}</{{ section.settings.heading_tag }}>
+
+        {{ section.settings.text }}
+
+    </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Text",
+  "tag": "section",
+  "class": "text-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading type",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "select",
+      "id": "h_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Paragraph",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Centre"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "change_text_color",
+      "label": "Text colour",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text colour",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "checkbox",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": false
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "linear-gradient(#ffffff, #ffffff)"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 95,
+      "step": 5,
+      "label": "Overlay opacity",
+      "default": 0
+    },
+    {
+      "type": "color_background",
+      "id": "overlay_background",
+      "label": "Overlay colour",
+      "default": "linear-gradient(#000000, #000000)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text"
+    }
+  ]
+}
+{% endschema %}

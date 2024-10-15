@@ -1,0 +1,124 @@
+{% comment %}
+  === FUNCTIONALITY ===
+
+  Add section notes from project developer notes. See announcement bar example below.
+
+  Section notes:
+
+  - Newsletter sign up form (email, GDPR checkbox, submit button) (Y/N)
+  - Notification of successful sign up or error
+  - Uses default newsletter form, can be replaced with Klaviyo form
+
+  Note: If Klaviyo form is used, it will probably need styling
+
+  Section Author: Dan Hall
+{% endcomment %}
+
+{{ 'section-gb-newsletter.min.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+  <div class="newsletter-wrapper">
+    <div class="heading">
+      <div>{{ section.settings.heading }}</div>
+    </div>
+
+    <div class="form">
+      {%- if section.settings.custom_form != blank -%}
+        {{ section.settings.custom_form }}
+      {%- else -%}
+        {% form 'customer', class: 'newsletter-form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+
+          <div class="newsletter-form__field-wrapper">
+            <div class="field">
+              <input
+                id="NewsletterForm--{{ section.id }}"
+                type="email"
+                name="contact[email]"
+                class="field__input"
+                value="{{ form.email }}"
+                aria-required="true"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                {% if form.errors %}
+                  autofocus
+                  aria-invalid="true"
+                  aria-describedby="Newsletter-error--{{ section.id }}"
+                {% elsif form.posted_successfully? %}
+                  aria-describedby="Newsletter-success--{{ section.id }}"
+                {% endif %}
+                placeholder="{{ 'newsletter.label' | t }}"
+                required
+              >
+
+              <label class="field__label" for="NewsletterForm--{{ section.id }}">
+                {{ 'newsletter.label' | t }}
+              </label>
+
+              {% assign terms = 'general.checkboxes.tc' | t %}
+
+              {% render 'v2-custom-checkbox', name: 'contact[terms_and_conditions]', label: terms, required: true %}
+
+              <button
+                type="submit"
+                class="button-1"
+                name="commit"
+                id="Subscribe"
+              >
+                Sign up
+              </button>
+            </div>
+          </div>
+        {% endform %}
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if form.errors -%}
+    <div class="newsletter-form__message form__message" id="Newsletter-error--{{ section.id }}">
+      {% render 'gb-icon', icon: 'error' -%}
+      {{- form.errors.translated_fields.email | capitalize }}
+      {{ form.errors.messages.email }}
+    </div>
+  {%- endif -%}
+
+  {%- if form.posted_successfully? -%}
+    <div
+      class="newsletter-form__message newsletter-form__message--success form__message"
+      id="Newsletter-success--{{ section.id }}"
+      tabindex="-1"
+      autofocus
+    >
+      {% render 'gb-icon', icon: 'checkmark' -%}
+      {{- 'newsletter.success' | t }}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "tag": "section",
+  "class": "newsletter padding-m",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Sign up <i>to our</i> <b>newsletter</b>",
+      "label": "Heading"
+    },
+    {
+      "type": "html",
+      "id": "custom_form",
+      "label": "Klaviyo form",
+      "info": "This will overrride the default sign up form"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

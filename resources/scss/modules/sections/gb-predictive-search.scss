@@ -1,0 +1,111 @@
+@import "../../../scss/breakpoints.scss";
+
+#predictive-search-results {
+  .search-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @include from-md() {
+      grid-template-columns: 1fr 3fr;
+      gap: 3rem;
+    }
+
+    @include from-lg() {
+      grid-template-columns: 1fr 4fr;
+      gap: 3rem;
+    }
+
+    .search-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1rem;
+
+      @include from-xxs() {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include from-md() {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+
+  .search-sidebar {
+    padding: 1rem 0;
+    @include from-md() {
+      position: sticky;
+      top: 0;
+    }
+    .accordion__heading {
+      font-size: var(--font-size-14);
+      text-transform: uppercase;
+      letter-spacing: 1.12px;
+    }
+
+    .chevron {
+      @include from-md() {
+        display: none;
+      }
+    }
+
+    .panel {
+      @include from-md() {
+        max-height: none !important;
+      }
+    }
+
+    .content {
+      padding-top: 0;
+
+      ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+
+        a {
+          display: block;
+          font-size: var(--font-size-12);
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .search-products {
+    margin-bottom: 4rem;
+    padding: 1rem 0;
+  }
+
+  .search-all {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .search-products__heading {
+    font-size: var(--font-size-14);
+    text-transform: uppercase;
+    letter-spacing: 1.12px;
+    border-bottom: 1px solid var(--secondary-color);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+
+    a {
+      margin-left: 2rem;
+    }
+
+    @include from-md() {
+      border-bottom: 0;
+      padding: 1rem 0 0;
+    }
+  }
+
+  .no-results {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: var(--font-size-20);
+  }
+}

@@ -1,0 +1,34 @@
+.testimonials .testimonials-heading {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.testimonials .testimonials-slider-wrapper {
+  position: relative;
+}
+.testimonials .testimonials-slider-wrapper .testimonials-slider {
+  width: calc(100% - 60px);
+}
+.testimonials .testimonials-slider-wrapper .testimonials-slider .swiper-slide {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.testimonials .testimonials-slider-wrapper .testimonials-slider .swiper-slide .stars svg {
+  width: 20px;
+}
+.testimonials .testimonials-slider-wrapper .testimonials-slider .swiper-slide .review i {
+  font-size: 14px;
+}
+.testimonials .testimonials-slider-wrapper .testimonials-slider .swiper-slide .name {
+  font-size: 14px;
+  font-weight: bold;
+}
+.testimonials .testimonials-slider-wrapper .testimonials-next {
+  right: 0;
+  width: unset;
+}
+.testimonials .testimonials-slider-wrapper .testimonials-prev {
+  left: 0;
+  width: unset;
+}

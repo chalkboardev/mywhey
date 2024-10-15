@@ -1,0 +1,119 @@
+.video-section .page-width {
+  display: flex;
+  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px 100px;
+}
+.video-section .page-width .image-wrapper, .video-section .page-width .video-wrapper, .video-section .page-width .content-wrapper {
+  flex: 1;
+  flex-direction: column;
+  padding: 0;
+}
+.video-section .page-width .content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px 0;
+}
+.video-section .page-width .content-wrapper.middle {
+  text-align: center;
+  align-items: center;
+}
+.video-section .page-width .content-wrapper .title {
+  margin: 0;
+}
+.video-section .page-width .content-wrapper .body, .video-section .page-width .content-wrapper .body * {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+}
+.video-section .page-width .image-wrapper,
+.video-section .page-width .video-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.video-section .page-width .image-wrapper img, .video-section .page-width .image-wrapper video, .video-section .page-width .image-wrapper svg,
+.video-section .page-width .video-wrapper img,
+.video-section .page-width .video-wrapper video,
+.video-section .page-width .video-wrapper svg {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.video-section .page-width .image-wrapper .play-video-trigger,
+.video-section .page-width .video-wrapper .play-video-trigger {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50% 0;
+  width: 45px;
+  height: 45px;
+  z-index: 1;
+  opacity: 0.8;
+  transition: opacity 0.1s ease-out;
+}
+.video-section .page-width .image-wrapper .play-video-trigger svg,
+.video-section .page-width .video-wrapper .play-video-trigger svg {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  pointer-events: none;
+}
+.video-section .page-width .image-wrapper .play-video-trigger:hover,
+.video-section .page-width .video-wrapper .play-video-trigger:hover {
+  opacity: 0.6;
+}
+.video-section .page-width .image-wrapper .play-video-trigger.playing,
+.video-section .page-width .video-wrapper .play-video-trigger.playing {
+  opacity: 0;
+  pointer-events: none;
+}
+.video-section .page-width .image-wrapper .video-overlay,
+.video-section .page-width .video-wrapper .video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.video-section .page-width .image-wrapper .video-overlay .video-control,
+.video-section .page-width .video-wrapper .video-overlay .video-control {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.video-section .page-width .image-wrapper .video-overlay .video-control.pause-video,
+.video-section .page-width .video-wrapper .video-overlay .video-control.pause-video {
+  display: none;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.video-section .page-width .image-wrapper .video-overlay .video-control svg,
+.video-section .page-width .video-wrapper .video-overlay .video-control svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  fill: var(--accent-2-color);
+  opacity: 0.7;
+  transition: 0.3s all;
+}
+.video-section .page-width .image-wrapper .video-overlay .video-control svg:hover,
+.video-section .page-width .video-wrapper .video-overlay .video-control svg:hover {
+  opacity: 1;
+}
+.video-section .page-width .image-wrapper .video-overlay.pause .pause-video:hover,
+.video-section .page-width .video-wrapper .video-overlay.pause .pause-video:hover {
+  opacity: 1;
+}

@@ -1,0 +1,31 @@
+{% comment %}
+  {% render 'v2-custom-checkbox', name: "contact[terms_and_conditions]", label: "Default Label", required: true %}
+  * This snippet takes 2 variables: Name and Label
+  * This checkbox is styled for each theme individually
+{% endcomment %}
+
+
+<div class="label-input {{ cssClass }}">
+  <label for={{ id }}>{{ label }}</label>
+  <input 
+    id="{{ id }}"
+    type="{{ type }}"
+    placeholder = "{{ placeholder }}"
+    {% if required == true %}
+    required
+    {% endif %}
+    {{ attr }}
+    name="{{ name }}"
+    aria-describedby="err-{{name}}"
+    
+    {% comment %} for values that require an array  {% endcomment %}
+
+    {% if array != blank and array_name != blank %}
+      value="{{- array_name -}}[{{- array -}}]"
+    {% else %}
+      value="{{ value }}"
+    {% endif %}
+
+  >
+  <span id="err-{{name}}" class="errormessage"></span>
+</div>

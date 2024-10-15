@@ -1,0 +1,5 @@
+{%- capture modalContent -%}
+    {%- render 'v2-account-add-address-form' -%}
+{%- endcapture -%}
+
+{%- render 'v2-modal-generator', name: 'add-address', content: modalContent -%}

@@ -1,0 +1,42 @@
+
+
+<section class="account-form-page activate vertical-padding">
+  
+  <div class="account-form-wrapper activate-form vertical-margin">
+    <h1 class="heading-md">{{ 'customer.activate_account.title' | t }}</h1>
+    <p>{{ 'customer.activate_account.subtext' | t }}</p>
+    
+    {%- form 'activate_customer_password', class: 'account-form' -%}
+      {% render 'v3-form-response-messages', form: form %}
+        
+      {% assign password_label = 'customer.activate_account.password' | t %}
+      {% render 'v3-form-field',
+        type: "password"
+        id: "password",
+        name: "customer[password]",
+        label: password_label, 
+        placeholder: password_label,
+        attributes: 'autocomplete="new-password"', 
+        required: true, 
+      %}
+      
+      {% assign password_confirmation_label = 'customer.activate_account.password_confirm' | t %}
+      {% render 'v3-form-field',
+        type: "password",
+        id: "password_confirmation",
+        name: "customer[password_confirmation]",
+        label: password_confirmation_label, 
+        placeholder: password_confirmation_label,
+        attributes: 'autocomplete="new-password"', 
+        required: true, 
+      %}
+      
+      <div class="form-buttons">
+        <button class="button-1">{{ 'customer.activate_account.submit' | t }}</button>
+        <button class="button-2" name="decline">{{ 'customer.activate_account.cancel' | t }}</button>
+      </div>
+      
+    {%- endform -%}
+  </div>
+  
+</section>

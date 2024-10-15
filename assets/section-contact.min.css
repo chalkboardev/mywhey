@@ -1,0 +1,103 @@
+.contact-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-bottom: 200px; */
+  position: relative;
+  padding-top: 50px;
+}
+.contact-section::before {
+  content: " ";
+  width: 50%;
+  height: 130%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+@media screen and (max-width: 980px) {
+  .contact-section::before {
+    content: " ";
+    display: none;
+    height: 100%;
+  }
+}
+.contact-section .wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0px;
+}
+@media screen and (max-width: 980px) {
+  .contact-section .wrapper {
+    flex-direction: column;
+    padding: 0px;
+  }
+}
+.contact-section .wrapper .form-content,
+.contact-section .wrapper .text-content {
+  width: 100%;
+  flex-basis: 50%;
+  position: relative;
+}
+@media screen and (max-width: 750px) {
+  .contact-section .wrapper .form-content,
+  .contact-section .wrapper .text-content {
+    padding: 30px 1.5rem;
+  }
+}
+.contact-section .wrapper .text-content {
+  padding-right: 100px;
+}
+@media screen and (max-width: 980px) {
+  .contact-section .wrapper .text-content {
+    background: #fff;
+    padding: 30px 5rem;
+  }
+}
+.contact-section .wrapper .text-content h1 {
+  font-size: 24px;
+}
+.contact-section .wrapper .text-content p {
+  font-size: 14px;
+}
+.contact-section .wrapper .text-content .contact-info {
+  padding: 0px;
+  margin: 50px 0px 30px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px 0px;
+}
+.contact-section .wrapper .text-content .contact-info li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0px 10px;
+  font-weight: bold;
+}
+.contact-section .wrapper .form-content {
+  padding: 25px 0px 100px 50px;
+}
+@media screen and (max-width: 980px) {
+  .contact-section .wrapper .form-content {
+    padding: 30px 5rem 50px;
+  }
+}
+.contact-section .wrapper .form-content form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.contact-section .wrapper .form-content form .input-group {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+}

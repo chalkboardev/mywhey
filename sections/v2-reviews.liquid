@@ -1,0 +1,81 @@
+{% comment %}
+
+     === FUNCTIONALITY ===
+
+    Add section notes from project developer notes. See announcement bar example below.
+
+    Section notes:
+
+    - App - (ie Reviews.io)
+    - Limited by widget
+    - Link to view all Reviews (take the user to the ‘Reviews’ page
+
+    Section Author: Dan Hall
+
+{% endcomment %}
+
+{{ 'section-v2-reviews.min.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+
+    <div class="heading">
+
+        <h2 class="heading-lg">{{ section.settings.heading }}</h2>
+
+    </div>
+
+    <div class="widget">
+
+        {{ section.settings.widget }}
+
+    </div>
+
+    {%- if section.settings.link != blank and section.settings.link_text != blank -%}
+
+        <div class="reviews-link">
+
+            <a href="{{ section.settings.link }}" class="button-1" aria-label="Link to {{ section.settings.link_text }}">{{ section.settings.link_text }}</a>
+
+        </div>
+
+    {%- endif -%}
+
+</div>
+
+
+{% schema %}
+{
+  "name": "Reviews",
+  "tag": "section",
+  "class": "reviews vertical-margin",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Reviews",
+      "label": "Heading"
+    },
+    {
+      "type": "html",
+      "id": "widget",
+      "label": "Widget code",
+      "default": "[Widget to go here]"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,81 @@
+{% comment %}
+  Section notes:
+
+  - Each click through to PLP/Individual Collection page
+  - Link to ‘All collections’ page (Y/N)
+  - Number of Collections - X
+  - Carousel - Desktop (Y/N)
+  - Carousel or stack - Mobile
+  - Full box clickable
+  - Tile animated (zoom in slightly) on hover (Y/N)
+
+  Section Author: jo@quickfiredigital.com
+{% endcomment %}
+
+{% capture collection_tiles %}
+    {% for block in section.blocks %}
+        <div class="swiper-slide">
+            {% render 'v2-collection-grid-tile', collection: block.settings.collection, hover: section.settings.hover %}
+        </div>
+    {% endfor %}
+{% endcapture %}
+
+{% capture swiper_options %}
+    direction: 'horizontal',
+    loop: true,
+    slidesPerView: 3,
+    spaceBetween: 30,
+    draggable: true,
+
+    pagination: {
+        el: '.swiper-pagination',
+    },
+
+    navigation: {
+        nextEl: navNext,
+        prevEl: navPrev,
+    },
+
+    scrollbar: {
+        el: '.swiper-scrollbar',
+    },
+{% endcapture %}
+
+{% comment %}
+   {% if section.blocks.size > 0 %}
+    {{ 'section-v2-featured-collections.min.css' | asset_url | stylesheet_tag }}
+
+    <section class="collection-grid">
+      <div class="page-width">
+        {% render 'swiper',
+          name: 'collecion-grid-swiper',
+          items: collection_tiles,
+          options: swiper_options,
+          navigation: true,
+          pagination: false,
+          scrollbar: false
+        %}
+      </div>
+    </section>
+  {% endif %}
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Collection Grid",
+  "tag": "section",
+  "class": "collection-grid vertical-margin",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Slideshow" },
+    { "type": "checkbox", "id": "hover", "label": "Hover effect", "default": true }
+  ],
+  "blocks": [
+    {
+      "name": "Collection Tile",
+      "type": "tile",
+      "settings": [{ "type": "collection", "id": "collection", "label": "Collection" }]
+    }
+  ],
+  "presets": [{ "name": "Collection Grid" }]
+}
+{% endschema %}

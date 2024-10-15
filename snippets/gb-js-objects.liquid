@@ -1,0 +1,98 @@
+
+<script>
+  window.QF = [];
+
+  window.QF.settings = {
+    ajax_toast : {{ settings.add_to_cart_toast }},
+    ajax_open_side_cart : {{ settings.add_to_cart_open_side_cart }},
+    developerMode : {{ settings.developerMode }},
+    sideCart : {{ settings.side_cart }},
+  }
+
+  // Developer log ---
+  const log = (...arguments) => {
+    if(window.QF.settings.developerMode){
+      console.log(...arguments)
+    }
+  }
+
+  window.log = log;
+
+  window.template = "{{ template }}";
+
+  window.QF.cart = {{ cart | json }}
+
+
+  {% if template == "product" %}
+      let product = {{ product | json }};
+      window.QF.product = product;
+  {% else if template == "collection" %}
+      let collection = {{ collection | json }};
+      window.QF.collection = collection;
+
+  {% else if template == "index" %}
+  {% else if template == "page" %}
+
+  {% endif %}
+
+  {% if customer %}
+      window.QF.customer = {
+          "accepts_marketing" : {{ customer.accepts_marketing | json }},
+          "addresses" : {{ customer.addresses | json }},
+          "addresses_count" : {{ customer.addresses_count | json }}, 
+          "default_address" : {{ customer.default_address | json }}, 
+          "email" : {{ customer.email | json }}, 
+          "first_name" : {{ customer.first_name | json }}, 
+          "id" : {{ customer.id | json }}, 
+          "last_name" : {{ customer.last_name | json }}, 
+          "name" : {{ customer.name | json }}, 
+          "orders_count" : {{ customer.orders_count | json }}, 
+          "phone" : {{ customer.phone | json }}, 
+          "tags" : {{ customer.tags | json }}, 
+          "tax_exempt" : {{ customer.tax_exempt | json }}, 
+          "total_spent" : {{ customer.total_spent | json }}
+      };
+
+  {% endif %}
+
+  {% comment %}
+      START OF DAWN JS OBJECTS
+  {% endcomment %}
+  window.shopUrl = '{{ request.origin }}';
+  window.routes = {
+    cart_add_url: '{{ routes.cart_add_url }}',
+    cart_change_url: '{{ routes.cart_change_url }}',
+    cart_update_url: '{{ routes.cart_update_url }}',
+    predictive_search_url: '{{ routes.predictive_search_url }}'
+  };
+
+  window.cartStrings = {
+    error: `{{ 'sections.cart.cart_error' | t }}`,
+    quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
+  }
+
+  window.variantStrings = {
+    addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+    soldOut: `{{ 'products.product.sold_out' | t }}`,
+    unavailable: `{{ 'products.product.unavailable' | t }}`,
+  }
+
+  window.accessibilityStrings = {
+    imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
+    shareSuccess: `{{ 'general.share.success_message' | t }}`,
+    pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
+    playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
+  }
+  {% comment %}
+      END OF DAWN JS OBJECTS
+  {% endcomment %}
+
+  {% comment %}
+      QF Connector
+  {% endcomment %}
+
+  {% if shop.metafields.qfconnector.qfconnector_auth != blank and shop.metafields.qfconnector.qfconnector_url != blank %}
+    window.QF.auth = '{{ shop.metafields.qfconnector.qfconnector_auth }}';
+    window.QF.url = '{{ shop.metafields.qfconnector.qfconnector_url }}';
+  {% endif %}
+</script>

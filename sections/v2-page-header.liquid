@@ -1,0 +1,161 @@
+{% comment %}
+  
+    === FUNCTIONALITY ===
+
+    Section notes:
+
+    - Title, Intro paragraph (limited to X characters)
+    - Text alignment within space (Left/Central/Right)
+    - Background colour editable (Y/N)
+    - Ability to add image/video 
+    - Background overlay or gradient
+
+
+    Section Author: Dan Hall
+
+{% endcomment %}
+
+{{ 'section-v2-page-header.min.css' | asset_url | stylesheet_tag }}
+
+<div class="page-header-container vertical-padding" style="
+    
+    {%- if section.settings.background_color != blank -%}
+
+        background:{{ section.settings.background_color }};
+        
+    {%- endif -%}
+
+    {%- if section.settings.text_color != blank -%}
+
+        color:{{ section.settings.text_color }};
+
+    {%- endif -%}
+    
+">
+
+    <div class="header-image-video">
+
+        {%- if section.settings.video != blank -%}
+
+            {{ section.settings.video | video_tag: image_size: '2000x', autoplay: true, loop: true, muted: true, controls: false }}
+
+        {%- elsif section.settings.image != blank -%}
+
+            {{ section.settings.image | image_url: width: 2000, format: "jpg" | image_tag: fetchpriority: 'high', loading: 'eager' }}
+
+        {%- endif -%}
+
+    </div>
+
+    <div class="overlay" style="background:{{ section.settings.overlay }};opacity: 0.{% if section.settings.overlay_opacity == 5 %}05{% else %}{{ section.settings.overlay_opacity }}{% endif %}"></div>
+
+    <div class="page-width">
+
+        <div class="header-text-container">
+
+            <h1 class="heading-lg" style="{%- if section.settings.text_color != blank -%}color:{{ section.settings.text_color }};{%- endif -%}">
+
+                {{ section.settings.heading }}
+
+            </h1>
+
+            <p>
+
+                {{ section.settings.text }}
+            
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% schema %}
+{
+  "name": "Page header",
+  "tag": "section",
+  "class": "page-header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Heading <i>to go</i> <b>here</b>",
+      "label": "Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "default": "Text <i>to go</i> <b>here</b>",
+      "label": "Text"
+    },
+    {
+      "type": "color_background",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": "linear-gradient(#eeeeee, #eeeeee)"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text colour",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "paragraph",
+      "content": "This will show instead of any images."
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "color_background",
+      "id": "overlay",
+      "label": "Overlay",
+      "default": "linear-gradient(#000000, #000000)"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 95,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 30
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page header V2"
+    }
+  ],
+  "templates": [
+    "page"
+  ]
+}
+{% endschema %}

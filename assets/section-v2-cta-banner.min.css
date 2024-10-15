@@ -1,0 +1,61 @@
+.cta-banner {
+  padding: 60px 0;
+  position: relative;
+  isolation: isolate;
+  background-color: var(--primary-color);
+}
+.cta-banner.thin {
+  padding: 20px 0;
+}
+.cta-banner .image {
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  pointer-events: none;
+}
+.cta-banner.dark::before, .cta-banner.light::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.cta-banner.dark::before {
+  mix-blend-mode: multiply;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 20%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.3) 80%, rgba(0, 0, 0, 0.5) 100%);
+}
+.cta-banner.light::before {
+  mix-blend-mode: overlay;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 20%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 80%, rgba(255, 255, 255, 0.5) 100%);
+}
+.cta-banner .page-width {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 40px;
+}
+.cta-banner .page-width.right {
+  align-items: flex-end;
+}
+.cta-banner .page-width.middle {
+  align-items: center;
+}
+.cta-banner .page-width.left {
+  align-items: flex-start;
+}
+@media only screen and (max-width: 767.98px) {
+  .cta-banner .page-width {
+    gap: 30px;
+    text-align: center;
+  }
+}

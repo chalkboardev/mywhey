@@ -1,0 +1,12 @@
+{% if item.variant.available %}
+
+    <div class="quantity-wrapper" data-quantity="{{ item.quantity }}" >
+        <div class="minus"> - </div>
+        <div class="quantity"> <span data-variant-id="{{ item.variant_id }}" data-inventory-policy="{{ item.variant.inventory_policy }}" data-stock="{% if item.variant.inventory_management == "shopify"  and item.variant.inventory_policy != "continue" %}{{ item.variant.inventory_quantity | minus: item.quantity }}{% else %}10000000{% endif %}">{{ item.quantity }}</span></div>
+        <div class="plus"> + </div>
+    </div>
+
+{% else %}
+    <p class="oos"> This is now out of stock. <span class="remove-item" data-variant-id="{{ item.variant_id }}"> Remove </span> </p>
+
+{% endif %}

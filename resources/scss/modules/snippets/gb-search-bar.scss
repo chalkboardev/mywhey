@@ -1,0 +1,111 @@
+$search-bar-height: 36px;
+
+.search-bar-qf {
+  position: relative;
+  width: clamp( 125px, 100%, 145px );
+
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 21px;
+
+  input[type="text"] {
+    color: var( --text-primary-color );
+    font-weight: regular;
+    height: $search-bar-height;
+    position: relative;
+    
+    background: #F0F0F0;
+    border-radius: 21px;
+    
+    border: none;
+    outline: none;
+    padding: 10px 40px 10px 20px;
+    width: 100%;
+
+    &::placeholder {
+      // color: rgba(222, 204, 226, 0.9);
+      font-weight: regular;
+    }
+  }
+
+  .submit-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    width: 40px;
+    height: $search-bar-height;
+
+    label {
+      width: 40px;
+      height: $search-bar-height;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-right: 5px;
+
+      svg {
+        width: calc( $search-bar-height - 15px );
+        height: calc( $search-bar-height - 15px );
+        path {
+          fill: var( --text-primary-color );
+        }
+      }
+
+      input[type="submit"] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+
+        border-radius: 0;
+        background: none;
+        border: none;
+        padding: 0;
+      }
+    }
+  }
+}
+
+// 404 Search Bar Styles
+
+// Spaces Search Bar
+
+.custom-search-qf-section .wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+  max-width: 750px;
+
+  p {
+    min-width: max-content;
+    font-weight: bolder;
+  }
+
+  .search-bar-qf {
+    input {
+      color: rgba(0, 0, 0, 0.65);
+      padding-right: 50px;
+
+      &::placeholder {
+        color: rgba(0, 0, 0, 0.65);
+        font-weight: 500;
+      }
+    }
+
+    .submit-group label svg path {
+      fill: #10573b;
+    }
+  }
+}

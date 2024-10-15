@@ -1,0 +1,101 @@
+{% comment %}
+  This snippet will check to see what social information has been added to Theme settings, if it does then it will display.
+      * This snippet also uses the 'icons' snippet to get the icon SVGs.
+      * Need some more socials added: Youtube, Pinterest, Tumblr, Snapchat, Vimeo
+
+      Settings:
+      * 'id':          REQUIRED, allows style to target specific snippet to change colour of icons
+      * 'color':      this takes a colour and applies it to all icons fill
+      * 'direction':   this allows you to change flex-direction ( e.g. row, column, row-reverse, column-reverse )
+      * 'justify':     this allows you to set the justify-content for the icons
+      * 'gap':         This allows you to specify the spacing between each icon
+{% endcomment %}
+
+<div
+  class="socials"
+  style="display: flex; flex-direction: {{ direction }}; justify-content: {{ justify }}; gap: {{ gap }};"
+>
+  {% if settings.social_facebook_link != blank %}
+    <a
+      class="social-link"
+      href="{{ settings.social_facebook_link }}"
+      rel="nofollow"
+      target="_blank"
+      aria-label="Link to Facebook"
+    >
+      {% render 'gb-icon', icon: 'facebook' %}
+    </a>
+  {% endif %}
+
+  {% if settings.social_twitter_link != blank %}
+    <a
+      class="social-link"
+      href="{{ settings.social_twitter_link }}"
+      rel="nofollow"
+      target="_blank"
+      aria-label="Link to Twitter"
+    >
+      {% render 'gb-icon', icon: 'twitter' %}
+    </a>
+  {% endif %}
+
+  {% if settings.social_instagram_link != blank %}
+    <a
+      class="social-link"
+      href="{{ settings.social_instagram_link }}"
+      rel="nofollow"
+      target="_blank"
+      aria-label="Link to Instagram"
+    >
+      {% render 'gb-icon', icon: 'instagram' %}
+    </a>
+  {% endif %}
+
+  
+
+  {% if settings.social_tiktok_link != blank %}
+    <a
+      class="social-link"
+      href="{{ settings.social_tiktok_link }}"
+      rel="nofollow"
+      target="_blank"
+      aria-label="Link to TikTok"
+    >
+      {% render 'gb-icon', icon: 'tiktok' %}
+    </a>
+  {% endif %}
+
+  {% if settings.social_linkedin_link != blank %}
+    <a
+      class="social-link"
+      href="{{ settings.social_linkedin_link }}"
+      rel="nofollow"
+      target="_blank"
+      aria-label="Link to LinkedIn"
+    >
+      {% render 'gb-icon', icon: 'linkedin' %}
+    </a>
+  {% endif %}
+</div>
+
+<style>
+  .socials .social-link svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .socials .social-link {
+    width: 27.5px;
+    height: 27.5px;
+  }
+
+  .socials {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-basis: 100%;
+    flex-wrap: nowrap;
+  }
+</style>

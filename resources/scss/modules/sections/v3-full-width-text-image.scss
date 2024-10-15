@@ -1,0 +1,352 @@
+
+@import '../../../scss/breakpoints.scss';
+
+// .text-image-section { padding: 30px 0; }
+
+.text-image, .text-video {     
+    
+    * { box-sizing: border-box; }
+
+    .page-width-wrapper {
+
+        display: flex; 
+        flex-direction: row;
+        justify-content: center;
+        align-items: stretch; 
+        gap: 40px 0px; 
+
+        // SUD Double Path SVG
+        .sud-double-path {
+            height: 100%; 
+            z-index: 1;
+            position: absolute; 
+            pointer-events: none;
+            overflow: hidden;
+            min-width: max-content;
+
+            svg {
+                width: 100%; 
+                height: 100%; 
+                scale: 1.04;
+
+                path { stroke-width: 4px; }
+
+                @include to-sm { 
+                    translate: 20% 0;
+                    path { stroke-width: 3px; }
+                    path:first-of-type { translate: 20px 0; }
+                }
+
+                @include to-width(389px) {
+                    translate: 30% 0; 
+                    scale: 0.95 1.04;
+                }
+
+            }
+        }
+
+        
+        &.left { 
+            flex-direction: row; 
+
+            .sud-path, .sud-double-path {
+                inset: auto auto 0 0px; 
+            }
+
+            .sud-double-path {
+                scale: -1 1;
+            }
+
+            .content-wrapper {
+                padding-left: 86px;
+                @include to-md { padding-left: 0; }
+            }
+        }
+
+        &.right { 
+            flex-direction: row-reverse; 
+
+            .sud-path {
+                inset: auto 0 0 auto; 
+                scale: -1 1;
+            }
+
+            .sud-double-path {
+                inset: auto 0 0 auto; 
+                scale: 1 1;
+            }
+
+            .content-wrapper {
+                padding-right: 86px;
+                @include to-md { padding-right: 0; }
+            }
+        }
+
+        @include to-md {  
+            flex-direction: column !important; 
+            inset: auto auto 0 0px; 
+        }          
+
+
+        .image-wrapper, .video-wrapper {
+            width: 50vw;
+        }
+
+        .image-wrapper, .video-wrapper, .content-wrapper { 
+            // flex: 1;
+            display: flex;
+            @include to-md {  flex-direction: column; padding: 0; }      
+            
+            .sud-path {
+                z-index: 5;
+                overflow: hidden;
+                position: absolute; 
+                width: auto;
+                height: 100%; 
+
+                display: flex; 
+                justify-content: center; align-items: center;
+
+                svg {
+                    width: 100%; 
+                    height: 100%; 
+                    scale: 1.05;
+                }
+            }
+        }
+    
+        .content-wrapper {
+            flex: 1;
+            display: flex; 
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px 0;
+            
+            max-width: 700px;
+
+            padding: 40px 0;
+
+            @include to-md {
+                padding: 0 0 40px;
+            }
+
+            &.right { text-align: right; align-items: flex-end; padding-right: 86px; }
+            &.left { text-align: left; align-items: flex-start;  }
+            &.middle { text-align: center; align-items: center; }
+
+            .title { margin: 0; }
+    
+            .body, .body * {
+                font-size: 14px;
+                line-height: 1.4;
+                margin: 0;
+                font-weight: 300;
+            }
+
+            // List Items
+            .list-items {
+                display: flex; 
+                flex-direction: column;
+                gap: 8px;
+
+                width: 100%; 
+
+                .list-item {
+                    display: flex; 
+                    justify-content: flex-start;
+                    align-items: center;
+                    font-weight: bold;
+
+                    .icon {
+                        margin-right: 10px;
+                        width: 18px; height: 18px;
+
+                        svg {
+                            width: 100%; 
+                            height: 100%; 
+                        }
+                    }
+                }
+            }
+
+            * + .form-wrapper {
+                margin-top: 15px;
+            }
+
+            // Find Your School Form 
+            .form-wrapper {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 20px;
+
+                .form {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row; 
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: 20px;
+
+                    @include to-sm { flex-direction: column; align-items: flex-start; }
+
+                    .search-field {
+                        width: clamp( 160px, 100%, 340px );
+                        height: 36px;
+                        font-size: 13px; 
+                        font-weight: 300; 
+                        color: var(--text-primary-color);
+
+                        outline: none; 
+                        border: none; 
+                        border-radius: 5px; 
+
+                        padding: 10px 15px;
+                        @include to-sm {
+                        width: clamp( 160px, 100%, 500px );
+                        }
+                    }
+
+                    .submit { white-space: nowrap; }
+
+                }
+
+                .sublink {
+                    width: 100%;
+                    font-size: 14px; 
+                    font-weight: 600; 
+                    text-decoration: underline;
+                    text-align: left;
+                }
+            }
+        }
+    
+        .image-wrapper,
+        .video-wrapper {
+            overflow: hidden;
+            position: relative;
+            // min-width: calc(50% - 29px);
+            // max-width: calc(50% - 15px);
+    
+            // Image / Video / Svg Styles
+            img, video, svg {
+                width: 100%;  height: 100%; 
+                object-fit: cover; 
+            }
+
+            // Play button
+            .play-video-trigger {
+                position: absolute;
+                top: 50%;  left: 50%;
+                translate: -50% -50% 0;
+
+                width: 45px; height: 45px; 
+                z-index: 1;
+
+                svg {
+                    width: 100%;   height: 100%; 
+                    object-fit: contain;
+                    pointer-events: none;
+                }
+
+                opacity: 0.8;
+                transition: opacity .1s ease-out;
+                &:hover {
+                    opacity: 0.6;
+                }
+                &.playing { opacity: 0; pointer-events: none; }
+            }
+
+            // Hide on Mobile
+            &.hide-mobile {
+                @include to-sm { display: none; }
+            }
+
+            .video-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+                @include to-sm() {
+                    width: 100%;
+                }
+                .video-control {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    &.pause-video {
+                        display: none;
+                        opacity: 0;
+                        transition: all 0.3s;
+                    }
+                    svg {
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        width: 60px;
+                        height: 60px;
+                        cursor: pointer;
+                        fill: var(--accent-2-color);
+                        opacity: 0.7;
+                        transition: 0.3s all;
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+                }
+                &.pause {
+                    .pause-video:hover {
+                        opacity: 1;
+                    }
+                }
+            }
+
+            @include to-md {
+                width: 100vw;
+                min-width: 100vw;
+                max-width: 100vw;
+                aspect-ratio: 16 / 9;
+                margin-left: -5rem;
+            }
+            @include to-sm {
+                margin-left: -1.5rem;
+            }
+
+        }
+
+    }
+    
+}
+
+.page-width-wrapper.left {
+    margin: 0 auto 0 0;
+    width: 100%;
+    // max-width: calc( 100vw - ((100vw - var(--page-width)) / 2) + 5rem );
+    max-width: calc( 100vw - ((100vw - var(--page-width)) / 2) );
+    padding-right: calc(5rem);
+
+    @include to-md {
+        padding: 0 5rem;
+    }
+    @include to-sm() {
+        padding: 0 1.5rem;
+    }
+}
+
+.page-width-wrapper.right {
+    margin: 0 0 0 auto;
+    width: 100%;
+    max-width: calc( 100vw - ((100vw - var(--page-width)) / 2) );
+    padding-left: calc(5rem);
+
+    @include to-sm() {
+        padding: 0 1.5rem;
+    }
+}

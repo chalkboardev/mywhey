@@ -1,0 +1,205 @@
+@import "../../../scss/breakpoints.scss";
+
+// Outer form container
+.account-form-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &,
+    * {
+        box-sizing: border-box;
+    }
+
+    .account-form-wrapper {
+        width: 100%;
+        max-width: 500px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+    }
+}
+
+.account-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 25px 15px;
+
+    // Required Fields message
+    .required-msg {
+        width: 100%;
+        height: 0;
+        font-size: 14px;
+        text-align: right;
+        // margin-bottom: -25px;
+        translate: 0 25px;
+        margin-top: -25px;
+    }
+
+    // Buttons / Submit Wrapper
+    .form-buttons {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 15px 25px;
+    }
+}
+
+//   Errors / Success Messages - - - - - - - - - - - - - - - -
+.form-errors {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+
+    @include to-xs {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    grid-column: 1 / -1;
+    left: 0;
+
+    padding: 5px 10px;
+    margin: 10px auto;
+    // background: #ff3333;
+    color: white;
+    background: #cb3840;
+    border: solid 2px #b3333a;
+    border-radius: 5px;
+
+    .error-icon {
+        width: 20px;
+        min-width: 20px;
+        height: 20px;
+        min-height: 20px;
+        color: #b3333a;
+    }
+
+    .form__message {
+        color: white;
+        margin: -2px 5px 0 10px;
+
+        strong {
+            font-weight: bold;
+        }
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            color: white;
+
+            a {
+                color: inherit;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.form-success {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+
+    @include to-xs {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    grid-column: 1 / -1;
+    left: 0;
+
+    padding: 5px 10px;
+    margin: 10px auto;
+    // background: #ff3333;
+    color: white;
+    background: #428445;
+    border: solid 2px #346937;
+    border-radius: 5px;
+
+    .success-icon {
+        width: 20px;
+        min-width: 20px;
+        height: 20px;
+        min-height: 20px;
+    }
+}
+
+//   CAPTCHA / CHALLENGE STYLES - - - - - - - - - - - - - - - -
+.shopify-challenge__container {
+    padding: var(--spacing-sections-desktop) 0 !important;
+    margin: var(--spacing-sections-desktop) auto !important;
+
+    &,
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    form {
+        padding: 0 0 var(--spacing-sections-desktop) !important;
+
+        .btn {
+            padding: var(--button-v-padding) var(--button-h-padding);
+            background-color: var(--button-1-color);
+            color: var(--button-1-text-color);
+            border-radius: var(--button-1-radius);
+            transition: var(--button-transition);
+            font-size: var(--button-font-size);
+            font-weight: bold;
+            display: block;
+            width: max-content;
+            height: max-content;
+            cursor: pointer;
+
+            border: solid 2px var(--button-1-border-color);
+
+            // text-transform: uppercase;
+            i,
+            svg,
+            i svg,
+            i svg path,
+            svg path {
+                fill: var(--button-1-text-color);
+            }
+
+            &:hover {
+                background-color: var(--button-1-hover-color);
+                color: var(--button-1-hover-text-color);
+                border-radius: var(--button-1-hover-radius);
+                border: solid 2px var(--button-1-hover-border-color);
+
+                i,
+                svg,
+                i svg,
+                i svg path,
+                svg path {
+                    fill: var(--button-1-hover-text-color);
+                }
+            }
+        }
+    }
+}

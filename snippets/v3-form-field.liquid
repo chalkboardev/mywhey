@@ -1,0 +1,138 @@
+{% comment %}
+
+  OVERVIEW:
+      This snippet is used to output form fields to ensure they conform
+      to the same html / style structure to each other.
+
+      * All styling for this section is handled in: v3-form-field.scss
+
+      * The following pages should be using this to control their form styling:
+          - Login
+          - Register
+          - Reset Password
+          - Activate Account
+
+
+  PARAMETERS:
+      - type*         [String] ( e.g. tel, email, text, textarea, checkbox )
+      - id*           [String]
+      - name*         [String]
+      - label         [String]
+      - value         [String]
+      - placeholder   [String]
+      - required      [Boolean]
+      - attributes    [HTML/String] This should be the entire attribute(s) ( e.g. autocomplete="email" )
+      - classes       [String
+      ] ( e.g. "button-1" )
+
+  PARAMETERS FOR SELECT:
+      - select_options*       [HTML/Capture] This should be a capture of the options and is required for a select input type.
+
+
+  EXAMPLE:
+      {%- render "v3-form-field",
+          type: "email",
+          value: customer.email,
+          name: "customer[email]",
+          placeholder: "example@email.com",
+          required: true,
+          label: "Email:",
+          attributes: 'autocomplete="email"'
+      -%}
+
+
+  AUTHOR: jo@quickfiredigital.com
+{% endcomment %}
+
+{%- if id != blank and name != blank and type != blank -%}
+  <div class="form-field {{ type }}">
+    {% if label != blank and type != 'checkbox' %}
+      <label for="{{- id -}}">
+        {{ label }}
+        {%- if required == true -%}*{%- endif -%}
+      </label>
+    {% endif %}
+
+    {%- case type -%}
+      {%- when 'text', 'email', 'tel', 'password' -%}
+        <input
+          type="{{ type }}"
+          name="{{- name -}}"
+          id="{{- id -}}"
+
+          {% if classes != blank %}
+            class="{{- classes -}}"
+          {% endif %}
+
+          {% if placeholder != blank %}
+            placeholder="{{- placeholder -}}"
+          {% endif %}
+
+          {% if attributes %}
+            {{- attributes -}}
+          {% endif %}
+
+          {% if required == true %}
+            required
+          {% endif %}
+
+          {% if form.errors contains 'form' %}
+            aria-invalid="true"
+          {% endif %}
+        >
+      {%- when 'textarea' -%}
+      {%- when 'checkbox' -%}
+        <label class="form-checkbox">
+          <p class="checkbox-label">{{ label }}</p>
+
+          <input
+            id="{{- id -}}"
+            type="{{- type -}}"
+            name="{{- name -}}"
+
+            {% if required == true %}
+              required
+            {% endif %}
+          >
+
+          <span class="checkbox">
+            <svg class="form-checkbox-icon" viewBox="0 0 448 512">
+              <path d="M438.6 105.4C451.1 117.9 451.1 138.1 438.6 150.6L182.6 406.6C170.1 419.1 149.9 419.1 137.4 406.6L9.372 278.6C-3.124 266.1-3.124 245.9 9.372 233.4C21.87 220.9 42.13 220.9 54.63 233.4L159.1 338.7L393.4 105.4C405.9 92.88 426.1 92.88 438.6 105.4H438.6z" fill="currentColor"/>
+            </svg>
+          </span>
+        </label>
+      {%- when 'select' -%}
+        <div class="form-select">
+          <select
+            type="{{ type }}"
+            name="{{- name -}}"
+            id="{{- id -}}"
+
+            {% if classes != blank %}
+              class="{{- classes -}}"
+            {% endif %}
+
+            {% if attributes %}
+              {{- attributes -}}
+            {% endif %}
+
+            {% if required == true %}
+              required
+            {% endif %}
+
+            {% if form.errors contains 'form' %}
+              aria-invalid="true"
+            {% endif %}
+          >
+            {% if placeholder != blank %}
+              <option selected="true" disabled="disabled">{{- placeholder -}}</option>
+            {% endif %}
+
+            {{- select_options -}}
+          </select>
+
+          {% render 'gb-icon', icon: 'caret' %}
+        </div>
+    {%- endcase -%}
+  </div>
+{%- endif -%}

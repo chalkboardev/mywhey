@@ -1,0 +1,29 @@
+.faqs-tags-based .faqs-tags-based-wrapper {
+  background-color: var(--accent-2-color);
+}
+.faqs-tags-based .faqs-tags-based-wrapper .faqs-tags-based-container {
+  max-width: 750px;
+  margin: 0 auto;
+}
+.faqs-tags-based .faqs-tags-based-wrapper .faqs-tags-based-container .faq-header-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.faqs-tags-based .faqs-tags-based-wrapper .faqs-tags-based-container .faq-header-container > div {
+  display: flex;
+  align-items: center;
+}
+.faqs-tags-based .faqs-tags-based-wrapper .faqs-tags-based-container .accordion {
+  border-bottom: 3px solid #fff;
+  padding: 10px 0;
+}
+.faqs-tags-based .faqs-tags-based-wrapper .faqs-tags-based-container .accordion .heading-sm {
+  font-size: 18px;
+}
+.faqs-tags-based .faqs-tags-based-wrapper.white-bg {
+  background-color: #fff;
+}
+.faqs-tags-based .faqs-tags-based-wrapper.white-bg .accordion {
+  border-bottom: 3px solid var(--accent-1-color);
+}

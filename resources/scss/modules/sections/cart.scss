@@ -1,0 +1,30 @@
+#cart-container {
+  .top-row {
+    .right {
+      a {
+        display: flex;
+        width: max-content;
+        align-items: center;
+        margin-left: auto;
+
+        @media (max-width: 767px) {
+          margin-left: 0px;
+          margin-top: 20px;
+        }
+
+        svg {
+          width: 14px;
+          height: 14px;
+          transform: rotate(90deg);
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  .item {
+    .oos {
+      width: unset;
+    }
+  }
+}

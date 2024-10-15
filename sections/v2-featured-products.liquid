@@ -1,0 +1,156 @@
+{% comment %}
+
+  === FUNCTIONALITY ===
+
+    Section notes:
+
+    - Button and link to view ‘All products’ relevant to these
+    - Selected manually by client?
+    - Carousel of products or limited to ‘X’ number
+    - Scroll off screen on mobile
+
+    Section Author: Dan Hall
+
+{% endcomment %}
+
+{{ 'section-v2-featured-products.min.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+
+    <div class="featured-products-heading-wrapper">
+
+        <div class="featured-products-heading">
+
+            <h2 class="heading-lg">
+
+                {{ section.settings.heading }}
+
+            </h2>
+
+        </div>
+
+        {%- if section.settings.link_text != blank and section.settings.link != blank or section.settings.collection != blank -%}
+
+            <div class="featured-products-link">
+
+                <a href="{%- if section.settings.collection != blank -%}{{ section.settings.collection.url }}{%- else -%}{{ section.settings.link }}{%- endif -%}" class="button-1" aria-label="Link to {{ section.settings.link_text }}">
+
+                    {{ section.settings.link_text }}
+
+                </a>
+
+            </div>
+
+        {%- endif -%}
+
+    </div>
+
+    <div class="swiper featured-products-slider-{{ section.id }}">
+
+        <div class="swiper-wrapper">
+
+            {%- if section.settings.product_list != blank -%}
+
+                {% for featured_product in section.settings.product_list %}
+
+                    <div class="swiper-slide">
+
+                        {% render 'gb-product-card', product: featured_product, swiper: true %}
+
+                    </div>
+
+                {% endfor %}
+
+            {%- elsif section.settings.collection != blank -%}
+
+                {% for featured_collection_product in section.settings.collection.products limit: 10 %}
+
+                    <div class="swiper-slide">
+
+                        {% render 'gb-product-card', product: featured_collection_product, swiper: true %}
+
+                    </div>
+
+                {% endfor %}
+
+            {%- endif -%}
+
+        </div>
+
+    </div>
+
+<div>
+
+<script>
+    var swiper_{{ section.id | replace: "-", "" }} = new window.swiper(".featured-products-slider-{{ section.id }}", {
+        slidesPerView: 1.4,
+        spaceBetween: 30,
+        lazy: {
+            enabled: true,
+            checkInView: true,
+            loadOnTransitionStart: true,
+            loadPrevNext: true,
+            loadPrevNextAmount: 1
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 3
+            },
+            992: {
+                slidesPerView: 4
+            },
+            1200: {
+                slidesPerView: 5
+            }
+        },
+    });
+</script>
+
+</div>
+
+
+{% schema %}
+{
+  "name": "Featured products",
+  "tag": "section",
+  "class": "featured-products vertical-margin",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Featured products",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text",
+      "default": "View all products"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link",
+      "info": "If a collection is selected the link will use the collection URL."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "A maximum of 10 products from the collection will show."
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "Products",
+      "limit": 10,
+      "info": "This will override the collection set."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured products"
+    }
+  ]
+}
+{% endschema %}

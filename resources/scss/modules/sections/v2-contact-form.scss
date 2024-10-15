@@ -1,0 +1,68 @@
+@import '../../../scss/breakpoints.scss';
+
+.contact-form {
+    .contact-form-wrapper {
+        display: flex;
+        @include to-sm() {
+            flex-direction: column;
+        }
+        >div {
+            box-sizing: border-box;
+            padding: 50px;
+            width: 50%;
+            @include to-sm() {
+                width: 100%;
+            }
+        }
+        .contact-details {
+            padding-left: 0;
+            .contact-block {
+                margin-bottom: 25px;
+                &.details {
+                    ul {
+                        margin: 0;
+                        padding: 0;
+                        list-style: none;
+                        li {
+                            margin-bottom: 10px;
+                            display: flex;
+                            align-items: center;
+                            &:last-of-type {
+                                margin-bottom: 0;
+                            }
+                            svg {
+                                width: 20px;
+                                margin-right: 15px;
+                                fill: var(--primary-color);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .form {
+            background-color: #eee;
+            .contact--form {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                .custom-checkbox {
+                    margin-bottom: 0;
+                    display: flex;
+                    align-items: center;
+                    box-sizing: border-box;
+                }
+                .input-group {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    input:not([type=submit]), textarea {
+                        border: none;
+                        border-radius: 15px;
+                        padding: 6px 11px;
+                    }
+                }
+            }
+        }
+    }
+}

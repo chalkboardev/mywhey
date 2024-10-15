@@ -1,0 +1,153 @@
+{% comment %}
+  === FUNCTIONALITY ===
+
+  Section notes:
+
+  - Static at top of page when scrolling up but not down
+  - Marquee (one at a time on mobile)
+  - Speed Customisable
+  - Stops on hover
+  - Each optionally linkable to another page
+  - GA event when one is clicked
+  - Ability to change background/text colour and edit content/links
+  - Slides per view
+
+
+  Section Author: jo@quickfiredigital
+{% endcomment %}
+{{ 'section-gb-announcement-bar.min.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign blocks = section.blocks
+
+  if section.settings.text_color != 'rgba(0,0,0,0)'
+    assign color = section.settings.text_color
+  else
+    assign color = null
+  endif
+
+  if section.settings.background_color != 'rgba(0,0,0,0)'
+    assign bg = section.settings.background_color
+  else
+    assign bg = null
+  endif
+
+  assign autoplay = section.settings.autoplay
+  assign slides_per_view = section.settings.slides_per_view
+-%}
+
+<div
+  class="swiper announcement-bar-slider"
+  style="{{- bg | prepend: 'background: ' | append: ';' | default: '' -}} {{- color | prepend: 'color: ' | append: ';' | default: '' -}}"
+>
+  <div class="swiper-wrapper">
+    {%- for block in blocks -%}
+      {%- liquid
+        assign text = block.settings.text
+        assign link = block.settings.link
+      -%}
+      <div class="swiper-slide">
+        {%- if link != blank -%}
+          <a
+            href="{{- link -}}"
+            style="{{- color | prepend: 'color: ' | append: ';' | default: '' -}}"
+            aria-label="{{- text | prepend: 'Link to ' -}}"
+          >
+        {%- endif -%}
+        {{- text -}}
+        {%- if link != blank -%}</a>{%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{%- if blocks.size > 1 -%}
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const swiper_announcement = new window.swiper('.announcement-bar-slider', {
+            slidesPerView: 1,
+            centeredSlides: true,
+            spaceBetween: 0,
+            loop: true,
+            disableOnInteraction: true,
+
+            {%- if autoplay >= 0.5 -%}
+                autoplay: {
+                    delay: {{- autoplay | times: 1000 -}},
+                },
+            {%- endif -%}
+
+            breakpoints: {
+                768: {
+                    slidesPerView: {{- slides_per_view -}},
+                }
+            },
+
+      });
+
+    });
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "tag": "section",
+  "class": "announcement-bar",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text colour"
+    },
+    {
+      "type": "range",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "s",
+      "id": "autoplay",
+      "label": "Autoplay speed",
+      "default": 1.5
+    },
+    {
+      "type": "range",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "id": "slides_per_view",
+      "label": "Slides in view (Desktop)",
+      "info": "On tablet/mobile this defaults to 1 slide per view",
+      "default": 1
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Text here"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar"
+    }
+  ]
+}
+{% endschema %}

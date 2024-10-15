@@ -1,0 +1,177 @@
+{% comment %}
+  === FUNCTIONALITY ===
+
+  Section notes:
+
+  - Menu items to dropdown when opened
+  - Option to hide images with links on mobile
+  - Burger changes to ‘X’ when open - Clickable to close
+  - Void to the left/right of the menu clickable to close menu
+  - Word and arrow clickable
+
+
+  === PARAMETERS ===
+
+  - "menu" is a linklist passed from the mega menu section settings to create the links/navigation for the mobile menu.
+  - "logo" is an image passed from the mega menu.
+
+
+  Section Author: jo@quickfiredigital.com
+{% endcomment %}
+
+<section class="mobile-menu-outer-wrapper">
+  <div class="mobile-menu">
+    <nav class="mobile-menu-navigation">
+      <div class="mobile-menu-navigation__main">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'mega_menu' -%}
+              {%- if block.settings.menu.links.size > 0 -%}
+                <div class="mobile-group">
+                  <button class="mobile-group__title">
+                    {{- block.settings.link_title -}}
+                    {%- render 'gb-icon', icon: 'chevron-down' -%}
+                  </button>
+                  <div class="mobile-group__dropdown">
+                    <ul class="mobile-group__sublinks">
+                      {%- for sublink in block.settings.menu.links -%}
+                        <li>
+                          <a
+                            class="sublink"
+                            href="{{- sublink.url -}}"
+                            aria-label="Link to {{- sublink.title -}}"
+                          >
+                            {{- sublink.title -}}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+
+                    <div class="mobile-group__blocks">
+                      {% if block.settings.block_link_1 != blank %}
+                        <a
+                          class="block-link"
+                          href="{{ block.settings.block_link_1.url }}"
+                          aria-label="Link to {{ block.settings.block_link_1_title }}"
+                        >
+                          {% if block.settings.block_link_1_img != blank %}
+                            {{
+                              block.settings.block_link_1_img
+                              | image_url: width: 740, format: 'jpg'
+                              | image_tag:
+                                loading: 'lazy',
+                                decoding: 'async',
+                                width: 370,
+                                height: 493,
+                                sizes: block_image_sizes,
+                                widths: block_image_widths
+                            }}
+                          {% endif %}
+
+                          <div class="block-link-title">
+                            {% if block.settings.block_link_1_title != blank %}
+                              {{ block.settings.block_link_1_title }}
+                            {% elsif block.settings.block_link_1.title != blank %}
+                              {{ block.settings.block_link_1.title }}
+                            {% endif %}
+                          </div>
+                        </a>
+                      {% endif %}
+
+                      {% if block.settings.block_link_2 != blank %}
+                        <a
+                          class="block-link"
+                          href="{{ block.settings.block_link_2.url }}"
+                          aria-label="Link to {{ block.settings.block_link_2_title }}"
+                        >
+                          {% if block.settings.block_link_2_img != blank %}
+                            {{
+                              block.settings.block_link_2_img
+                              | image_url: width: 740, format: 'jpg'
+                              | image_tag:
+                                loading: 'lazy',
+                                decoding: 'async',
+                                width: 370,
+                                height: 493,
+                                sizes: block_image_sizes,
+                                widths: block_image_widths
+                            }}
+                          {% endif %}
+
+                          <div class="block-link-title">
+                            {% if block.settings.block_link_2_title != blank %}
+                              {{ block.settings.block_link_2_title }}
+                            {% elsif block.settings.block_link_2.title != blank %}
+                              {{ block.settings.block_link_2.title }}
+                            {% endif %}
+                          </div>
+                        </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+
+            {%- when 'menu_link' -%}
+              <a
+                class=""
+                href="{{- block.settings.link_url -}}"
+                aria-label="Link to {{ block.settings.link_title }}"
+                {% if block.settings.link_color %}
+                  style="color: {{ block.settings.link_color }}"
+                {% endif %}
+              >
+                {{- block.settings.link_title -}}
+              </a>
+          {%- endcase -%}
+        {%- endfor -%}
+
+        {% comment %}
+          {% for link in menu.links %}
+            {% capture child_links %}
+              {% for sublink in link.links %}
+                  <a class="sublink" href="{{ sublink.url }}" aria-label="Link to {{ sublink.title }}">{{ sublink.title }}</a>
+              {% endfor %}
+          {% endcapture %}
+
+            {% if link.links.size > 0 %}
+              {% render 'v2-accordion', question: link.title, content: child_links %}
+            {% else %}
+              <a class="" href="{{ link.url }}" aria-label="Link to {{ link.title }}">{{ link.title }}</a>
+            {% endif %}
+          {% endfor %}
+        {% endcomment %}
+      </div>
+
+      <div class="mobile-menu-navigation__account">
+        <div class="lang-selector">
+          GDP
+          {%- render 'gb-icon', icon: 'chevron-down' -%}
+        </div>
+
+        <a class="wishlist" aria-label="Go To Wishlist" href="/pages/wishlist">
+          {%- render 'gb-icon', icon: 'heart-empty' -%}
+          Wishlist
+          <span id="wishlistCount" class="is-hidden icon-count"></span>
+        </a>
+
+        <a class="account" aria-label="Go To Account" href="/account">
+          {%- render 'gb-icon', icon: 'account' -%}
+          My Account
+        </a>
+
+        <button open-side-cart class="basket openSideCart" aria-label="Open Basket">
+          {%- render 'gb-icon', icon: 'package' -%}
+          Basket
+          <span cart-count class="cart-count icon-count {%- if cart.item_count == 0 %} empty-cart{%- endif -%}">
+            {{- cart.item_count -}}
+          </span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="mobile-menu-bottom">
+      {% render 'gb-social-icons', direction: 'row', justify: 'center', gap: '2rem' %}
+    </div>
+  </div>
+</section>

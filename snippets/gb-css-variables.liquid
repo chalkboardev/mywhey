@@ -1,0 +1,107 @@
+{%- comment -%}
+  Description:
+  - Stores all css variables
+{%- endcomment -%}
+
+{%- style -%}
+  :root  {
+    /* FONTS - START */
+
+    --font-sans: 'circe'
+    , -apple-system
+    , BlinkMacSystemFont
+    , "Segoe UI"
+    , Roboto
+    , Oxygen-Sans
+    , Ubuntu
+    , Cantarell
+    , "Helvetica Neue"
+    , sans-serif;
+    --font-serif: 'miller-banner'
+    , 'Times New Roman'
+    , serif;
+
+    {%- assign font_sizes = '10,12,14,16,18,20,22,26,28,32,36,40,52,72' | split: ',' -%}
+    {%- for size in font_sizes -%}
+      --font-size-{{ size }}: {{ size | divided_by: 16.0 }}rem;
+    {% endfor -%}
+
+    {%- assign font_weights = 'thin,extra-light,light,normal,medium,semi-bold,bold,extra_bold,black' | split: ',' -%}
+    {%- assign weight_value = 100 -%}
+    {%- for weight in font_weights -%}
+      --font-weight-{{ weight }}: {{ weight_value }};
+
+    {%- assign weight_value = weight_value |  plus: 100 -%}
+    {% endfor -%}
+
+    --font-weight-book: 350;
+
+    {%- assign font_style = 'italic,normal' | split: ',' -%}
+    {%- for style in font_style -%}
+      --font-style-{{ style }}: {{ style }};
+    {% endfor -%}
+
+    /* TYPOGRAPHY - END */
+
+    /* LAYOUT - START */
+    --page-width: {{ settings.page_width }}px;
+    --page-padding-xs: {{ 10 | divided_by: 16.0 }}rem;
+    --page-padding-sm: {{ 20 | divided_by: 16.0 }}rem;
+    --page-padding-md: {{ 50 | divided_by: 16.0 }}rem;
+    --page-padding-lg: {{ 100 | divided_by: 16.0 }}rem;
+
+    --spacing-sections-desktop: {{ settings.spacing_sections | divided_by: 16.0 }}rem;
+    --spacing-sections-mobile: {{ settings.spacing_sections | times: 0.5 | round | at_least: 20 | divided_by: 16.0 }}rem;
+    /* LAYOUT - END */
+
+    /* COLORS - START */
+    --primary-color: {{ settings.theme_primary_color }};
+    --secondary-color: {{ settings.theme_secondary_color }};
+    --accent-1-color: {{ settings.theme_accent_1_color }};
+    --accent-2-color: {{ settings.theme_accent_2_color }};
+    --accent-3-color: {{ settings.theme_accent_3_color }};
+    --text-primary-color: {{ settings.text_main_color }};
+    --text-alternate-color: {{ settings.text_alternate_color }};
+    /* COLORS - END */
+
+    /* BUTTONS - START */
+    --button-h-padding: {{ settings.button_h_padding }}px;
+    --button-v-padding: {{ settings.button_v_padding }}px;
+
+    --button-font-size: {{ settings.button_font_size }}px;
+    --button-transition: {{ settings.button_transition }}
+    s ease;
+
+    --button-1-color: {{ settings.button_1_color }};
+    --button-1-text-color: {{ settings.button_1_text_color }};
+    --button-1-radius: {{ settings.button_1_radius }}px;
+    --button-1-border-color: {{ settings.button_1_border_color }};
+
+    --button-1-hover-color: {{ settings.button_1_hover_color }};
+    --button-1-hover-text-color: {{ settings.button_1_hover_text_color }};
+    --button-1-hover-radius: {{ settings.button_1_hover_radius }}px;
+    --button-1-hover-border-color: {{ settings.button_1_hover_border_color }};
+
+    --button-2-color: {{ settings.button_2_color }};
+    --button-2-text-color: {{ settings.button_2_text_color }};
+    --button-2-radius: {{ settings.button_2_radius }}px;
+    --button-2-border-color: {{ settings.button_2_border_color }};
+
+    --button-2-hover-color: {{ settings.button_2_hover_color }};
+    --button-2-hover-text-color: {{ settings.button_2_hover_text_color }};
+    --button-2-hover-radius: {{ settings.button_2_hover_radius }}px;
+    --button-2-hover-border-color: {{ settings.button_2_hover_border_color }};
+    /* BUTTONS - END */
+
+    /* GLOBAL SECTION PADDING  */
+    --section-padding-s: {{ settings.section_padding_s }}px;
+    --section-padding-m: {{ settings.section_padding_m }}px;
+    --section-padding-l: {{ settings.section_padding_l }}px;
+    /* GLOBAL SECTION PADDING END */
+
+    /* GLOBAL SECTION MARGIN  */
+    --section-margin-s: {{ settings.section_margin_s }}px;
+    --section-margin-m: {{ settings.section_margin_m }}px;
+    --section-margin-l: {{ settings.section_margin_l }}px;
+    /* GLOBAL SECTION MARGIN END */
+{%- endstyle -%}

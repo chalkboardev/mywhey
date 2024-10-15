@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "assets/section-gb-announcement-bar.min.css",
+  "mappings": "AAAA,kBAEI,YADA,WAEJ,CAAI,2CACI,sCACA,UAER,CADQ,yDAEI,cADA,iBAIZ,CAFY,2DACI,iCAIhB,C",
+  "sources": [
+    "webpack://quickfire-shopify-theme/./resources/scss/modules/sections/gb-announcement-bar.scss"
+  ],
+  "sourcesContent": [
+    ".announcement-bar {\n    z-index: 110;\n    height: 26px;\n    .announcement-bar-slider {\n        background-color: var(--primary-color);\n        color: #fff;\n        .swiper-slide {\n            text-align: center;\n            padding: 3px 0;\n            a {\n                color: var(--text-alternate-color);\n            }\n        }\n    }\n}"
+  ],
+  "names": [],
+  "sourceRoot": ""
+}

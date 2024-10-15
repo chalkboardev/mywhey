@@ -1,0 +1,133 @@
+<div cart-drawer-container class="cart-drawer-container" id="cart-drawer-container">
+  {% if settings.enable_youMayAlsoLike %}
+    <div side-cart-recommendations class="side-cart-recommendations--wrapper">
+      <div class="side-cart-recommended">
+        {%- if settings.recommended_product_list != blank or settings.recommended_collection.products != blank -%}
+          <div cart-recommendations-slider class="swiper cart-recommendations-slider">
+            <div class="recommended-heading">
+              <h2>{{ settings.youMayAlsoLike_heading }}</h2>
+            </div>
+
+            <div class="swiper-wrapper">
+              {%- if settings.recommended_product_list != blank -%}
+                {%- for rec_product in settings.recommended_product_list limit: 10 -%}
+                  <div class="product swiper-slide">
+                    {% render 'gb-product-card', product: rec_product, swiper: true %}
+                  </div>
+                {%- endfor -%}
+
+              {%- elsif settings.recommended_collection.products != blank -%}
+                {%- for rec_coll_product in settings.recommended_collection.products limit: 10 -%}
+                  <div class="product swiper-slide">
+                    {% render 'gb-product-card', product: rec_coll_product, swiper: true %}
+                  </div>
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+          </div>
+
+          <div class="swiper-button-next cart-rec"></div>
+          <div class="swiper-button-prev cart-rec"></div>
+
+        {% else %}
+          <div side-cart-recommended-container class="side-cart-recommended-container"></div>
+        {%- endif -%}
+      </div>
+    </div>
+  {% endif %}
+
+  <div id="cart-drawer">
+    <div class="top">
+      <div class="cart-tabs">
+        <button side-cart-tab class="cart-tab active" data-tab="basket-cart">
+          {% render 'gb-icon', icon: 'shopping-cart' %}
+          <span data-title="Basket">{{ 'side_cart.side_cart_buttons_and_tabs.cart_items' | t }}</span>
+        </button>
+        <button side-cart-tab class="cart-tab" data-tab="saved-cart">
+          <span data-title="Saved">{{ 'side_cart.side_cart_buttons_and_tabs.saved_items' | t }}</span>
+        </button>
+        {% if settings.enable_foryou %}
+          <button side-cart-tab class="cart-tab cart-tab--you" data-tab="for-you">
+            <span class="title" data-title="Saved">{{ 'side_cart.side_cart_buttons_and_tabs.for_you' | t }}</span>
+          </button>
+        {% endif %}
+      </div>
+      <span class="closeSideCart">{% render 'gb-icon', icon: 'menu-close' %}</span>
+    </div>
+
+    <form
+      action="/cart"
+      method="post"
+      novalidate
+      side-cart-form
+      class="cart basket-cart cart-content"
+    >
+      {%- if localization.market.metafields.custom.free_shipping_cart_total != blank
+        or settings.free_delivery != blank
+      -%}
+        {% comment %} SK TODO: This needs to be updated to include simple free gift code. Sample code - https://theworkroomteam.slack.com/archives/C06V761FR8E/p1721825442560049 {% endcomment %}
+        <div
+          free-delivery-status
+          class="free-delivery-status hidden"
+          data-currency-symbol="{{ shop.money_format }}"
+          data-free-progress-text="{{ 'side_cart.side_cart_messages.free_delivery_progress' | t }}"
+          data-reached-free-text="{{ 'side_cart.side_cart_messages.free_delivery_reached' | t }}"
+          data-free-delivery="{{ settings.free_delivery }}"
+          data-free-delivery-market="{{ localization.market.metafields.custom.free_shipping_cart_total }}"
+        >
+          {% render 'gb-icon', icon: 'delivery-van' %}
+          <span class="free-delivery-text"></span>
+        </div>
+      {%- endif -%}
+
+      {% comment %} Side cart section render is injected here {% endcomment %}
+      <div side-cart-inner class="inner"></div>
+      <div class="buttons">
+        {% if additional_checkout_buttons %}
+          <div class="additional-checkout-buttons">
+            {{ content_for_additional_checkout_buttons }}
+          </div>
+        {% endif %}
+
+        <a href="/checkout" class="button-1 checkout" aria-label="Link to Checkout">
+          {{- 'side_cart.side_cart_buttons_and_tabs.checkout' | t -}}
+        </a>
+      </div>
+    </form>
+
+    <div saved-cart-tab class="saved-cart cart-content">
+      <div class="grid-container">
+        <div class="side-cart-saved-grid" side-cart-grid-wishlist></div>
+        <div class="loader"></div>
+        <div id="empty-wishlist-side-cart" class="empty-wishlist-side-cart">
+          <h2>{{ settings.empty_heading }}</h2>
+          {% if settings.empty_message != '' %}
+            <p>
+              {{ settings.empty_message }}
+            </p>
+          {% endif %}
+          <button class="button-1 button--small closeSideCart">{{ 'general.continue_shopping' | t }}</button>
+        </div>
+      </div>
+    </div>
+    {% if settings.enable_foryou %}
+      <div for-you-tab class="for-you cart-content">
+        <div class="grid-container">
+          <div class="side-for-you-grid side-for-you-grid--fallback">
+            {%- if settings.recommended_product_list != blank -%}
+              {%- for rec_product in settings.recommended_product_list limit: 6 -%}
+                {%- render 'gb-product-card', product: rec_product -%}
+              {%- endfor -%}
+
+            {%- elsif settings.recommended_collection.products != blank -%}
+              {%- for rec_coll_product in settings.recommended_collection.products limit: 6 -%}
+                {%- render 'gb-product-card', product: rec_coll_product -%}
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+          <div class="side-for-you-grid side-for-you-grid--recommended"></div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>

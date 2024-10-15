@@ -1,0 +1,200 @@
+.cart {
+  .cart-item {
+    padding: 10px 0px 20px;
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #707070;
+
+    .img-wrap {
+      height: 110px;
+      width: 110px;
+      margin-right: 25px;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      flex-direction: column;
+
+      @media screen and (max-width: 425px) {
+        margin-right: 10px;
+        margin-left: 10px;
+
+        width: 65px;
+        min-width: auto;
+        height: 65px;
+        min-height: auto;
+        aspect-ratio: 1 / 1;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .content-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      @media screen and (max-width: 425px) {
+        margin-right: 10px;
+      }
+
+      .product-info {
+        width: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: row;
+
+        .p-var {
+          font-size: 13px;
+          margin: 0;
+        }
+
+        .p-title {
+          margin: 0;
+          width: 80%;
+        }
+
+        .p-title,
+        .p-brand,
+        .p-title span {
+          color: inherit;
+          font-weight: 700;
+          font-size: 16px;
+          @media screen and (max-width: 425px) {
+            font-size: 14px;
+          }
+        }
+
+        .p-brand {
+          margin: 0;
+        }
+      }
+
+      .product-info:nth-of-type(2) {
+        margin-top: 2.5px;
+        margin-bottom: 10px;
+      }
+
+      .cart-info {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 10px 25px;
+
+        justify-content: flex-start;
+        align-items: flex-end;
+        width: 100%;
+        margin-top: auto;
+
+        padding-top: 10px;
+        border-top: solid 1px #f0f0f0;
+
+        @media screen and (max-width: 425px) {
+          gap: 10px;
+          justify-content: space-between;
+          // margin-top: 10px;
+        }
+
+        .row-break {
+          height: 0px;
+          flex-basis: 100%;
+          margin: 10px 0px;
+          border-bottom: solid 1px #f0f0f0;
+        }
+
+        .p-price,
+        .p-variant,
+        .p-subtotal,
+        .p-quantity {
+          text-align: left;
+          height: 42px;
+
+          p {
+            margin: 6.5px 0 auto 0;
+            font-size: 14px;
+            font-weight: 700;
+          }
+
+          .label {
+            font-weight: 500;
+            font-size: 12px;
+            margin: 0 0 3px 0;
+          }
+        }
+
+        .p-subtotal {
+          margin-left: auto;
+        }
+
+        .p-quantity {
+          .quantity-wrapper {
+            .quantity {
+              flex-basis: 50%;
+            }
+          }
+        }
+
+        .remove-item {
+          display: none;
+          svg {
+            width: 20px;
+            height: 20px;
+
+            cursor: pointer;
+            path {
+              fill: var(--primary-color);
+            }
+          }
+        }
+
+        .p-variant {
+          @media screen and (max-width: 768px) {
+            display: none;
+          }
+        }
+      }
+
+      .remove-control,
+      .policy-link {
+        display: flex;
+        order: 1;
+        flex-direction: column;
+        margin-left: auto;
+
+        .policy {
+          white-space: nowrap;
+          color: var(--primary-color);
+          font-size: 12px;
+          font-weight: regular;
+          margin-top: auto;
+          margin-left: auto;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        .remove-item {
+          margin: 0 0 0 0;
+          padding: 0;
+          width: 20px;
+          height: 20px;
+
+          svg {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            path {
+              fill: var(--primary-color);
+            }
+          }
+        }
+      }
+    }
+  }
+}

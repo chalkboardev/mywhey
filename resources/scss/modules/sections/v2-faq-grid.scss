@@ -1,0 +1,16 @@
+.faq-grid {
+  .accordion-faqs-tag-based-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 40px; 
+    .accordion-sub-container {
+      padding: 30px 22px 46px;
+      background-color: #F4F4F4;
+      .accordion {
+        border-bottom: 3px solid #fff;
+        font-size: 18px;
+        padding: 10px 0;
+      }
+    }
+  }
+}

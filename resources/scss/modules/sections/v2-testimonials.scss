@@ -1,0 +1,40 @@
+.testimonials {
+    .testimonials-heading {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .testimonials-slider-wrapper {
+        position: relative;
+        .testimonials-slider {
+            width: calc(100% - 60px);
+            .swiper-slide {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                .stars {
+                    svg {
+                        width: 20px;
+                    }
+                }
+                .review {
+                    i {
+                        font-size: 14px;
+                    }
+                }
+                .name {
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+            }
+        }
+        .testimonials-next {
+            right: 0;
+            width: unset;
+        }
+        .testimonials-prev {
+            left: 0;
+            width: unset;
+        }
+    }
+}

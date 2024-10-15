@@ -1,0 +1,18 @@
+{% comment %}
+  {% render 'custom-checkbox-qf', name: "contact[terms_and_conditions]", label: "Default Label", required: true %}
+
+  * This snippet takes 2 variables: Name and Label
+  * This checkbox is styled for each theme individually
+{% endcomment %}
+
+<label class="custom-checkbox">
+  <p>{{ label }}</p>
+  <input
+    type="checkbox"
+    name="{{ name }}"
+    {% if required == true %}
+      required
+    {% endif %}
+  >
+  <span class="checkmark"></span>
+</label>

@@ -1,0 +1,359 @@
+{% comment %}
+
+  Section notes:
+      - Full width video section
+      - Ability to invert (ie video can be left or right)
+      - Text alignment within space (Left/Central/Right)
+      - Title, description, CTA button (Limited to one)
+      - Mobile stack text then video
+      - Mobile option to hide video
+      - Video options: Controls, Autoplay, Loop, Muted, Preload
+
+  Section Author: jo@quickfiredigital.com
+{% endcomment %}
+
+{{ 'section-v2-video.min.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign id = section.id
+
+  # Video
+  assign video = section.settings.video
+  assign controls = section.settings.controls
+  assign autoplay = section.settings.autoplay
+  assign muted = section.settings.muted
+  assign loop = section.settings.loop
+  assign preload = section.settings.preload
+  assign lazyload = section.settings.lazyload
+
+  case autoplay
+      assign autoplayState = false
+      assign autoplayInView = ''
+    when 'none'
+      assign autoplayState = false
+    when 'in-view'
+      assign autoplayState = false
+      assign autoplayInView = 'autoplay-in-view'
+    when 'always'
+      assign autoplayState = true
+  endcase
+
+  # Content
+  assign title = section.settings.title
+  assign body = section.settings.body
+
+  assign url = section.settings.url
+  assign url_text = section.settings.url_text
+
+  # Style
+  assign align = section.settings.align
+  assign size = section.settings.size
+  assign colour = section.settings.colour
+  assign background = section.settings.background
+  assign button_style = section.settings.button_style
+
+  if lazyload == true
+    assign preload = 'none'
+  endif
+-%}
+
+<div
+  class="page-width {% if background == '' or background == 'rgba(0,0,0,0)' %}vertical-margin{% else %}vertical-padding{% endif %}"
+  style="background:{{ background }};"
+>
+  {% if title != blank or body != blank or show_button == true %}
+    <div class="content-wrapper {{ align }}" style="color: {{ colour }};">
+      {% if title != blank %}
+        <h2 class="title {{ size }}">{{- title -}}</h2>
+      {% endif %}
+
+      {% if body != blank %}
+        <p class="body">{{ body }}</p>
+      {% endif %}
+
+      {% if url != blank and url_text != blank %}
+        {% assign show_button = true %}
+        <a class="{{ button_style }}" href="{{ url }}" aria-label="Link to {{ url_text }}">{{ url_text }}</a>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="video-wrapper {{ autoplayInView }}">
+    {% if video != blank %}
+      {% if autoplayState == false %}
+        <i class="play-video-trigger">{%- render 'gb-icon', icon: 'play-circle' -%}</i>
+      {% endif %}
+
+      {{
+        video
+        | video_tag:
+          image_size: '800x',
+          controls: controls,
+          autoplay: autoplayState,
+          muted: muted,
+          loop: loop,
+          preload: preload
+      }}
+    {% else %}
+      {{ 'image' | placeholder_svg_tag }}
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  {% assign video_triggers_var = id | remove: "template" | remove: "_" | remove: "-" | prepend: "videoTriggers__" %}
+  const {{ video_triggers_var }} = document.querySelectorAll('{{ id | prepend: "#" }} .play-video-trigger');
+  if ({{- video_triggers_var -}}) {
+      window.addEventListener('click', function (e) {
+      if (e.target.classList.contains('play-video-trigger')) {
+          let video = e.target.closest('.video-wrapper').querySelector('video');
+
+          // Play Video
+          video.play();
+
+          // Hide Play Button
+          e.target.classList.add('playing');
+      } else if (e.target.tagName.toLowerCase() == 'video') {
+          let video = e.target.closest('.video-wrapper').querySelector('video');
+          let trigger = e.target.closest('.video-wrapper').querySelector('.play-video-trigger');
+
+          // Pause Video
+          video.pause();
+          // Show Play Button
+          trigger.classList.remove('playing');
+      }
+      });
+  }
+
+  // In View Autoplay
+  {% assign intersection_videos_var = id | remove: "template" | remove: "_" | remove: "-" | prepend: "intersectionVideos__" %}
+  const {{ intersection_videos_var }} = document.querySelectorAll('.video-wrapper.autoplay-in-view');
+
+  if ({{- intersection_videos_var -}}) {
+      let options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1.0,
+      };
+
+      let callback = function (entries) {
+      entries.forEach(function (entry) {
+          let video = entry.target.querySelector('video');
+          const video_trigger = video.closest('.video-wrapper').querySelector('.play-video-trigger');
+
+          {% comment %}
+              // Log if the element and if it's in the viewport
+              console.log('entry: ', entry.isIntersecting);
+          {% endcomment %}
+
+          if (!entry.isIntersecting) {
+              {% comment %} console.log('Pausing video'); {% endcomment %}
+              video.pause();
+              if ( video_trigger ) video_trigger.classList.remove('playing');
+          } else if (entry.isIntersecting) {
+              {% comment %} console.log('Playing video'); {% endcomment %}
+              video.play();
+              if ( video_trigger ) video_trigger.classList.add('playing');
+          }
+      });
+      };
+
+      {% comment %} // Create a new observer {% endcomment %}
+      let observer = new IntersectionObserver(callback, options);
+
+      {% comment %} // The elements to observe {% endcomment %}
+      {{ intersection_videos_var }}.forEach((videoWrapper) => {
+          {% comment %} // Attach it to the observer {% endcomment %}
+          observer.observe(videoWrapper);
+      });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Video",
+  "tag": "section",
+  "class": "video-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Subtitle Here"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "body",
+      "label": "Title",
+      "default": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy"
+    },
+    {
+      "type": "text",
+      "id": "url_text",
+      "label": "Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Button Link",
+      "info": "The button will only display with a Link and Text"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Video Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "controls",
+      "label": "Show Controls",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "in-view",
+          "label": "In View"
+        },
+        {
+          "value": "always",
+          "label": "Always"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "checkbox",
+      "id": "muted",
+      "label": "Muted",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "preload",
+      "label": "Preload",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "lazyload",
+      "label": "Lazyload",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Styles"
+    },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Content Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "middle",
+          "label": "Middle"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "middle"
+    },
+    {
+      "type": "select",
+      "id": "size",
+      "label": "Title Size",
+      "options": [
+        {
+          "value": "heading-sm",
+          "label": "Small"
+        },
+        {
+          "value": "heading-md",
+          "label": "Medium"
+        },
+        {
+          "value": "heading-lg",
+          "label": "Large"
+        }
+      ],
+      "default": "heading-md"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button Style",
+      "options": [
+        {
+          "value": "button-1",
+          "label": "Style 1"
+        },
+        {
+          "value": "button-2",
+          "label": "Style 2"
+        },
+        {
+          "value": "button-3",
+          "label": "Style 3"
+        },
+        {
+          "value": "button-4",
+          "label": "Style 4"
+        },
+        {
+          "value": "button-5",
+          "label": "Style 5"
+        },
+        {
+          "value": "button-6",
+          "label": "Style 6"
+        }
+      ],
+      "default": "button-1"
+    },
+    {
+      "type": "color",
+      "id": "colour",
+      "label": "Colour"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Video"
+    }
+  ]
+}
+{% endschema %}

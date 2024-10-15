@@ -1,0 +1,116 @@
+<link rel="stylesheet" href="{{ 'section-v2-cart.min.css' | asset_url }}">
+
+<section cart-container id="cart-container">
+    {% assign num_items = cart.items | size %}
+
+    {% if num_items > 0 %}
+        <div class="cart page-width" style="height: 100%;">
+            <div class="items-wrapper" style="flex: 1; position: relative;">
+                {% comment %}
+                    Heading Container
+                {% endcomment %}
+                <div class="heading">
+                    {% render 'v2-breadcrumbs' %}
+                    <h1 class="cart__title">
+                        Basket
+                        <span class="cart-counter">
+                            {{- cart.item_count }}
+                            {{ cart.item_count | pluralize: 'item', 'items' }}
+                        </span>
+                    </h1>
+                </div>
+
+                {% comment %}
+                    Cart Items Container
+                {% endcomment %}
+                {% unless cart.item_count == 0 %}
+                    <div class="items">
+                        {% for item in cart.items %}
+                            {% render 'v2-cart-item', item: item %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>Nothing in your Cart</p>
+                {% endunless %}
+            </div>
+
+            {% comment %}
+                Cart Summary
+            {% endcomment %}
+            <div
+                class="cart-details"
+                style="background-color: {{ section.settings.background }}"
+            >
+                <div class="cart-details__inner">
+                    <h2 class="cart-details__title">Summary</h2>
+
+                    <div class="sub-total-wrapper">
+                        <p>Subtotal:</p>
+                        <span class="sub-total">
+                            {{- cart.items_subtotal_price | money -}}
+                        </span>
+                    </div>
+
+                    <div class="postage-wrapper">
+                        <p>
+                            Postage:
+                            <a class="postage-link" href="#" aria-label="Postage &amp; Packaging Info">Postage &amp; Packaging Info</a>
+                        </p>
+                        <span class="postage">&pound;Price</span>
+                    </div>
+
+                    <div class="total-wrapper">
+                        <p>Total:</p>
+                        <span class="total">
+                            {{- cart.items_subtotal_price | money -}}
+                        </span>
+                    </div>
+                    <a href="/checkout" class="checkout-btn button-2" aria-label="Checkout">Checkout</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="page-width no-items">
+            <div class="cart-no-items">
+                <h1 class="cart-no-items__title" style="text-align: center;">
+                    There's nothing in your cart
+                </h1>
+                <a class="button-2" href="/collections/all">
+                    Continue Shopping
+                </a>
+                <a class="back-link" href="javascript:history.back()"
+                    >Go Back</a
+                >
+            </div>
+        </div>
+    {% endif %}
+</section>
+
+{% schema %}
+{
+    "name": "Cart",
+    "settings": [
+        {
+            "type": "text",
+            "id": "back_text",
+            "label": "Continue Shopping Text",
+            "default": "Continue Shopping"
+        },
+        {
+            "type": "url",
+            "id": "back_link",
+            "label": "Continue Shopping Link"
+        },
+        {
+            "type": "color",
+            "id": "background",
+            "label": "Cart Summary Background"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Cart"
+        }
+    ]
+}
+{% endschema %}

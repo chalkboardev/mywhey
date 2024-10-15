@@ -1,0 +1,168 @@
+.text-image .page-width, .text-video .page-width {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 40px 100px;
+}
+.text-image .page-width.left, .text-video .page-width.left {
+  flex-direction: row;
+}
+.text-image .page-width.right, .text-video .page-width.right {
+  flex-direction: row-reverse;
+}
+@media only screen and (max-width: 991.98px) {
+  .text-image .page-width, .text-video .page-width {
+    flex-direction: column !important;
+  }
+}
+.text-image .page-width .image-wrapper, .text-image .page-width .video-wrapper, .text-image .page-width .content-wrapper, .text-video .page-width .image-wrapper, .text-video .page-width .video-wrapper, .text-video .page-width .content-wrapper {
+  flex: 1;
+}
+@media only screen and (max-width: 991.98px) {
+  .text-image .page-width .image-wrapper, .text-image .page-width .video-wrapper, .text-image .page-width .content-wrapper, .text-video .page-width .image-wrapper, .text-video .page-width .video-wrapper, .text-video .page-width .content-wrapper {
+    flex-direction: column;
+    padding: 0;
+  }
+}
+.text-image .page-width .content-wrapper, .text-video .page-width .content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px 0;
+}
+.text-image .page-width .content-wrapper.right, .text-video .page-width .content-wrapper.right {
+  text-align: right;
+  align-items: flex-end;
+}
+.text-image .page-width .content-wrapper.left, .text-video .page-width .content-wrapper.left {
+  text-align: left;
+  align-items: flex-start;
+}
+.text-image .page-width .content-wrapper.middle, .text-video .page-width .content-wrapper.middle {
+  text-align: center;
+  align-items: center;
+}
+.text-image .page-width .content-wrapper .title, .text-video .page-width .content-wrapper .title {
+  margin: 0;
+}
+.text-image .page-width .content-wrapper .body, .text-image .page-width .content-wrapper .body *, .text-video .page-width .content-wrapper .body, .text-video .page-width .content-wrapper .body * {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+}
+.text-image .page-width .image-wrapper,
+.text-image .page-width .video-wrapper, .text-video .page-width .image-wrapper,
+.text-video .page-width .video-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+.text-image .page-width .image-wrapper img, .text-image .page-width .image-wrapper video, .text-image .page-width .image-wrapper svg,
+.text-image .page-width .video-wrapper img,
+.text-image .page-width .video-wrapper video,
+.text-image .page-width .video-wrapper svg, .text-video .page-width .image-wrapper img, .text-video .page-width .image-wrapper video, .text-video .page-width .image-wrapper svg,
+.text-video .page-width .video-wrapper img,
+.text-video .page-width .video-wrapper video,
+.text-video .page-width .video-wrapper svg {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.text-image .page-width .image-wrapper .play-video-trigger,
+.text-image .page-width .video-wrapper .play-video-trigger, .text-video .page-width .image-wrapper .play-video-trigger,
+.text-video .page-width .video-wrapper .play-video-trigger {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50% 0;
+  width: 45px;
+  height: 45px;
+  z-index: 1;
+  opacity: 0.8;
+  transition: opacity 0.1s ease-out;
+}
+.text-image .page-width .image-wrapper .play-video-trigger svg,
+.text-image .page-width .video-wrapper .play-video-trigger svg, .text-video .page-width .image-wrapper .play-video-trigger svg,
+.text-video .page-width .video-wrapper .play-video-trigger svg {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  pointer-events: none;
+}
+.text-image .page-width .image-wrapper .play-video-trigger:hover,
+.text-image .page-width .video-wrapper .play-video-trigger:hover, .text-video .page-width .image-wrapper .play-video-trigger:hover,
+.text-video .page-width .video-wrapper .play-video-trigger:hover {
+  opacity: 0.6;
+}
+.text-image .page-width .image-wrapper .play-video-trigger.playing,
+.text-image .page-width .video-wrapper .play-video-trigger.playing, .text-video .page-width .image-wrapper .play-video-trigger.playing,
+.text-video .page-width .video-wrapper .play-video-trigger.playing {
+  opacity: 0;
+  pointer-events: none;
+}
+@media only screen and (max-width: 767.98px) {
+  .text-image .page-width .image-wrapper.hide-mobile,
+  .text-image .page-width .video-wrapper.hide-mobile, .text-video .page-width .image-wrapper.hide-mobile,
+  .text-video .page-width .video-wrapper.hide-mobile {
+    display: none;
+  }
+}
+.text-image .page-width .image-wrapper .video-overlay,
+.text-image .page-width .video-wrapper .video-overlay, .text-video .page-width .image-wrapper .video-overlay,
+.text-video .page-width .video-wrapper .video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+@media only screen and (max-width: 767.98px) {
+  .text-image .page-width .image-wrapper .video-overlay,
+  .text-image .page-width .video-wrapper .video-overlay, .text-video .page-width .image-wrapper .video-overlay,
+  .text-video .page-width .video-wrapper .video-overlay {
+    width: 100%;
+  }
+}
+.text-image .page-width .image-wrapper .video-overlay .video-control,
+.text-image .page-width .video-wrapper .video-overlay .video-control, .text-video .page-width .image-wrapper .video-overlay .video-control,
+.text-video .page-width .video-wrapper .video-overlay .video-control {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.text-image .page-width .image-wrapper .video-overlay .video-control.pause-video,
+.text-image .page-width .video-wrapper .video-overlay .video-control.pause-video, .text-video .page-width .image-wrapper .video-overlay .video-control.pause-video,
+.text-video .page-width .video-wrapper .video-overlay .video-control.pause-video {
+  display: none;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.text-image .page-width .image-wrapper .video-overlay .video-control svg,
+.text-image .page-width .video-wrapper .video-overlay .video-control svg, .text-video .page-width .image-wrapper .video-overlay .video-control svg,
+.text-video .page-width .video-wrapper .video-overlay .video-control svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  fill: var(--accent-2-color);
+  opacity: 0.7;
+  transition: 0.3s all;
+}
+.text-image .page-width .image-wrapper .video-overlay .video-control svg:hover,
+.text-image .page-width .video-wrapper .video-overlay .video-control svg:hover, .text-video .page-width .image-wrapper .video-overlay .video-control svg:hover,
+.text-video .page-width .video-wrapper .video-overlay .video-control svg:hover {
+  opacity: 1;
+}
+.text-image .page-width .image-wrapper .video-overlay.pause .pause-video:hover,
+.text-image .page-width .video-wrapper .video-overlay.pause .pause-video:hover, .text-video .page-width .image-wrapper .video-overlay.pause .pause-video:hover,
+.text-video .page-width .video-wrapper .video-overlay.pause .pause-video:hover {
+  opacity: 1;
+}

@@ -1,0 +1,39 @@
+<section class="page-width">
+  <button id="add-btn">ADD</button>
+  <button id="bulk-add-btn">BULK ADD</button>
+  <button id="remove-btn">REMOVE</button>
+  <button id="update-btn">UPDATE</button>
+  <button id="clear-btn">CLEAR</button>
+  <button id="get-btn">GET CART</button>a
+
+  <button id="get-cart" style="background: black">Get Cart Contents</button>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {});
+</script>
+
+{% schema %}
+{
+  "name": "Cart Examples",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "TEST",
+          "label": "t:sections.all.colors.accent_1.label"
+        }
+      ],
+      "default": "TEST",
+      "label": "t:sections.all.colors.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cart Examples"
+    }
+  ]
+}
+{% endschema %}

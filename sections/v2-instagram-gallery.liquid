@@ -1,0 +1,76 @@
+{% comment %}
+  === FUNCTIONALITY ===
+
+  Add section notes from project developer notes. See announcement bar example below.
+
+  Section notes:
+
+    - Via app - html input field to paste snippet code
+    - Instagram handle
+    - Link to follow and open account in Instagram
+
+  Section Author: Dan Hall
+{% endcomment %}
+
+{{ 'section-v2-instagram-gallery.min.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+  <div class="heading-container">
+    <div class="insta-handle">
+      {% render 'gb-icon', icon: 'instagram' %}
+      <span class="heading-md">@{{ section.settings.insta_handle }}</span>
+    </div>
+
+    {%- if settings.social_instagram_link != blank -%}
+      <div class="insta-link">
+        <a
+          href="{{ settings.social_instagram_link }}"
+          rel="nofollow"
+          target="_blank"
+          class="button-1"
+          aria-label="Link to {{ section.settings.link_text }}"
+        >
+          {{- section.settings.link_text -}}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="insta-gallery">
+    {%- if section.settings.insta_snippet != blank -%}
+      {{ section.settings.insta_snippet }}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Instagram gallery",
+  "tag": "section",
+  "class": "instagram-gallery vertical-padding",
+  "settings": [
+    {
+      "type": "text",
+      "id": "insta_handle",
+      "label": "Instagram handle",
+      "default": "Instagram handle"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Instagram link text",
+      "default": "Follow us"
+    },
+    {
+      "type": "html",
+      "id": "insta_snippet",
+      "label": "Instagram gallery snippet code"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram gallery"
+    }
+  ]
+}
+{% endschema %}

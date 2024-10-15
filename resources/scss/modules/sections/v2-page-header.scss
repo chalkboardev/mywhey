@@ -1,0 +1,34 @@
+.page-header {
+    .page-header-container {
+        position: relative;
+        min-height: 200px;
+        box-sizing: border-box;
+        .header-image-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            img, video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .page-width {
+            position: relative;
+            .header-text-container {
+                max-width: 600px;
+                margin: 0 auto;
+                text-align: center;
+            }
+        }
+    }
+}

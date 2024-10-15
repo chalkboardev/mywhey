@@ -1,0 +1,381 @@
+{% comment %}
+  === CSS ===
+
+  - Create a SCSS file of the same name in resources/scss/modules/sections
+  - Add to webpack.mix.js
+  - Includes the breakpoint scss
+  - USES FLEX GAP
+
+  === JS ===
+
+  Swiper JS
+
+  === FUNCTIONALITY ===
+
+  Section notes:
+
+  - Button and link to view ‘All products’ relevant to these
+  - Selected manually by client?
+  - Carousel of products or limited to ‘X’ number
+  - Scroll off screen on mobile
+
+  Section Author: Henry Hardwell
+{% endcomment %}
+
+<link rel="stylesheet" href="{{ 'section-collection-slider.min.css' | asset_url }}">
+
+{% assign bg = false %}
+{% if section.settings.bg_image != blank %}
+  {% assign bg = true %}
+{% endif %}
+
+<div
+  class="collection-slider-section"
+  id="{{ section.id }}"
+  style=" {% if bg %} background-image: url('{{ section.settings.bg_image | image_url: format: "jpg" }}'); {% endif %} padding-top: {{ section.settings.padding-top }}%; padding-bottom: {{ section.settings.padding-bottom }}%;"
+>
+  <div class="collection-slider-top">
+    <div class="page-width container">
+      <div class="intro">
+        <div class="slider-header">
+          <h3 class="heading-md">{{ section.settings.section_title }}</h3>
+          {% if section.settings.section_link != blank and section.settings.section_link_value %}
+            <a href="{{ section.settings.section_link }}" class="button-4" aria-label="View All Products"
+              >View All Products</a
+            >
+          {% endif %}
+        </div>
+
+        {% if section.settings.section_desc != blank %}
+          <p class="description body">{{ section.settings.section_desc }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="collection-slider-bottom page-width">
+    {% if section.settings.collection_slider_navigation == true %}
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev"></div>
+    {% endif %}
+
+    <div class="swiper collection-slider-swiper">
+      <!-- Additional required wrapper -->
+      <div
+        class="swiper-wrapper"
+        {% if section.settings.collection_slider_pagination == true %}
+          style="padding-bottom: 20px"
+        {% endif %}
+      >
+        <!-- Slides Go Here -->
+
+        {% for product in section.settings.collection_slider_items.products limit: section.settings.product_limit %}
+          <div class="swiper-slide collection-slider-product">
+            {% render 'gb-product-card', product: product %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- If we need pagination -->
+      {% if section.settings.collection_slider_pagination == true %}
+        <div class="collection-swiper-pagination swiper-pagination"></div>
+      {% endif %}
+    </div>
+
+    <!-- If we need navigation buttons -->
+    {% if section.settings.collection_slider_navigation == true %}
+      <div class="swiper-button-next"></div>
+    {% endif %}
+  </div>
+
+  <!-- If we need scrollbar -->
+  {% if section.settings.collection_slider_scrollbar == true %}
+    <div class="page-width">
+      <div class="collection-swiper-scrollbar swiper-scrollbar" style="height: 5px;"></div>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded',  function() {
+
+    const swiper{{ section.id | replace: 'template--', '' }} = new window.swiper('.swiper.collection-slider-swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+
+        effect: '{{ section.settings.collection_slider_transition_effect }}',
+
+        loop: {{ section.settings.collection_slider_loop }},
+
+        {% if section.settings.collection_slider_autoplay >= 500 %}
+        autoplay: {
+            delay: {{ section.settings.collection_slider_autoplay }},
+        },
+        {% endif %}
+
+        // slidesPerView: {{ section.settings.collection_slider_slidesperview }},
+
+        // spaceBetween: {{ section.settings.collection_slider_spacebetween }},
+
+        {% if section.settings.collection_slider_pagination %}
+            // If we need pagination
+            pagination: {
+                el: '.collection-swiper-pagination.swiper-pagination',
+                clickable: true,
+                dynamicBullets: true,
+            },
+        {% endif %}
+
+        {% if section.settings.collection_slider_navigation == true %}
+            // Navigation arrows
+            navigation: {
+                nextEl: '.collection-slider-bottom .swiper-button-next',
+                prevEl: '.collection-slider-bottom .swiper-button-prev',
+            },
+        {% endif %}
+
+        {% if section.settings.collection_slider_scrollbar == true %}
+            // And if we need scrollbar
+            scrollbar: {
+                el: '.collection-swiper-scrollbar.swiper-scrollbar',
+            },
+        {% endif %}
+
+        // Responsive breakpoints
+        breakpoints: {
+            0: {
+              slidesPerView: 1,
+              spaceBetween: 10
+            },
+
+            360: {
+              slidesPerView: {{ section.settings.collection_slider_slidesperview_mobile }},
+              spaceBetween: {{ section.settings.collection_slider_spacebetween_mobile }}
+            },
+
+            425: {
+              slidesPerView: {{ section.settings.collection_slider_slidesperview_tablet }},
+              spaceBetween: {{ section.settings.collection_slider_spacebetween_tablet }}
+            },
+
+            768: {
+              slidesPerView: {{ section.settings.collection_slider_slidesperview_laptop }},
+              spaceBetween: {{ section.settings.collection_slider_spacebetween_laptop }}
+            },
+
+            1200: {
+              slidesPerView: {{ section.settings.collection_slider_slidesperview_desktop }},
+              spaceBetween: {{ section.settings.collection_slider_spacebetween_desktop }}
+            }
+        }
+    });
+  })
+</script>
+
+{% schema %}
+{
+  "name": "Collection Slider Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title"
+    },
+    {
+      "type": "textarea",
+      "id": "section_desc",
+      "label": "Section Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "section_link_value",
+      "label": "Link Text",
+      "info": "Both this and 'Section Link' MUST be filled in for the button to appear."
+    },
+    {
+      "type": "url",
+      "id": "section_link",
+      "label": "Section Link",
+      "info": "Both this and the 'Link Text' MUST be filled in for the button to appear."
+    },
+    {
+      "type": "collection",
+      "id": "collection_slider_items",
+      "label": "Choose a Collection"
+    },
+    {
+      "type": "number",
+      "id": "product_limit",
+      "label": "How many products to show",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "min": 0,
+      "max": 9500,
+      "step": 500,
+      "id": "collection_slider_autoplay",
+      "label": "Autoplay Slides Delay (If 0 Autoplay is disabled)",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_slider_pagination",
+      "label": "Collection Slider Pagination"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_slider_navigation",
+      "label": "Collection Slider Navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_slider_scrollbar",
+      "label": "Collection Slider Scrollbar"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_slider_loop",
+      "label": "Collection Slider Loop"
+    },
+    {
+      "type": "select",
+      "id": "collection_slider_transition_effect",
+      "label": "Slider Transition Effect",
+      "options": [
+        {
+          "value": "slide",
+          "label": "Slide"
+        },
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "cube",
+          "label": "Cube"
+        },
+        {
+          "value": "coverflow",
+          "label": "Coverflow"
+        },
+        {
+          "value": "flip",
+          "label": "Flip"
+        },
+        {
+          "value": "creative",
+          "label": "Creative"
+        },
+        {
+          "value": "cards",
+          "label": "Cards"
+        }
+      ],
+      "default": "slide"
+    },
+    {
+      "type": "range",
+      "min": 1,
+      "max": 8,
+      "step": 0.5,
+      "id": "collection_slider_slidesperview_mobile",
+      "label": "( Mobile ) Collection Slider Slides Per View",
+      "default": 2.5
+    },
+    {
+      "type": "range",
+      "min": 1,
+      "max": 8,
+      "step": 0.5,
+      "id": "collection_slider_slidesperview_tablet",
+      "label": "( Tablet ) Collection Slider Slides Per View",
+      "default": 3.5
+    },
+    {
+      "type": "range",
+      "min": 1,
+      "max": 8,
+      "step": 0.5,
+      "id": "collection_slider_slidesperview_laptop",
+      "label": "( Laptop ) Collection Slider Slides Per View",
+      "default": 3.5
+    },
+    {
+      "type": "range",
+      "min": 1,
+      "max": 8,
+      "step": 0.5,
+      "id": "collection_slider_slidesperview_desktop",
+      "label": "( Desktop ) Collection Slider Slides Per View",
+      "default": 5.5
+    },
+    {
+      "type": "range",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "id": "collection_slider_spacebetween_mobile",
+      "label": "( Mobile ) Collection Slider Space Between",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "id": "collection_slider_spacebetween_tablet",
+      "label": "( Tablet ) Collection Slider Space Between",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "id": "collection_slider_spacebetween_laptop",
+      "label": "( Laptop ) Collection Slider Space Between",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "id": "collection_slider_spacebetween_desktop",
+      "label": "( Desktop ) Collection Slider Space Between",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "id": "padding-top",
+      "label": "Padding Top",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "id": "padding-bottom",
+      "label": "Padding bottom",
+      "default": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Slider Section"
+    }
+  ]
+}
+{% endschema %}

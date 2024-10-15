@@ -1,0 +1,189 @@
+{% assign block_image_sizes = '(max-width: 992px) 215px, (max-width: 1200px) 240px, (max-width: 1400px) 290px, (max-width: 1600px) 340px, 370px' %}
+{% assign block_image_widths = '215,240,290,340,370,430,480,580,680,740' %}
+
+<div class="top-level-links-wrapper">
+  <div class="page-width">
+    <div class="top-level-links">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'mega_menu' %}
+            <div class="link-group">
+              {% if block.settings.menu.links.size > 1 %}
+                <div
+                  class="top-level-link"
+                  {% if block.settings.link_color %}
+                    style="color: {{ block.settings.link_color }}"
+                  {% endif %}
+                >
+                  {% if block.settings.link_title != blank %}
+                    {{ block.settings.link_title }}
+                  {% else %}
+                    {{ block.settings.menu.title }}
+                  {% endif %}
+                </div>
+
+                <div class="mega-menu-dropdown_outer-wrapper">
+                  <div class="mega-menu-dropdown page-width">
+                    <nav class="sublinks-container">
+                      <a
+                        class="dropdown-title"
+                        href="{{ block.settings.menu.url }}"
+                        aria-label="Link to {{ block.settings.menu.title }}"
+                      >
+                        {{- block.settings.menu.title -}}
+                      </a>
+
+                      {% for sublink in block.settings.menu.links %}
+                        <a
+                          class="sublink"
+                          href="{{ sublink.url }}"
+                          aria-label="Link to {{ sublink.title }}"
+                        >
+                          {{- sublink.title -}}
+                        </a>
+                      {% endfor %}
+                    </nav>
+
+                    <div class="block-links-wrapper">
+                      {% if block.settings.block_link_1 != blank %}
+                        <a
+                          class="block-link"
+                          href="{{ block.settings.block_link_1.url }}"
+                          aria-label="Link to {{ block.settings.block_link_1_title }}"
+                        >
+                          {% if block.settings.block_link_1_img != blank %}
+                            {{
+                              block.settings.block_link_1_img
+                              | image_url: width: 740, format: 'jpg'
+                              | image_tag:
+                                loading: 'lazy',
+                                decoding: 'async',
+                                width: 370,
+                                height: 493,
+                                sizes: block_image_sizes,
+                                widths: block_image_widths
+                            }}
+                          {% endif %}
+
+                          <span class="block-link-title">
+                            {% if block.settings.block_link_1_title != blank %}
+                              {{ block.settings.block_link_1_title }}
+                            {% elsif block.settings.block_link_1.title != blank %}
+                              {{ block.settings.block_link_1.title }}
+                            {% endif %}
+                          </span>
+                        </a>
+                      {% endif %}
+
+                      {% if block.settings.block_link_2 != blank %}
+                        <a
+                          class="block-link"
+                          href="{{ block.settings.block_link_2.url }}"
+                          aria-label="Link to {{ block.settings.block_link_2_title }}"
+                        >
+                          {% if block.settings.block_link_2_img != blank %}
+                            {{
+                              block.settings.block_link_2_img
+                              | image_url: width: 740, format: 'jpg'
+                              | image_tag:
+                                loading: 'lazy',
+                                decoding: 'async',
+                                width: 370,
+                                height: 493,
+                                sizes: block_image_sizes,
+                                widths: block_image_widths
+                            }}
+                          {% endif %}
+
+                          <span class="block-link-title">
+                            {% if block.settings.block_link_2_title != blank %}
+                              {{ block.settings.block_link_2_title }}
+                            {% elsif block.settings.block_link_2.title != blank %}
+                              {{ block.settings.block_link_2.title }}
+                            {% endif %}
+                          </span>
+                        </a>
+                      {% endif %}
+
+                      {% if block.settings.block_link_3 != blank %}
+                        <a
+                          class="block-link"
+                          href="{{ block.settings.block_link_3.url }}"
+                          aria-label="Link to {{ block.settings.block_link_3_title }}"
+                        >
+                          {% if block.settings.block_link_3_img != blank %}
+                            {{
+                              block.settings.block_link_3_img
+                              | image_url: width: 740, format: 'jpg'
+                              | image_tag:
+                                loading: 'lazy',
+                                decoding: 'async',
+                                width: 370,
+                                height: 493,
+                                sizes: block_image_sizes,
+                                widths: block_image_widths
+                            }}
+                          {% endif %}
+
+                          <span class="block-link-title">
+                            {% if block.settings.block_link_3_title != blank %}
+                              {{ block.settings.block_link_3_title }}
+                            {% elsif block.settings.block_link_3.title != blank %}
+                              {{ block.settings.block_link_3.title }}
+                            {% endif %}
+                          </span>
+                        </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+
+              {% else %}
+                {% capture menu_item_width %}
+                    {% if block.settings.link_title != blank %}
+                        {% assign menu_item = block.settings.link_title %}
+                    {% else %}
+                        {% assign menu_item = block.settings.menu.title %}
+                    {% endif %}
+
+                    {% assign font_size = 12.5 %}
+                    {% assign item_size = menu_item | size %}
+                    {% assign item_width = font_size | times: item_size | append: "px" %}
+
+                    style="width: {{ item_width }}";
+                {% endcapture %}
+                {% comment %} NO SUBLINKS, DO NOT CREATE DROPDOWN {% endcomment %}
+                <a
+                  class="top-level-link"
+                  href="{{ block.settings.menu.url }}"
+                  aria-label="Link to {{ block.settings.link_title }}"
+                  {{ menu_item_width }}
+                >
+                  {% if block.settings.link_title != blank %}
+                    {{ block.settings.link_title }}
+                  {% else %}
+                    {{ block.settings.menu.title }}
+                  {% endif %}
+                  {% comment %} {% render 'gb-icon', icon: 'chevron' %} {% endcomment %}
+                </a>
+              {% endif %}
+            </div>
+          {% when 'menu_link' %}
+            <div class="link-group">
+              <div class="top-level-link">
+                <a
+                  href="{{ block.settings.link_url }}"
+                  aria-label="Link to {{ block.settings.link_title }}"
+                  {% if block.settings.link_color %}
+                    style="color: {{ block.settings.link_color }}"
+                  {% endif %}
+                >
+                  {{- block.settings.link_title -}}
+                </a>
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

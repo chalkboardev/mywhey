@@ -1,0 +1,193 @@
+{{ 'section-v3-collection-new-filters.min.css' | asset_url | stylesheet_tag }}
+
+<section class="vertical-margin" id="collection-grid">
+  <div id="qf-filter-wrapper" class="page-width">
+    <div class="filter-container-wrapper">
+      <h2 class="desktop-filter-heading">Filter</h2>
+
+      <div class="mobile-filter-heading">
+        <h2>Filter & Sort</h2>
+
+        {% render 'gb-icon', icon: 'chevron' %}
+      </div>
+
+      <div class="custom-filter-wrapper">
+        <form class="filter-container">
+          {%- for filter in collection.filters -%}
+            {%- case filter.type -%}
+              {%- when 'boolean', 'list' -%}
+                {%- if filter.label contains 'Tags' -%}
+                  {%- for filter_value in filter.values -%}
+                    {% assign custom_filters = custom_filters
+                      | append: filter_value.label
+                      | append: '#'
+                      | append: filter_value.count
+                      | append: '#'
+                      | append: filter_value.active
+                      | append: ','
+                    %}
+                  {%- endfor -%}
+
+                  {% assign custom_filters = custom_filters | split: ',' %}
+                  {%- for custom_filter in custom_filters -%}
+                    {%- if custom_filter contains 'Filter:' -%}
+                      {% assign custom_filter_string = custom_filter | replace: 'Filter:', '' %}
+                      {% assign custom_filter_heading = custom_filter_string | split: '_' %}
+                      {% assign custom_filter_headings = custom_filter_headings
+                        | append: custom_filter_heading[0]
+                        | append: ','
+                      %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  {% assign filter_headings = custom_filter_headings | split: ',' %}
+                  {% assign filter_headings_uniq = filter_headings | uniq | join: ',' %}
+                  {% assign headings = filter_headings_uniq | split: ',' %}
+                  {%- for heading in headings -%}
+                    <div class="custom-filter">
+                      <div class="filter-heading">
+                        <strong>{{ heading }}</strong>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15.403"
+                          height="8.806"
+                          viewBox="0 0 15.403 8.806"
+                        >
+                          <path id="Icon_ionic-ios-arrow-back" data-name="Icon ionic-ios-arrow-back" d="M6.152,7.7.323,1.876A1.1,1.1,0,0,1,1.882.322l6.6,6.6a1.1,1.1,0,0,1,.032,1.518L1.887,15.082A1.1,1.1,0,0,1,.328,13.528Z" transform="translate(15.403) rotate(90)"></path>
+                        </svg>
+                      </div>
+                      <div class="filter-body">
+                        {%- for custom_filter in custom_filters -%}
+                          {%- if custom_filter contains 'Filter:' -%}
+                            {% assign custom_filter_string = custom_filter | replace: 'Filter:', '' %}
+                            {%- if custom_filter_string contains heading -%}
+                              {% assign filter_string = custom_filter_string | split: '_' %}
+                              {% assign filter_info = filter_string[1] | split: '#' %}
+                              {% assign filter_label = filter_info[0] %}
+                              {% assign filter_count = filter_info[1] %}
+                              {% assign filter_active = filter_info[2] %}
+                              <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+                                <input
+                                  type="checkbox"
+                                  name="filter.p.tag"
+                                  value="Filter:{{ heading}}_{{ filter_label }}"
+                                  id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                                  {% if filter_active == 'true' %}
+                                    checked
+                                  {% endif %}
+                                  {% if filter_count == 0 and filter_active == 'false' %}
+                                    disabled
+                                  {% endif %}
+                                >
+                                {{- filter_label | replace: '-', ' ' -}}
+                              </label>
+                            {%- endif -%}
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                  <div class="filter-group-display__submit">
+                    <input class="button-1" type="submit" value="Apply">
+                  </div>
+                {%- else -%}
+                  <div class="custom-filter">
+                    <div class="filter-heading">
+                      {{ filter.label }}
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15.403" height="8.806" viewBox="0 0 15.403 8.806">
+                        <path id="Icon_ionic-ios-arrow-back" data-name="Icon ionic-ios-arrow-back" d="M6.152,7.7.323,1.876A1.1,1.1,0,0,1,1.882.322l6.6,6.6a1.1,1.1,0,0,1,.032,1.518L1.887,15.082A1.1,1.1,0,0,1,.328,13.528Z" transform="translate(15.403) rotate(90)" />
+                      </svg>
+                    </div>
+                    <div class="filter-body">
+                      {%- for filter_value in filter.values -%}
+                        {% unless filter_value.label == 'Lefktro'
+                          or filter_value.label == 'Levantine'
+                          or filter_value.label == 'Veetee'
+                        %}
+                          <label
+                            for="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                            class="{% if filter_value.count == 0 and filter_value.active == false -%}no-value{%- endif %}"
+                          >
+                            <input
+                              type="checkbox"
+                              name="{{ filter_value.param_name }}"
+                              value="{{ filter_value.value }}"
+                              id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                              {% if filter_value.active -%}
+                                checked
+                              {%- endif %}
+                              {% if filter_value.count == 0 and filter_value.active == false -%}
+                                disabled
+                              {%- endif %}
+                            >
+                            <span
+                              {% if filter_value.label == 'Mock' or filter_value.label == 'This' %}
+                                style="text-transform: uppercase"
+                              {% endif %}
+                            >
+                              {{- filter_value.label -}}
+                            </span>
+                          </label>
+                        {%- endunless -%}
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                {%- endif -%}
+            {%- endcase -%}
+          {%- endfor -%}
+        </form>
+      </div>
+    </div>
+    <div class="collection-grid-wrapper">
+      <div class="collection-grid">
+        {%- for product in collection.products -%}
+          <!-- Render product card -->
+          {%- render 'gb-product-card', product: product -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Add filter dropdown listeners
+  document.addEventListener('DOMContentLoaded', function () {
+    let custom_filters = document.querySelectorAll('.custom-filter');
+
+    custom_filters.forEach((el) => {
+      let control = el.querySelector('.filter-heading');
+      let body = el.querySelector('.filter-body');
+
+      if (control && body) {
+        control.addEventListener('click', () => {
+          if (el.classList.contains('open')) {
+            el.classList.remove('open');
+          } else {
+            el.classList.add('open');
+          }
+        });
+      }
+    });
+
+    let mobile_control = document.querySelector('.mobile-filter-heading svg');
+    let filter_body = document.querySelector('.custom-filter-wrapper');
+
+    if (mobile_control && filter_body) {
+      mobile_control.addEventListener('click', () => {
+        // rotate svg
+        if (mobile_control.classList.contains('open')) {
+          mobile_control.classList.remove('open');
+        } else {
+          mobile_control.classList.add('open');
+        }
+
+        // open filters
+        if (filter_body.classList.contains('open')) {
+          filter_body.classList.remove('open');
+        } else {
+          filter_body.classList.add('open');
+        }
+      });
+    }
+  });
+</script>

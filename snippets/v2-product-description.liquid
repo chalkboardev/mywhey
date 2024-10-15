@@ -1,0 +1,28 @@
+<div class="product-description-container" {% if product.description.size > char_limit %} read-more-container {% endif %}>
+  <div class="product-desc">
+    {% if read_more != blank and char_limit != blank %}
+
+      {% if product.description.size > char_limit %}
+        <span class="excerpt">
+          {{ product.description | slice: 0, char_limit | append: '...' }}
+        </span>
+        <span class="full">
+          {{ product.description }}
+        </span>
+
+      {% else %}
+
+        {{ product.description }}
+
+      {% endif %}
+
+
+    {% else %}
+      {{ product.description }}
+    {% endif %}
+  </div>
+
+  {% if product.description.size > char_limit %}
+    <div class="read-more" data-read-more-text="{{ "general.read_more" | t }}" data-read-less-text="{{ "general.read_less" | t }}" aria-label="Read more">Read more</div>
+  {% endif %}
+</div>

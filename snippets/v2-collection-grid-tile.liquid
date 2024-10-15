@@ -1,0 +1,33 @@
+{% comment %}
+  Snippets notes:
+
+  - This was built for the v2-collection-grid.liquid section
+  - Parameters:
+      * collection
+      * hover (boolean)
+
+  Section Author: jo@quickfiredigital.com
+{% endcomment %}
+
+{% if collection != blank %}
+  <a
+    class="collection-grid-tile {% if hover == true %}hover{% endif %}"
+    href="{{ collection.url }}"
+    aria-label="Link to {{ collection.title }}"
+  >
+    {% if collection.featured_image != blank %}
+      {{
+        collection.featured_image
+        | image_url: width: 600, format: 'jpg'
+        | image_tag: loading: 'lazy', decoding: 'async'
+      }}
+    {% endif %}
+
+    {% if collection.title != blank %}
+      <div class="content-wrapper">
+        <p class="title">{{ collection.title }}</p>
+        <i class="icon">{% render 'gb-icon', icon: 'chevron' %}</i>
+      </div>
+    {% endif %}
+  </a>
+{% endif %}

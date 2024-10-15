@@ -1,0 +1,153 @@
+
+<section class="account-form-page register vertical-padding">
+
+  <div class="account-form-wrapper register-form vertical-margin">
+    <h1 class="heading-md">{{ 'customer.register.title' | t }}</h1>
+  
+    {%- form 'create_customer', class: 'account-form' -%}
+      {% render 'v3-form-response-messages', form: form %}
+
+      <span class="required-msg">* Required fields</span>
+
+      {% assign first_name_label = 'customer.register.first_name' | t %}
+      {% render 'v3-form-field',
+          type: "text"
+          id: "first_name",
+          name: "customer[first_name]",
+          label: first_name_label, 
+          value: form.first_name,
+          placeholder: first_name_label,
+          attributes: 'autocomplete="given-name"', 
+          required: true, 
+      %}
+  
+      {% assign last_name_label = 'customer.register.last_name' | t %}
+      {% render 'v3-form-field',
+          type: "text"
+          id: "last_name",
+          name: "customer[last_name]",
+          label: last_name_label, 
+          value: form.last_name,
+          placeholder: last_name_label,
+          attributes: 'autocomplete="family-name"', 
+          required: true, 
+      %}
+  
+      {% assign phone_label = 'customer.register.phone' | t %}
+      {% render 'v3-form-field',
+          type: "tel"
+          id: "Phone",
+          name: "customer[phone]",
+          label: phone_label, 
+          value: form.phone,
+          placeholder: phone_label,
+          attributes: 'autocomplete="tel"', 
+          required: false, 
+      %}
+  
+      {% assign email_label = 'customer.register.email' | t %}
+      {% render 'v3-form-field',
+          type: "text"
+          id: "email",
+          name: "customer[email]",
+          label: email_label, 
+          value: form.email,
+          placeholder: email_label,
+          attributes: 'autocomplete="email"', 
+          required: true, 
+      %}
+  
+      {% assign password_label = 'customer.register.password' | t %}
+      {% render 'v3-form-field',
+          type: "password"
+          id: "password",
+          name: "customer[password]",
+          label: password_label, 
+          placeholder: password_label,
+          attributes: 'autocomplete="new-password"', 
+          required: true, 
+      %}
+  
+      {% assign confirm_password_label = 'customer.activate_account.password_confirm' | t %}
+      {% render 'v3-form-field',
+          type: "password"
+          id: "password_confirmation",
+          name: "customer[password_confirmation]",
+          label: confirm_password_label, 
+          placeholder: confirm_password_label,
+          attributes: 'autocomplete="new-password"', 
+          required: true, 
+      %}
+  
+      {% assign terms_and_condition_label = 'customer.register.terms_and_conditions_label' | t %}
+      {% render 'v3-form-field',
+          type: "checkbox"
+          id: "terms_and_conditions",
+          name: "customer[terms_and_conditions]",
+          label: terms_and_condition_label, 
+          placeholder: terms_and_condition_label,
+          required: true, 
+      %}
+      
+      {% assign marketing_label = 'customer.register.marketing_label' | t %}
+      {% render 'v3-form-field',
+          type: "checkbox"
+          id: "marketing",
+          name: "customer[accepts_marketing]",
+          label: marketing_label, 
+          placeholder: marketing_label,
+          required: false, 
+      %}
+      
+      <div class="form-buttons submit-wrapper">
+        <button class="button-1 submit-register">{{ 'customer.register.submit' | t }}</button>
+        <a class="button-2" href="/account/login">{{ 'customer.register.login_redirect' | t }}</a>
+      </div>
+    {%- endform -%}
+  </div>
+</section>
+
+{% comment %} JS FORM VALIDATION {% endcomment %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const register_form = document.querySelector('form#create_customer');
+
+    let error_msg = document.createElement('div');
+    error_msg.classList.add('form-errors');
+    error_msg.innerHTML = `
+        <svg class="icon error-icon" aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 13 13">
+            <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" fill="currentColor" stroke-width="1"></circle>
+            <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"></path>
+        </svg>
+
+        <div class="error-messages">
+          <ul>
+            <li><a href="#ContactForm-email">
+                  Passwords do not match
+            </a></li>
+          </ul>
+        </div>
+    `;
+
+
+    if ( register_form ) {
+      register_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const password_input = register_form.querySelector('#password');
+        const password_confirmation_input = register_form.querySelector('#password_confirmation');
+        const error_msg_el = register_form.querySelector('.form-errors');
+
+        if ( error_msg_el ) error_msg_el.remove();
+        
+        {% comment %} console.log('🧀 password: ', password_input, '🧀 confirmation: ', password_confirmation_input) {% endcomment %}
+        if ( password_input.value == password_confirmation_input.value ) {
+          {% comment %} console.log('🚀 Passwords match! Submit...'); {% endcomment %}
+          register_form.submit();
+        } else {
+          register_form.prepend(error_msg);
+          {% comment %} console.log("🧨 Passwords don't match..."); {% endcomment %}
+        }
+      });
+    }
+  });
+</script>

@@ -1,0 +1,242 @@
+{% comment %}
+  === FUNCTIONALITY ===
+
+  Section notes:
+  - Calculates and generates a tilesheet of collection cards base on a row number
+  - generates enough tiles using duplicates and a buffer to allow scrolling effect across screen width. 
+  - breaks at sm breapoint to stacked and to only 2 rows;
+  
+  Options in customiser
+  - selects from a list of collections - defaults to all collections if none selected
+  - height of banner
+  - height of top part of banner in mobile mode.
+  - user can edit scrolling speed
+  - Heading, Text and button 
+  - (button only show with if both text and url provided)
+  ** clickable tiles are disabled if you are on mobilrdd 
+
+  Section Author: Darrell Bean
+{% endcomment %}
+
+{{ 'section-v2-hero-collection-slider.min.css' | asset_url | stylesheet_tag }}
+
+<style>
+
+  .overlay-wrapper { 
+     min-height: {{ section.settings.hero_height }}px;
+  }
+  @media (max-width: 797.98px){
+    .overlay-wrapper {
+      min-height: {{ section.settings.hero_height_mobile }}px;
+      justify-content: start;
+      align-items: center;
+      text-align: center;
+    }
+  }
+</style>
+
+<section class="grid-container-slider">
+  <div class="grid-wrapper"></div>
+  <div class="overlay-wrapper">
+    <div class="overlay-bg">
+    </div>
+    <div class="page-width">
+      <div class="overlay" >
+
+        {% if section.settings.heading != blank %}
+          <h1>
+            {{ section.settings.heading }}
+          </h1>
+        {% endif %}
+
+        {% if section.settings.text != blank %}
+          <p>
+            {{ section.settings.text }}
+          </p>
+        {% endif %}
+
+        {% if section.settings.button_text != blank and section.settings.button_url != blank %}
+          <a class="button-1" href="{{ section.settings.button_url }}" aria-label="Link to {{ section.settings.button_text }}">{{ section.settings.button_text }}</a>
+        {% endif %}
+
+      </div>  
+    </div>  
+  </div>  
+</section>
+
+<script>
+
+  // fire on page load
+  calcWidth()
+  //fire on page resize
+  window.onresize = () => {
+    calcWidth()
+  }
+
+  function calcWidth() {
+    const collections = []
+    let rows = 3
+    // overflow creates extra rows so that scrolling does reveal the end
+    const colOverflow = 4
+
+
+  /* defaults to all collections or only chosen collections */
+    {% if section.settings.collection_list == blank %}
+         {% assign col_list = collections %}
+    {%  else %}
+          {% assign col_list = section.settings.collection_list %}
+    {% endif %}
+
+    {% for item in col_list %}
+        {%- if item.handle != 'frontpage' -%}
+           collections.push({{ item | json }});
+    {%- endif -%}
+    {% endfor %}
+    
+    const container = document.querySelector('.grid-container-slider')
+    const grid = document.querySelector('.grid-wrapper')
+    const containerWidth = container.offsetWidth;
+
+    if(window.innerWidth < 767.98) {
+      rows = 2; 
+      grid.style.pointerEvents = 'none'
+    }
+    else {
+      grid.style.pointerEvents = 'auto'
+    }
+
+    const containerHeight = grid.offsetHeight;
+    let rowHeight = containerHeight / rows;
+    let colWidth = rowHeight
+
+    // figures out the maximum number of tiles need to fill the screen width
+    const colsByWidth = Math.ceil(containerWidth / colWidth)
+    const colsByCollection = Math.ceil(collections.length / 3)
+    let cols = colsByWidth > colsByCollection
+      ? colsByWidth + colOverflow
+      : colsByCollection + colOverflow
+
+    grid.innerHTML = ''
+
+    const colLimit = collections.length;
+    let colIndex = 0
+    let className = ''
+
+    for (let r = 0; r < rows; r++) { 
+      for (let c = 0; c < cols; c++) {
+
+        colIndex = colIndex < collections.length - 1
+          ? colIndex + 1
+          : colIndex = 0;
+
+        if (r == 0) 
+          className = 'top';
+         else if (r > 0 && r < rows - 1) 
+          className = 'middle'
+         else 
+          className = 'bottom'
+
+         grid.appendChild(createGridItem(collections[colIndex], colWidth, className))
+      }
+    }
+
+    // figures out the maximum number of tiles need to fill the screen width
+    let gridWidth = (colsByWidth + colOverflow) * colWidth
+
+    grid.style.width = gridWidth + 'px'
+    grid.style.gridTemplateColumns = `repeat(auto-fill, ${colWidth}px)`
+    grid.style.gridTemplateRows = `repeat(${rows}, 1fr)`
+    grid.style.animationDuration = ' {{ section.settings.animation_speed }}s'
+  }
+
+  function createGridItem(data, width, className) {
+    const item = document.createElement('a')
+
+      let image = data.image ? data.image.src : `{{ "bottle.png" | asset_url }}`
+      item.classList.add('grid-item')
+      item.classList.add(className)
+      item.href = `collections/${data.handle}`
+      item.style.width = width + 'px'
+      item.innerHTML = `
+      <link href="${ image }&width=${Math.trunc(width* 1.5) }" rel="preload" as="image">
+      <img src="${ image }&width=${Math.trunc(width* 1.5) }" width="${width}" height="${width}" alt="${ data.title }" fetchpriority="high" loading="eager">
+         <div class="link-wrapper">
+          <span class="link">${ data.title }</span>
+          <span>></span>
+      </div>
+       `
+  return item
+}
+
+</script>
+
+{% schema %}
+{
+  "name": "Hero collection slider",
+  "settings": [
+    {
+      "type": "collection_list",
+      "id" : "collection_list",
+      "label": "Collections"
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "min": 300,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "label": "Hero minimum height",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "min": 300,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "label": "Hero minimum height (Mobile)",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "s",
+      "id": "animation_speed",
+      "label": "Animation speed",
+      "default": 15
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "Text"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button url"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Take a look at our latest products"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero collection slider"
+    }
+  ]
+}
+{% endschema %}

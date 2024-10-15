@@ -1,0 +1,19 @@
+
+{%- capture modalContent -%}
+
+    <div class="modal-content">
+        <h2 class="heading-md">
+            Confirm
+        </h2>
+        <p>Are you sure you wish to delete this address?</p>
+        
+        <div class="button-container">
+            <button class="button-3" data-modal-close="delete-address">Cancel</button>
+            <button class="button-1" data-modal-confirm>Confirm</button>
+        </div>
+    </div>
+
+{%- endcapture -%}
+
+
+{%- render 'v2-modal-generator', name: 'delete-address', content: modalContent -%}

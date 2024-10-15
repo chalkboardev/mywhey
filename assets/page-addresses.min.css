@@ -1,0 +1,111 @@
+.addresses-section-qf {
+  padding-bottom: 50px;
+  background-color: #eee;
+}
+.addresses-section-qf .addresses-wrapper {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.addresses-section-qf .address-card {
+  padding: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.addresses-section-qf .address-card .current-info {
+  max-width: 320px;
+  padding: 20px;
+  width: 100%;
+  min-height: 255px;
+}
+.addresses-section-qf .address-card .edit-mask {
+  height: 0px;
+  opacity: 0;
+  transition: height ease-in-out 0.3s, opacity ease-in-out 0.3s 0.1s;
+}
+.addresses-section-qf .address-card .edit-mask.active {
+  opacity: 1;
+  height: 100%;
+}
+.addresses-section-qf .address-card .edit-mask .edit-info {
+  padding: 20px;
+  color: white;
+}
+.addresses-section-qf .address-card .edit-mask .edit-info h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+.addresses-section-qf .address-card .edit-mask .edit-info form {
+  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.addresses-section-qf .address-card .edit-mask .edit-info .field {
+  display: flex;
+  flex-direction: column-reverse;
+  width: 45%;
+}
+.addresses-section-qf .address-card .edit-mask .edit-info .field input {
+  background: white;
+  border-radius: 21px;
+  height: 36px;
+  font-size: 14px;
+  padding: 20px 30px;
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+.addresses-section-qf .address-card .edit-mask .edit-info .field input:focus-within {
+  outline-color: var(--primary-color);
+}
+.addresses-section-qf .address-card .edit-mask .edit-info .field label {
+  color: var(--primary-color);
+}
+.addresses-section-qf .address-card .edit-mask .edit-info .checkbox {
+  width: 130px;
+  padding-top: 17px;
+}
+.addresses-section-qf .address-card .edit-mask .edit-info .checkbox input {
+  display: none;
+}
+.addresses-section-qf .address-card .edit-mask .edit-info .checkbox label {
+  color: var(--primary-color);
+}
+.addresses-section-qf .address-card .edit-mask .edit-info .buttons {
+  display: flex;
+  padding-top: 15px;
+}
+.addresses-section-qf .address-card .edit-mask .edit-info .select select {
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  appearance: none;
+  height: 40px;
+  width: 100%;
+  padding: 0px 20px;
+  border-radius: 21px;
+  position: relative;
+  cursor: pointer;
+}
+.addresses-section-qf .address-card .edit-mask .edit-info .select label {
+  margin-bottom: 10px;
+}
+.addresses-section-qf .address-card .edit-mask .edit-info .select.address-country {
+  position: relative;
+}
+.addresses-section-qf .address-card .edit-mask .edit-info .select svg {
+  width: 20px;
+  position: absolute;
+  top: 25px;
+  right: 15px;
+}
+.addresses-section-qf .address-card .edit-mask .edit-info .select svg path {
+  fill: var(--primary-color);
+}

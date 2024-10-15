@@ -1,0 +1,112 @@
+body {
+    background-color: #818181;
+    color: #000;
+    box-sizing: border-box;
+    padding: 60px;
+}
+@media screen and (max-width: 768px) {
+    body {
+    padding: 30px 0 0 0;
+    }
+}
+.gift-card__header {
+    max-width: 380px;
+    margin: 0 auto;
+    margin-bottom: 24px;
+}
+.gift-card__header .logo {
+    text-align: center;
+}
+.gift-card {
+    max-width: 380px;
+    text-align: center;
+    margin: 0 auto;
+}
+.gift-card__gift-icon {
+    margin-bottom: 16px;
+}
+.gift-card__container {
+    background: #fff;
+    color: #343432;
+    max-width: 280px;
+    padding: 30px 20px 40px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+.gift-card__heading {
+    font-family: 'Lexend', sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 30px;
+    letter-spacing: 0px;
+    color: #030303;
+    margin: 0;
+}
+.gift-card__price p {
+    font-size: 30px;
+    font-family: 'Lexend', sans-serif;
+    color: #030303;
+    font-weight: 600;
+    margin: 12px 0;
+}
+.gift-card__qr-code img {
+    margin: 0 auto;
+}
+.gift-card__information {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 24px;
+    max-width: 330px;
+}
+.gift-card__information .gift-card__number {
+    font-size: 20px;
+    font-family:"Lexend", sans-serif;
+    background-color: #818181;
+    font-style:normal;
+    font-weight:300;
+    font-stretch:normal;
+    border: 0;
+    color: #FCFCFC;
+    flex: 1;
+    text-align: center;
+}
+.gift-card__copy-link {
+    background: transparent;
+    border: 0;
+    color: #fff;
+    text-decoration: underline;
+}
+.gift-card__buttons {
+    width: 100%;
+    margin-top: 34px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+.copied_code_success, .gift-card__copy-success {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 6px;
+    font-family: Arial;
+    color: var(--text-primary-color);
+}
+.icon-success {
+    width: 20px;
+    height: 20px;
+}
+.gift-card__continue {
+    width: 100%;
+    margin-top: 8px;
+    text-align: center;
+}
+.gift-card__continue a {
+    margin: 0 auto;
+}

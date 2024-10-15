@@ -1,0 +1,43 @@
+.item {
+  .quantity-wrapper {
+    display: flex;
+    border: solid 1px var(--secondary-color);
+    & > * {
+      width: 36px;
+      height: 36px;
+      text-align: center;
+
+      display: grid;
+      place-content: center;
+      font-size: var(--font-size-14);
+      line-height: 1;
+    }
+
+    .plus,
+    .minus {
+      cursor: pointer;
+      transition: 0.3s ease;
+
+      &:hover {
+        color: var(--accent-1-color);
+      }
+
+      &[data-pending="true"] {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .oos {
+    font-size: 12px;
+    width: 50%;
+    margin: 0px;
+    text-align: right;
+
+    span {
+      font-size: 12px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}

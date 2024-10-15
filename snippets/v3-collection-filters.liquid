@@ -1,0 +1,189 @@
+<div class="filter-container-wrapper">
+  <h2 class="desktop-filter-heading">{{ 'collections.filter_sort' | t }}</h2>
+
+  <div class="mobile-filter-heading">
+    <h2>{{ 'collections.filter_sort' | t }}</h2>
+    {% render 'gb-icon', icon: 'chevron' %}
+  </div>
+
+  <div class="custom-filter-wrapper">
+    <form class="filter-container">
+      {%- if section.settings.show_selected_filters -%}
+        <div class="selected-filter-wrapper">
+          {%- for filter in collection.filters -%}
+            {%- if filter.type == 'price_range' -%}
+              {%- if filter.min_value.value != null or filter.max_value.value != null -%}
+                <a class="selected-filter" href="{{ filter.url_to_remove }}" aria-label="Remove Filter">
+                  {% render 'gb-icon', icon: 'close' %}
+                  {%- assign min_value = filter.min_value.value | default: 0 -%}
+                  {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+                  {{ min_value | money }} - {{ max_value | money }}
+                </a>
+              {%- endif -%}
+            {%- else -%}
+              {%- for filter_value in filter.active_values -%}
+                <a class="selected-filter" href="{{ filter_value.url_to_remove }}" aria-label="Remove Filter">
+                  {% render 'gb-icon', icon: 'close' %}
+                  {{ filter.label }}: {{ filter_value.label }}
+                </a>
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <!-- Sort by options -->
+      <div class="sort-container">
+        {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+        <select
+          name="sort_by"
+          class="facet-filters__sort select__select caption-large"
+          id="SortBy"
+          aria-describedby="a11y-refresh-page-message"
+        >
+          {%- for option in collection.sort_options -%}
+            <option
+              value="{{ option.value | escape }}"
+              {% if option.value == sort_by %}
+                selected="selected"
+              {% endif %}
+            >
+              {{ option.name | escape }}
+            </option>
+          {%- endfor -%}
+        </select>
+        <svg xmlns="http://www.w3.org/2000/svg" width="15.403" height="8.806" viewBox="0 0 15.403 8.806">
+          <path id="Icon_ionic-ios-arrow-back" data-name="Icon ionic-ios-arrow-back" d="M6.152,7.7.323,1.876A1.1,1.1,0,0,1,1.882.322l6.6,6.6a1.1,1.1,0,0,1,.032,1.518L1.887,15.082A1.1,1.1,0,0,1,.328,13.528Z" transform="translate(15.403) rotate(90)" />
+        </svg>
+      </div>
+
+      {%- for filter in collection.filters -%}
+        {%- case filter.type -%}
+          {%- when 'boolean', 'list' -%}
+            <div class="custom-filter">
+              <div class="filter-heading">
+                {{ filter.label }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="15.403" height="8.806" viewBox="0 0 15.403 8.806">
+                  <path id="Icon_ionic-ios-arrow-back" data-name="Icon ionic-ios-arrow-back" d="M6.152,7.7.323,1.876A1.1,1.1,0,0,1,1.882.322l6.6,6.6a1.1,1.1,0,0,1,.032,1.518L1.887,15.082A1.1,1.1,0,0,1,.328,13.528Z" transform="translate(15.403) rotate(90)"></path>
+                </svg>
+              </div>
+              <div class="filter-body">
+                {%- for filter_value in filter.values -%}
+                  <label
+                    for="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                    {% if filter_value.count == 0 and filter_value.active == false -%}
+                      style="opacity:0.5"
+                    {%- endif %}
+                  >
+                    <input
+                      type="checkbox"
+                      name="{{ filter_value.param_name }}"
+                      value="{{ filter_value.value }}"
+                      id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                      {% if filter_value.active -%}
+                        checked
+                      {%- endif %}
+                      {% if filter_value.count == 0 and filter_value.active == false -%}
+                        disabled
+                      {%- endif %}
+                    >
+                    <span class="custom-check">
+                      <svg class="check" viewBox="0 0 448 512">
+                        <path d="M438.6 105.4C451.1 117.9 451.1 138.1 438.6 150.6L182.6 406.6C170.1 419.1 149.9 419.1 137.4 406.6L9.372 278.6C-3.124 266.1-3.124 245.9 9.372 233.4C21.87 220.9 42.13 220.9 54.63 233.4L159.1 338.7L393.4 105.4C405.9 92.88 426.1 92.88 438.6 105.4H438.6z"/>
+                      </svg>
+                    </span>
+                    {{ filter_value.label }}
+                    {%- if section.settings.show_filter_count -%}({{ filter_value.count }}){%- endif -%}
+                  </label>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- when 'price_range' -%}
+            <div class="price-filter-container">
+              <div class="price-wrapper">
+                <div class="filter-heading">
+                  {{ 'collections.price_range' | t }}
+                </div>
+
+                <div class="custom-range" id="price-container">
+                  <div class="slider">
+                    <div class="progress"></div>
+                  </div>
+
+                  <div class="range-input">
+                    <input
+                      type="range"
+                      class="range-min"
+                      min="0"
+                      max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                      value="0"
+                      step="1"
+                    >
+                    <input
+                      type="range"
+                      class="range-max"
+                      min="0"
+                      max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                      value="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                      step="1"
+                    >
+                  </div>
+
+                  <div class="price-input">
+                    <div class="field left">
+                      <span>£</span>
+                      <div class="price-input-show input-min" data-term="0">
+                        {{ filter.range_min | money_without_currency | replace: ',', '' | round }}
+                      </div>
+                    </div>
+                    <div class="field right">
+                      <span>£</span>
+                      <div
+                        class="price-input-show input-max"
+                        data-term="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                      >
+                        {{ filter.range_max | money_without_currency | replace: ',', '' | round }}
+                      </div>
+                    </div>
+                    <div class="price-input-hidden">
+                      <label for="Filter-{{ filter.min_value.param_name }}">From</label>
+                      <input
+                        name="{{ filter.min_value.param_name }}"
+                        id="Filter-{{ filter.min_value.param_name }}"
+                        class="min-price-filter"
+                        {% if filter.min_value.value -%}
+                          value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                        {%- endif %}
+                        type="number"
+                        placeholder="0"
+                        min="0"
+                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                      >
+                      <label for="Filter-{{ filter.max_value.param_name }}">To</label>
+                      <input
+                        name="{{ filter.max_value.param_name }}"
+                        id="Filter-{{ filter.max_value.param_name }}"
+                        class="max-price-filter"
+                        {% if filter.max_value.value -%}
+                          value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                        {%- endif %}
+                        type="number"
+                        placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        min="0"
+                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+      <div class="reset-filter-wrapper">
+        <a href="{{ collection.url }}?sort_by={{ collection.sort_by }}" id="reset-filters" aria-label="Reset Filters">
+          {{- 'collections.reset_filters' | t -}}
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

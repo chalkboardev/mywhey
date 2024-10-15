@@ -1,0 +1,734 @@
+section#account h1 {
+  margin-bottom: 20px;
+}
+@media only screen and (min-width: 768px) {
+  section#account h1 {
+    display: none;
+  }
+}
+@media only screen and (min-width: 768px) {
+  section#account .account-dashboard {
+    gap: 52px;
+    display: flex;
+  }
+}
+section#account .account-dashboard_controls {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+@media only screen and (min-width: 390px) {
+  section#account .account-dashboard_controls {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media only screen and (min-width: 768px) {
+  section#account .account-dashboard_controls {
+    grid-template-columns: 1fr;
+    max-width: -moz-max-content;
+    max-width: max-content;
+    min-width: 204px;
+    height: -moz-max-content;
+    height: max-content;
+  }
+}
+section#account .account-dashboard_controls .tab {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background-color: var(--accent-1-color);
+  color: var(--text-primary-color);
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+section#account .account-dashboard_controls .tab.active {
+  color: var(--text-alternate-color);
+  background-color: var(--primary-color);
+  font-weight: bold;
+}
+section#account .account-dashboard_sections {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+section#account .account-dashboard_sections .table-container {
+  overflow-x: auto;
+  margin-top: 26px;
+}
+section#account .account-dashboard_sections .table-container table {
+  border-collapse: collapse;
+  text-align: left;
+}
+section#account .account-dashboard_sections .table-container th {
+  vertical-align: middle;
+  padding-bottom: 10px;
+  font-size: 16px;
+  line-height: 25px;
+}
+section#account .account-dashboard_sections .table-container tr.heading_row {
+  border-bottom: solid #f0f0f0;
+}
+section#account .account-dashboard_sections .table-container td {
+  border: none;
+  padding: 0;
+}
+section#account .account-dashboard_sections .table-container th,
+section#account .account-dashboard_sections .table-container td {
+  padding-right: 46px;
+  text-transform: capitalize;
+}
+section#account .account-dashboard_sections .table-container th:last-child,
+section#account .account-dashboard_sections .table-container td:last-child {
+  padding-right: 1rem;
+}
+section#account .account-dashboard_sections .table-container tr:nth-child(2) td {
+  padding-top: 20px;
+}
+section#account .account-dashboard_sections .table-container tr:last-of-type td {
+  padding-bottom: 20px;
+}
+section#account .account-dashboard_sections .table-container td.actions {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 10px;
+}
+section#account .account-dashboard_sections .table-container .action-link {
+  color: var(--text-primary-color);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+section#account .account-dashboard_sections .table-container .action-link:hover {
+  color: var(--accent-2-color);
+}
+section#account .account-dashboard_sections .account-section {
+  display: none;
+}
+section#account .account-dashboard_sections .account-section.active {
+  display: block;
+}
+section#account .account-dashboard_sections .account-section h1 {
+  margin-bottom: 37px;
+}
+section#account .account-dashboard_sections .account-section.account .welcome-back {
+  font-size: 30px;
+  margin-bottom: 37px;
+}
+@media only screen and (max-width: 767.98px) {
+  section#account .account-dashboard_sections .account-section.account .welcome-back {
+    display: none;
+  }
+}
+section#account .account-dashboard_sections .account-section.account .full-title .membership-cta {
+  margin: 28px auto 36px;
+  padding: 25px;
+  text-align: center;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+section#account .account-dashboard_sections .account-section.account .full-title .membership-cta p {
+  max-width: 540px;
+  margin: 0 auto;
+}
+section#account .account-dashboard_sections .account-section.account .full-title .membership-cta a {
+  margin: 0 auto;
+}
+section#account .account-dashboard_sections .account-section .label {
+  font-weight: bold;
+}
+section#account .account-dashboard_sections .account-section .table {
+  display: flex;
+  gap: 20px;
+}
+section#account .account-dashboard .account-module.orders .content-row:nth-of-type(odd) {
+  background: rgba(150, 150, 150, 0.05);
+}
+section#account .account-dashboard .account-module.orders .content-row[aria-hidden=true] {
+  display: none;
+}
+section#account .account-dashboard .account-module.orders .content-row.d-none {
+  display: none;
+}
+section#account .account-dashboard .account-module.orders .orders-load-more {
+  margin: 20px auto;
+}
+section#account .account-dashboard .account-module.details {
+  border-bottom: 3px #f0f0f0 solid;
+}
+section#account .account-dashboard .account-module.details .add-address-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+section#account .account-dashboard .details-module .details-table-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+}
+section#account .account-dashboard .details-module .details-table-container table {
+  border-collapse: collapse;
+  text-align: left;
+}
+section#account .account-dashboard .details-module .details-table-container table p {
+  margin: 0;
+}
+section#account .account-dashboard .details-module .details-table-container th {
+  vertical-align: top;
+  padding-bottom: 10px;
+  font-size: 16px;
+  line-height: 25px;
+  min-width: 15ch;
+}
+section#account .account-dashboard .details-module .details-table-container td {
+  border: none;
+  padding: 0;
+}
+section#account .account-dashboard .details-module .details-table-container th,
+section#account .account-dashboard .details-module .details-table-container td {
+  padding-right: 20px;
+  text-transform: capitalize;
+}
+section#account .account-dashboard .details-module .table-button-container {
+  display: flex;
+  gap: 5px;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+section#account .account-dashboard .details-module .table-button,
+section#account .account-dashboard .details-module .table-icon {
+  background-color: var(--accent-2-color);
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+section#account .account-dashboard .details-module .table-button svg,
+section#account .account-dashboard .details-module .table-icon svg {
+  width: 60%;
+  height: 60%;
+  pointer-events: none;
+}
+section#account .account-dashboard .details-module .table-button svg path,
+section#account .account-dashboard .details-module .table-icon svg path {
+  fill: white;
+}
+section#account .account-dashboard .reorder-section .account-grid {
+  gap: 28px;
+}
+section#account .account-dashboard .reorder-section .account-grid .product-card {
+  padding: 0 2px;
+}
+section#account .account-dashboard .reorder-section .stacked-field.stacked-field-alt {
+  margin-bottom: 10px;
+}
+section#account .account-dashboard .reorder-section .stacked-field.stacked-field-alt select, section#account .account-dashboard .reorder-section .stacked-field.stacked-field-alt input {
+  border: none;
+  background-color: #eee;
+}
+section#account .account-dashboard .reorder-section .reorder-card-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+section#account .account-dashboard .reorder-section .reorder-card-buttons > * {
+  flex: 1;
+}
+section#account .account-dashboard .reorder-section .reorder-card-buttons .quantity-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: -moz-max-content;
+  width: max-content;
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 0 6px;
+}
+section#account .account-dashboard .reorder-section .reorder-card-buttons .quantity-wrapper > * {
+  min-width: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+section#account .account-dashboard .reorder-section .reorder-card-buttons .quantity-wrapper .minus,
+section#account .account-dashboard .reorder-section .reorder-card-buttons .quantity-wrapper .plus {
+  cursor: pointer;
+  width: 36px;
+  font-size: 22px;
+  color: var(--text-primary-color);
+}
+section#account .account-dashboard .reorder-section .reorder-card-buttons .quantity-wrapper .minus:hover,
+section#account .account-dashboard .reorder-section .reorder-card-buttons .quantity-wrapper .plus:hover {
+  scale: 1.25;
+  transition: scale 100ms ease-in-out;
+}
+section#account .account-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 30px;
+  margin-top: 28px;
+}
+@media (min-width: 440px) {
+  section#account .account-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 768px) {
+  section#account .account-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (min-width: 830px) {
+  section#account .account-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1050px) {
+  section#account .account-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1400px) {
+  section#account .account-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.details-table {
+  display: flex;
+  flex-wrap: wrap;
+  -moz-column-gap: 50px;
+       column-gap: 50px;
+  margin-top: 50px;
+}
+@media only screen and (max-width: 767.98px) {
+  .details-table {
+    margin-top: 24px;
+  }
+}
+@media only screen and (max-width: 575.98px) {
+  .details-table {
+    display: block;
+  }
+}
+
+.column .row {
+  display: flex;
+  -moz-column-gap: 30px;
+       column-gap: 30px;
+  margin-bottom: 12px;
+}
+@media only screen and (max-width: 575.98px) {
+  .column .row {
+    display: block;
+  }
+}
+.column .row .label {
+  font-weight: bold;
+  min-width: 100px;
+  font-size: 14px;
+}
+.column .row .content {
+  margin: 0;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+.column .row .content p {
+  margin: 0;
+  font-size: 14px;
+}
+.column .row.email .content {
+  text-transform: unset;
+}
+
+.address-wrapper {
+  margin-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 40px;
+}
+@media only screen and (max-width: 575.98px) {
+  .address-wrapper {
+    display: grid;
+  }
+}
+.address-wrapper .address-inner p {
+  margin-bottom: 20px !important;
+}
+.address-wrapper .row {
+  height: 100%;
+}
+@media only screen and (max-width: 575.98px) {
+  .address-wrapper .row {
+    display: grid;
+  }
+}
+.address-wrapper .content {
+  display: flex;
+  flex-direction: column;
+}
+.address-wrapper .add-address {
+  margin-left: 130px;
+  font-weight: 500;
+  text-decoration: underline;
+  padding: 0;
+  font-size: 12px;
+  line-height: 21px;
+}
+.address-wrapper .add-address:hover {
+  color: var(--accent-2-color);
+}
+@media only screen and (max-width: 575.98px) {
+  .address-wrapper .add-address {
+    margin: 0;
+  }
+}
+.address-wrapper .edit-delete-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 8px;
+  -moz-column-gap: 50px;
+       column-gap: 50px;
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+.address-wrapper .edit-delete-buttons svg {
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+.address-wrapper .edit-delete-buttons .edit-address-trigger-2 {
+  display: flex;
+  text-decoration: underline;
+  gap: 7px;
+  padding: 0;
+  color: var(--text-primary-color);
+  font-size: 12px;
+  line-height: 21px;
+}
+.address-wrapper .edit-delete-buttons .delete-address {
+  display: flex;
+  gap: 7px;
+  text-decoration: underline;
+  padding: 0;
+  color: var(--text-primary-color);
+  -moz-appearance: auto !important;
+       appearance: auto !important;
+  -webkit-appearance: auto !important;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 21px;
+}
+.address-wrapper .default-address {
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 21px;
+}
+.address-wrapper .default-address button {
+  background-color: var(--accent-2-color);
+}
+
+.heading-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 46px;
+}
+@media (max-width: 400px) {
+  .heading-button {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+.heading-button:nth-child(1) {
+  margin-top: 0;
+}
+
+.address-form-wrapper h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.address-form-wrapper .add-wrapper {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.address-form-wrapper form {
+  margin: 0 auto;
+  max-width: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.address-form-wrapper form input {
+  box-sizing: border-box;
+}
+.address-form-wrapper form .custom-checkbox {
+  padding-left: 20px;
+  min-height: unset;
+  text-align: left;
+}
+.address-form-wrapper form .custom-checkbox p {
+  line-height: 20px;
+}
+.address-form-wrapper form .custom-checkbox input {
+  position: absolute;
+  width: 20px !important;
+  height: 20px !important;
+  left: 0;
+  top: 0;
+}
+.address-form-wrapper form .custom-checkbox input:checked ~ .checkmark {
+  background-color: var(--accent-2-color);
+}
+.address-form-wrapper form .custom-checkbox .checkmark {
+  border: solid 1px #d3d3d3;
+  background: #f4f4f4;
+  height: 20px;
+  width: 20px;
+}
+.address-form-wrapper form .custom-checkbox .checkmark::after {
+  width: 5px;
+  height: 10px;
+  border-width: 0 2px 2px 0;
+}
+.address-form-wrapper form .field {
+  flex-basis: 100%;
+}
+.address-form-wrapper form .field.name-input, .address-form-wrapper form .field.city-input, .address-form-wrapper form .field.country-input, .address-form-wrapper form .field.zip-input, .address-form-wrapper form .field.phone-input, .address-form-wrapper form .field.submit-input button {
+  flex-basis: calc(50% - 10px);
+}
+@media only screen and (max-width: 767.98px) {
+  .address-form-wrapper form .field.name-input, .address-form-wrapper form .field.city-input, .address-form-wrapper form .field.country-input, .address-form-wrapper form .field.zip-input, .address-form-wrapper form .field.phone-input, .address-form-wrapper form .field.submit-input button {
+    flex-basis: 100%;
+  }
+}
+.address-form-wrapper form .field label {
+  display: none;
+}
+.address-form-wrapper form .field input,
+.address-form-wrapper form .field .select select {
+  width: 100%;
+  height: 45px;
+  padding: 7.5px 7.5px 7.5px 15px;
+  border: none;
+  border: solid 1px #eee;
+}
+.address-form-wrapper form .field input:not([type=checkbox]),
+.address-form-wrapper form .field .select select:not([type=checkbox]) {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.address-form-wrapper form .field input:focus,
+.address-form-wrapper form .field .select select:focus {
+  outline: solid 1px var(--text-primary-color);
+}
+.address-form-wrapper form .field .select {
+  position: relative;
+}
+.address-form-wrapper form .field .select::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--text-primary-color);
+}
+.address-form-wrapper form .field .select svg {
+  display: none;
+}
+.address-form-wrapper form .field.default-input {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.address-form-wrapper form .field.default-input input {
+  width: 25px;
+  margin: auto 0;
+}
+.address-form-wrapper form .field.default-input label {
+  display: block;
+}
+.address-form-wrapper form .field.submit-input {
+  max-width: 600px;
+  margin: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+@media screen and (max-width: 425px) {
+  .address-form-wrapper form .field.submit-input {
+    justify-content: space-between;
+    gap: 0px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .address-form-wrapper form .field.submit-input {
+    justify-content: center;
+  }
+}
+.address-form-wrapper form .field.submit-input button {
+  white-space: nowrap;
+}
+@media screen and (max-width: 768px) {
+  .address-form-wrapper form .field.submit-input button {
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 550px) {
+  .address-form-wrapper form .field.submit-input {
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .address-form-wrapper form .field.submit-input button {
+    width: 100%;
+  }
+}
+
+[data-modal=delete-address] .modal-content {
+  max-width: 280px;
+  text-align: center;
+}
+[data-modal=delete-address] .button-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+@media only screen and (max-width: 767.98px) {
+  [data-modal=delete-address] .button-container {
+    flex-wrap: wrap;
+  }
+}
+[data-modal=delete-address] .button-container button {
+  width: 100%;
+}
+
+[data-modal=modal-message] .animated-exclaimation {
+  display: none;
+}
+
+.account-module .full .heading-md {
+  font-size: 24px;
+  line-height: 33px;
+}
+
+.reorder-grid-wrapper {
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: scroll;
+}
+
+.reorder-grid {
+  margin-top: 30px;
+  width: 100%;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(4, 1fr);
+}
+@media only screen and (max-width: 991.98px) {
+  .reorder-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media only screen and (max-width: 767.98px) {
+  .reorder-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (max-width: 400px) {
+  .reorder-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+.reorder-grid .variant-card.product-card .product-title, .reorder-grid .variant-card.product-card .product-brand {
+  text-align: center;
+  color: var(--text-primary-color);
+}
+.reorder-grid .variant-card.product-card .product-brand {
+  font-size: 14px;
+}
+.reorder-grid .variant-card.product-card .product-title {
+  font-size: 14px;
+  font-weight: 700;
+}
+.reorder-grid .variant-card.product-card .product-price .oos-message {
+  font-size: 14px;
+  font-weight: 700;
+}
+.reorder-grid .variant-card.product-card .product-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  opacity: 1;
+}
+.reorder-grid .variant-card.product-card .product-buttons .quantity-wrapper,
+.reorder-grid .variant-card.product-card .product-buttons .quick-add-cart {
+  flex: 1;
+  width: 50%;
+  white-space: nowrap;
+}
+.reorder-grid .variant-card.product-card .product-buttons.oos-buttons {
+  flex-direction: column;
+}
+.reorder-grid .variant-card.product-card .product-buttons.oos-buttons .alternatives {
+  width: 100%;
+}
+.reorder-grid .variant-card.product-card .quantity-wrapper {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  background-color: var(--accent-1-color);
+  min-width: 90px;
+}
+.reorder-grid .variant-card.product-card .quantity-wrapper .plus, .reorder-grid .variant-card.product-card .quantity-wrapper .minus, .reorder-grid .variant-card.product-card .quantity-wrapper .quantity {
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.reorder-grid .variant-card.product-card .quantity-wrapper .plus.quantity, .reorder-grid .variant-card.product-card .quantity-wrapper .minus.quantity, .reorder-grid .variant-card.product-card .quantity-wrapper .quantity.quantity {
+  flex: 1;
+}
+.reorder-grid .variant-card.product-card .quantity-wrapper .plus.plus, .reorder-grid .variant-card.product-card .quantity-wrapper .plus.minus, .reorder-grid .variant-card.product-card .quantity-wrapper .minus.plus, .reorder-grid .variant-card.product-card .quantity-wrapper .minus.minus, .reorder-grid .variant-card.product-card .quantity-wrapper .quantity.plus, .reorder-grid .variant-card.product-card .quantity-wrapper .quantity.minus {
+  width: 20px;
+  cursor: pointer;
+}
+.reorder-grid .variant-card.product-card .quantity-wrapper .plus.plus, .reorder-grid .variant-card.product-card .quantity-wrapper .minus.plus, .reorder-grid .variant-card.product-card .quantity-wrapper .quantity.plus {
+  padding-right: 15px;
+}
+.reorder-grid .variant-card.product-card .quantity-wrapper .plus.minus, .reorder-grid .variant-card.product-card .quantity-wrapper .minus.minus, .reorder-grid .variant-card.product-card .quantity-wrapper .quantity.minus {
+  padding-left: 15px;
+}
+.reorder-grid .variant-card.product-card .order-date {
+  width: 100%;
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
+}

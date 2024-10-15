@@ -1,0 +1,19 @@
+.button-wishlist {
+  padding: unset;
+  background-color: unset;
+  border: none;
+
+  &:hover {
+    background-color: unset;
+  }
+
+  path {
+    fill: #000000;
+  }
+}
+
+.active-wishlist {
+  path {
+    fill: var(--accent-1-color);
+  }
+}

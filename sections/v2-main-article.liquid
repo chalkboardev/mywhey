@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="{{ 'section-v2-main-article.min.css' | asset_url }}">
+
+<div class="main-article-qf-section">
+  <div class="featured-image">
+    {{ article.image | image_url: width: 1600, format: 'jpg' | image_tag: fetchpriority: 'high', loading: 'eager' }}
+  </div>
+
+  <div class="main-content page-width">
+    {% render 'v2-breadcrumbs', template_suffix: article.title %}
+
+    <div class="article">
+      <div class="article-title">
+        <h1 class="heading-lg">{{ article.title }}</h1>
+        {% comment %} <p class="blog-info">{% if section.settings.show_author == true and article.author != blank %}Written By {{ article.author }} {% endif %} {% if article.author != blank and article.updated_at != blank %}&minus;{% endif %} {% if section.settings.show_date == true and article.updated_at != blank %} {{ article.updated_at | date: "%d/%m/%Y" }}{% endif %}</p> {% endcomment %}
+      </div>
+
+      <div class="article-content">
+        {{ article.content }}
+      </div>
+
+      <a class="back button-2" href="{{ blog.url }}" aria-label="Back to Articles">
+        <i class="arrow">{% render 'gb-icon', icon: 'arrow-left-short' %}</i>
+        Back</a
+      >
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show Author",
+      "info": "Shows the author of the article"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show Date",
+      "info": "Shows the date the article was updated."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Article"
+    }
+  ]
+}
+{% endschema %}

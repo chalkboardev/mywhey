@@ -1,0 +1,462 @@
+{% comment %}
+  This sections styling is shared with v2-video-image-.liquid
+
+  Section notes:
+      - Split down the middle (Half image, half text box)
+      - Ability to invert (ie image can be left or right)
+      - Text alignment within space (Left/Central/Right)
+      - Title, description, CTA button (Limited to one)
+      - Mobile stack text then image
+      - Mobile option to hide image
+
+  Section Author: jo@quickfiredigital.com
+{% endcomment %}
+<link
+  rel="stylesheet"
+  href="{{ 'section-v3-full-width-text-image.min.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'"
+>
+
+{%- liquid
+  assign id = section.id
+  assign blocks = section.blocks
+
+  assign image = section.settings.image
+  assign video = section.settings.video
+  assign lazy_loading = section.settings.lazy_loading
+
+  assign title = section.settings.title
+  assign body = section.settings.body
+
+  assign url = section.settings.url
+  assign url_text = section.settings.url_text
+  if url.type == 'http_link'
+    assign url_target = 'target="_blank" rel="nofollow"'
+  endif
+
+  assign layout = section.settings.layout
+  assign align = section.settings.align
+  assign size = section.settings.size
+  assign colour = section.settings.colour
+  assign background = section.settings.background
+  assign button_style = section.settings.button_style
+  assign path_style = section.settings.path_style
+
+  if section.settings.hide_mobile == true
+    assign hide_mobile = 'hide-mobile'
+  endif
+
+  assign show_form = section.settings.show_form
+  assign placeholder_text = section.settings.placeholder_text
+  assign submit_text = section.settings.submit_text
+  assign sublink_text = section.settings.sublink_text
+  assign sublink_url = section.settings.sublink_url
+  if sublink_url.type == 'http_link'
+    assign sub_link_target = 'target="_blank" rel="nofollow"'
+  endif
+
+  assign form_link = pages['find-your-school'].url
+-%}
+
+<section class="text-image" style="background:{{ background }};" id="image-text-{{ section.id }}">
+  <div class="page-width-wrapper {{ layout }}">
+    <div class="image-wrapper {{ hide_mobile }}">
+      {% if path_style == 'single' %}
+        <div class="sud-path">{% render 'gb-icon', icon: 'sud-vertical-path' %}</div>
+      {% elsif path_style == 'double' %}
+        <div class="sud-double-path">{% render 'gb-icon', icon: 'sud-double-path' %}</div>
+      {% endif %}
+
+      {%- if section.settings.video -%}
+        {% for source in video.sources %}
+          {% if source.url != blank %}
+            {% assign video_src = source.url %}
+            {% assign video_type = source.mime_type %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+
+        <video preload="{%- if lazy_loading == true -%}none{%- else -%}auto{%- endif -%}" id="video-{{ section.id }}">
+          <source src="{{ video_src }}" type="{{ video_type }}">
+        </video>
+
+        <div class="video-overlay">
+          {{
+            section.settings.video.preview_image
+            | image_url: width: 600
+            | image_tag: loading: 'lazy', decoding: 'async'
+          }}
+          <div class="video-control play-video">
+            <svg xmlns="http://www.w3.org/2000/svg" class="play" viewBox="0 0 24 24">
+              <path d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+            </svg>
+          </div>
+          <div class="video-control pause-video">
+            <svg xmlns="http://www.w3.org/2000/svg" class="pause" viewBox="0 0 24 24">
+              <path d="M15,16H13V8H15M11,16H9V8H11M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+            </svg>
+          </div>
+        </div>
+
+      {%- elsif image != blank and lazy_loading == true -%}
+        {{ image | image_url: width: 900, format: 'jpg' | image_tag: loading: 'lazy', decoding: 'async' }}
+      {%- elsif image != blank and lazy_loading == false -%}
+        {{ image | image_url: width: 900, format: 'jpg' | image_tag: loading: 'eager', fetchpriority: 'high' }}
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag }}
+      {%- endif -%}
+    </div>
+
+    {% if title != blank or body != blank or show_button == true %}
+      <div class="content-wrapper {{ align }}" style="color: {{ colour }};">
+        <h2 class="title {{ size }}">
+          {% if title != blank %}
+            {{ title }}
+          {% endif %}
+        </h2>
+
+        {% if body != blank %}
+          <p class="body">{{ body }}</p>
+        {% endif %}
+
+        {% if blocks.size > 0 %}
+          <div class="list-items">
+            {% for block in blocks %}
+              {% assign list_item = block.settings.list_item %}
+              <div class="list-item">
+                <i class="icon">{% render 'gb-icon', icon: 'sud-discount' %}</i>
+                <div style="color: {{ colour }};">{{ list_item }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if url != blank and url_text != blank %}
+          {% assign show_button = true %}
+          <a class="{{ button_style }}" href="{{ url }}" {{ url_target -}}>{{- url_text -}}</a>
+        {% endif %}
+
+        {% if show_form == true %}
+          <div class="form-wrapper">
+            <div class="form" id="{{ id | replace: 'template--', 'school-search-form-' }}">
+              <input class="search-field" type="text" , placeholder="{{ placeholder_text }}">
+              <a class="button-1 submit" href="{{ form_link }}">{{ submit_text }}</a>
+            </div>
+
+            {% if sublink_text != blank and sublink_url != blank %}
+              <a class="sublink" href="{{ sublink_url }}" style="color: {{ colour }};" {{ sub_link_target -}}>
+                {{ sublink_text }}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{%- if video -%}
+  <script>
+    {% assign id = section.id | replace: "-", "" %}
+
+    let video_{{ id }} = document.querySelector('#video-{{section.id }}')
+    let video_play_{{ id }} = video_{{ id }}.nextElementSibling.querySelector('svg.play');
+    let video_overlay_{{ id }} = video_{{ id }}.nextElementSibling;
+    let video_pause_overlay_{{ id }} = video_{{ id }}.nextElementSibling.querySelector('.pause-video');
+    let video_overlay_play_{{ id }} = video_{{ id }}.nextElementSibling.querySelector('.play-video');
+    let video_img_{{ id }} = video_{{ id }}.nextElementSibling.querySelector('img');
+
+    video_play_{{ id }}.addEventListener('click', () => {
+      video_{{ id }}.play();
+      video_overlay_{{ id }}.classList.add('pause');
+      video_overlay_play_{{ id }}.style.display = 'none';
+      video_img_{{ id }}.style.display = 'none';
+      video_pause_overlay_{{ id }}.style.display = 'block';
+    })
+
+    video_pause_overlay_{{ id }}.addEventListener('click', () => {
+      video_{{ id }}.pause();
+      video_pause_overlay_{{ id }}.style.display = 'none';
+      video_overlay_play_{{ id }}.style.display = 'block';
+    })
+
+
+    document.addEventListener('DOMContentLoaded',  function() {
+      const video_section_{{ id }} = document.querySelector('#image-text-{{ section.id }}');
+      console.log("🚀 ~ file: tb-image-text-cta.liquid:123 ~ document.addEventListener ~ video_section_{{ id }}", video_section_{{ id }})
+
+      const options_{{ id }} = {
+        rootMargin: '50px'
+      }
+
+      const observer_{{ id }} = new IntersectionObserver(entry => {
+
+        if (entry[0].isIntersecting == false) {
+          if (!video_{{ id }}.classList.contains('pause')) {
+            video_{{ id }}.pause();
+            video_overlay_play_{{ id }}.style.display = 'block';
+            video_pause_overlay_{{ id }}.style.display = 'none';
+          }
+        }
+
+      }, options_{{ id }})
+
+      console.log(observer_{{ id }})
+
+      observer_{{ id }}.observe(video_section_{{ id }})
+
+    })
+  </script>
+{%- endif -%}
+
+{% if show_form == true %}
+  <script>
+    const form = document.querySelector('{{ id | replace: 'template--', '#school-search-form-' }}');
+    const form_input = form.querySelector('.search-field');
+    const form_submit = form.querySelector('.submit');
+
+    form_submit.addEventListener('click', () => {
+      let value = form_input.value
+      localStorage.setItem("sud_fys_search", value);
+    })
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "SUD Text Image",
+  "tag": "section",
+  "class": "text-image-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+      "type": "checkbox",
+      "id": "lazy_loading",
+      "label": "Lazy Loading",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Title Here"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Description",
+      "default": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy</p>"
+    },
+    {
+      "type": "text",
+      "id": "url_text",
+      "label": "Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Button Link",
+      "info": "The button will only display with a Link and Text"
+    },
+    {
+      "type": "header",
+      "content": "Styles"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Content Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "middle",
+          "label": "Middle"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "middle"
+    },
+    {
+      "type": "select",
+      "id": "size",
+      "label": "Title Size",
+      "options": [
+        {
+          "value": "heading-sm",
+          "label": "Small"
+        },
+        {
+          "value": "heading-md",
+          "label": "Medium"
+        },
+        {
+          "value": "heading-lg",
+          "label": "Large"
+        }
+      ],
+      "default": "heading-md"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button Style",
+      "options": [
+        {
+          "value": "button-1",
+          "label": "Style 1"
+        },
+        {
+          "value": "button-2",
+          "label": "Style 2"
+        },
+        {
+          "value": "button-3",
+          "label": "Style 3"
+        },
+        {
+          "value": "button-4",
+          "label": "Style 4"
+        },
+        {
+          "value": "button-5",
+          "label": "Style 5"
+        },
+        {
+          "value": "button-6",
+          "label": "Style 6"
+        }
+      ],
+      "default": "button-1"
+    },
+    {
+      "type": "select",
+      "id": "path_style",
+      "label": "Path Style",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "single",
+          "label": "Single Path"
+        },
+        {
+          "value": "double",
+          "label": "Double Path"
+        }
+      ],
+      "default": "single"
+    },
+    {
+      "type": "color",
+      "id": "colour",
+      "label": "Colour"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Hide Video",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Find Your School Form"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_form",
+      "label": "Show Find Your School Form",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "label": "Search Placeholder",
+      "default": "Enter school name, county or post code..."
+    },
+    {
+      "type": "text",
+      "id": "submit_text",
+      "label": "Search Submit Text",
+      "default": "Find your school"
+    },
+    {
+      "type": "text",
+      "id": "sublink_text",
+      "label": "Sub-Link Text",
+      "default": "Want us to supply to your school? Get in touch"
+    },
+    {
+      "type": "url",
+      "id": "sublink_url",
+      "label": "Sub-Link Url"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "List Item",
+      "type": "list_item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "list_item",
+          "label": "Text",
+          "default": "Text here"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SUD Text Image"
+    }
+  ]
+}
+{% endschema %}

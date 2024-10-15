@@ -1,0 +1,245 @@
+{{ 'section-v2-collection-grid.min.css' | asset_url | stylesheet_tag }}
+
+<!-- Keep track of max price in collection.products -->
+{% assign maxPrice = 0 %}
+
+<!-- Capture HTML for product cards while determining highest price for price fitler -->
+{% capture products %}
+          <!-- paginate through all collection products -->
+          {%- paginate collection.products by 1000 -%}
+
+              <!-- loop through all collection products -->
+              {%- for product in collection.products -%}
+
+                  <!-- Determine max price -->
+                  {% if product.price > maxPrice %}
+                    {% assign maxPrice = product.price %}
+                  {% endif %}
+
+                  <!-- Render product card -->
+                  {%- render 'gb-product-card', product: product -%}
+
+              {%- endfor -%}
+
+          {%- endpaginate -%}
+
+
+{% endcapture %}
+
+<!-- Format max price for price slider -->
+{% assign displayPrice = maxPrice | divided_by: 100.00 | plus: 1 | divided_by: 10.0 | ceil | times: 10 %}
+
+<section id="collection-grid">
+  <div id="qf-filter-wrapper" class="page-width" style="max-height: 0px; overflow: hidden;">
+    <div class="filter-container-wrapper">
+      <h2 class="desktop-filter-heading">Filter</h2>
+
+      <div class="mobile-filter-heading">
+        <h2>Filter & Sort</h2>
+
+        {% render 'gb-icon', icon: 'chevron' %}
+      </div>
+
+      <div class="custom-filter-wrapper">
+        <!-- Dynamic filter container -->
+        <div class="filter-container"></div>
+
+        <!-- Sale filter -->
+        <div class="custom-filter" data-theme="sale" style="display: flex; flex-direction: column">
+          <label>
+            <input type="checkbox" data-theme="sale" data-term="true">
+            <div class="button button-2">Show Sale</div>
+          </label>
+        </div>
+
+        <!-- Sort by options -->
+        <div class="sort-container">
+          <select name="" id="">
+            <option value="bestsellers">Bestsellers</option>
+            <option value="title_asc">Title ASC</option>
+            <option value="title_dsc">Title DSC</option>
+            <option value="price_asc">price ASC</option>
+            <option value="price_dsc">price DSC</option>
+            <option value="published_at_asc">Newest</option>
+            <option value="published_at_dsc">Oldest</option>
+          </select>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15.403" height="8.806" viewBox="0 0 15.403 8.806">
+            <path id="Icon_ionic-ios-arrow-back" data-name="Icon ionic-ios-arrow-back" d="M6.152,7.7.323,1.876A1.1,1.1,0,0,1,1.882.322l6.6,6.6a1.1,1.1,0,0,1,.032,1.518L1.887,15.082A1.1,1.1,0,0,1,.328,13.528Z" transform="translate(15.403) rotate(90)" />
+          </svg>
+        </div>
+
+        <!-- Price filter -->
+        {% render 'v2-price-range-filter', maxPrice: displayPrice %}
+
+        <!-- reset button -->
+        <div class="">
+          <a id="reset-filters" class="button-1" href="{{ collection.url }}" aria-label="Reset filters"
+            >reset filters</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="collection-grid-wrapper">
+      <div class="collection-grid">
+        {{ products }}
+      </div>
+
+      <!--
+        Add further elements needed for QFCustomFilter:
+        - Load more button
+        - No applicable search results message
+      -->
+      <p class="custom-filter-load-more button-2">Load More</p>
+      <p class="custom-filter-no-posts">Nothing matches the critera</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .collection-grid {
+      display: grid;
+      grid-template-columns: repeat({{ section.settings.desktop_columns }}, 1fr);
+      grid-column-gap: {{ section.settings.column_gap }}px;
+      grid-row-gap: {{ section.settings.row_gap }}px;
+  }
+
+  @media(max-width: 768px){
+
+    .collection-grid {
+        grid-template-columns: repeat({{ section.settings.tablet_columns }}, 1fr);
+        grid-column-gap: {{ section.settings.tablet_column_gap }}px;
+        grid-row-gap: {{ section.settings.tablet_row_gap }}px;
+    }
+
+  }
+
+  @media(max-width: 450px){
+
+    .collection-grid {
+        grid-template-columns: repeat({{ section.settings.mobile_columns }}, 1fr);
+        grid-column-gap: {{ section.settings.mobile_column_gap }}px;
+        grid-row-gap: {{ section.settings.mobile_row_gap }}px;
+    }
+
+  }
+
+  .test {}
+</style>
+
+{% schema %}
+{
+  "name": "Collection Grid (Old)",
+  "class": "vertical-margin",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 4,
+      "max": 32,
+      "step": 4,
+      "label": "Products per Page",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "label": "Desktop Columns",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Grid Column Gap",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "row_gap",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Grid Row Gap",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Tablet"
+    },
+    {
+      "type": "range",
+      "id": "tablet_columns",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "label": "Tablet Columns",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "tablet_column_gap",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Grid Column Gap",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tablet_row_gap",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Grid Row Gap",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_columns",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "label": "Mobile Columns",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "mobile_column_gap",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Grid Column Gap",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_row_gap",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Grid Row Gap",
+      "default": 10
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,9 @@
+{% for faq in faqs %}
+  <button class="accordion" style="color: {{ section.settings.color }};">
+    {{ faq[1].question }}
+    <span class="custom-arrow">{% render 'gb-icon', icon: 'caret' %}</span>
+  </button>
+  <div class="panel">
+    <p>{{ faq[1].content }}</p>
+  </div>
+{% endfor %}

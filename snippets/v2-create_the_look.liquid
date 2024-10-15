@@ -1,0 +1,172 @@
+{%- if product.metafields.create_the_look.products != blank -%}
+  <h2 class="pdp-block-heading heading-md">
+    {{ heading }}
+  </h2>
+
+  <div class="ctl-wrapper">
+    {%- for ctl_product in product.metafields.create_the_look.products.value -%}
+      <div
+        class="ctl-product-card"
+        data-id="{{ ctl_product.id }}"
+        data-product-json="{{ ctl_product | json }}"
+        data-default-variant="{{ ctl_product.has_only_default_variant }}"
+      >
+        <div class="ctl-product-image">
+          {{
+            ctl_product.featured_image
+            | image_url: width: 300, format: 'jpg'
+            | image_tag: loading: 'lazy', decoding: 'async'
+          }}
+
+          {% render 'gb-button-wishlist', product: ctl_product %}
+
+          {% if settings.include_quick_view %}
+            <div
+              open-quick-view
+              data-product-handle="{{ ctl_product.handle }}"
+              data-product-simple="{{ ctl_product.has_only_default_variant }}"
+              class="quickview-eye"
+            >
+              {% render 'gb-icon', icon: 'eye' %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="ctl-product-form-container">
+          <div class="ctl-product-details">
+            <div class="product-title-price">
+              <div class="product-title">
+                <a href="{{ ctl_product.url }}" class="heading-sm" aria-label="Link to {{ ctl_product.title }}">
+                  {{- ctl_product.title | capitalize -}}
+                </a>
+              </div>
+
+              <div class="product-price">
+                {% render 'v2-product-variant-prices', product: ctl_product %}
+              </div>
+            </div>
+
+            <div class="ctl-description">
+              {{ ctl_product.description }}
+            </div>
+          </div>
+
+          <div class="ctl-product-form">
+            {% form 'product', ctl_product %}
+              {% unless ctl_product.has_only_default_variant %}
+                <label for="product-id-{{ ctl_product.id }}">Variations</label>
+
+                <div class="variant-selector-wrapper">
+                  <!-- Master Variant selector -->
+                  <select name="id" id="product-id-{{ ctl_product.id }}">
+                    {% for variant in ctl_product.variants %}
+                      <option
+                        value="{{ variant.id }}"
+                        {% if variant == current_variant %}
+                          selected="selected"
+                        {% endif %}
+                      >
+                        {{ variant.title }} - {{ variant.price | money }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+              {% else %}
+                <input
+                  type="hidden"
+                  id="product-id-{{ ctl_product.id }}"
+                  name="id"
+                  value="{{ ctl_product.selected_or_first_available_variant.id }}"
+                >
+              {% endunless %}
+
+              {% if ctl_product.available %}
+                <input type="submit" class="button-1" value="Add to Basket">
+              {% endif %}
+
+              {% if ctl_product.has_only_default_variant %}
+                {% unless ctl_product.available %}
+                  <div class="oos-notification">
+                    <p>Sold Out</p>
+                  </div>
+                {% endunless %}
+
+              {% else %}
+                <div class="ctl-oos-notification" style="display: none;">
+                  <p>Sold Out</p>
+                </div>
+              {% endif %}
+            {% endform %}
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+
+<script>
+  	document.addEventListener("DOMContentLoaded", function() {
+		const ctl_products = document.querySelectorAll('.ctl-product-card');
+
+		ctl_products.forEach(ctl_product => {
+			let id = ctl_product.dataset.id;
+			let default_variant = ctl_product.dataset.defaultVariant;
+
+			if (default_variant == "false") {
+
+				var selectCallback = function(variant, selector) {
+			
+				oos_visibility = variant.available ? 'none' : 'block';
+				submit_visibility = variant.available ? 'block' : 'none';
+				{% comment %} quantity_visibility = variant.available ? 'flex' : 'none'; {% endcomment %}
+			
+				document.querySelector(".ctl-oos-notification").style.display = oos_visibility
+				document.querySelector(".ctl-product-card input[type=submit]").style.display = submit_visibility
+				{% comment %} document.querySelector(".ctl-product-card .quantity-wrapper").style.display = quantity_visibility {% endcomment %}
+			
+				// Reset quantity
+				{% comment %} let quantity_input = document.getElementById("quantity")
+				let quantity = document.querySelector(".quantity-select .quantity")
+			
+				quantity_input.setAttribute("value", 1 );
+				quantity_input.setAttribute("max", variant_stock[variant.id] );
+			
+				quantity.innerHTML = 1 {% endcomment %}
+			
+				// Show correct price for variant
+				let current_price_el = ctl_product.querySelector(".variant-price-wrapper:not(.hidden)")
+				let new_price_el = ctl_product.querySelector(`.variant-price-wrapper[data-variant-id="${variant.id}"]`)
+				
+				current_price_el.classList.add("hidden")
+				new_price_el.classList.remove("hidden")
+			
+			}
+			
+			let ctl_product_json = ctl_product.dataset.productJson;
+			ctl_product_json = JSON.parse(ctl_product_json || '{}');
+			
+			new Shopify.OptionSelectors('product-id-' + id, {
+				product: ctl_product_json,
+				onVariantSelected: selectCallback,
+				enableHistoryState: true
+			});
+		
+		}
+		
+		let ctl_form = ctl_product.querySelector('form');
+
+		ctl_form.addEventListener("submit", function (e) {
+			e.preventDefault();
+			
+			{% comment %} let quantity = ctl_form.querySelector("input.quantity-selector").value; {% endcomment %}
+			let variant_id = ctl_form.querySelector("#product-id-" + id).value;
+
+			if (variant_id) {
+				window.cart.add({ items: [{ "id": variant_id, "quantity": 1 }] })
+			}
+		});
+
+    });
+  })
+</script>

@@ -1,0 +1,18 @@
+.announcement-bar {
+  position: relative;
+  z-index: 110;
+}
+.announcement-bar .announcement-bar-slider {
+  background-color: var(--secondary-color);
+}
+.announcement-bar .announcement-bar-slider .swiper-slide {
+  text-align: center;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  font-size: var(--font-size-14);
+  letter-spacing: 0.7px;
+}
+.announcement-bar .announcement-bar-slider .swiper-slide a {
+  text-decoration: none;
+}

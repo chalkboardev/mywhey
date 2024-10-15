@@ -1,0 +1,123 @@
+{% comment %}
+
+  === CSS ===
+
+  - Create a SCSS file of the same name in resources/scss/modules/sections
+  - Add to webpack.mix.js
+  - Includes the breakpoint scss
+  - USES FLEX GAP
+
+  === JS ===
+
+  No JS needed for the section.
+
+  === FUNCTIONALITY ===
+
+  Section notes:
+
+  - Static row of USPs
+  - Stacks - tablet/mobile
+  - Number of USPs (max of 4)
+  - Icon or image, Title, Description/textarea (Info added to the section to help limit the character limit)
+  - Background colour
+
+  Section Author: Henry Hardwell
+
+{% endcomment %}
+
+{{ 'section-usp-banner.min.css' | asset_url | stylesheet_tag }}
+
+<div class="usp-banner-section" style=" padding: {{ section.settings.padding }}px 0px ; background: {{ section.settings.bg_color }}; ">
+  <div class="container page-width">
+
+    {% for block in section.blocks %}
+      <div class="usp-card" style="text-align: {{ block.settings.text_align }} ;">
+
+        {% if block.settings.icon != blank %}
+          {{ block.settings.icon | image_url: width: "174px", height: "174px" | image_tag: class: "icon", alt: block.settings.icon.alt }}
+        {% endif %}
+        <h4 class="title">{{ block.settings.title }}
+        </h4>
+        <p class="body">{{ block.settings.body }}
+        </p>
+
+      </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "USP Section",
+  "class": "usp-banner vertical-margin",
+  "settings": [
+    {
+      "type": "range",
+      "min": 5,
+      "max": 150,
+      "step": 5,
+      "id": "padding",
+      "label": "Banner Padding",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Colour"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "usp-card",
+      "name": "USP Card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "default": "Body Text",
+          "label": "Body for USP Card",
+          "info": "Keep within 5 lines / 200 characters"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "label": "Text Alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Middle"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "USP Section"
+    }
+  ]
+}
+{% endschema %} 

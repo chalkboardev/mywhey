@@ -1,0 +1,42 @@
+
+.reactivate-form--modal-container {
+    .modal {
+        width: 94%;
+        max-width: 500px;
+        background: #f0f0f0;
+
+        form {
+            margin: 0;
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+
+            button {
+                margin: 15px auto 0;
+            }
+
+            @include to-sm() {
+                max-width: unset;
+            }
+
+
+            #success-message:empty,
+            #success-message:not(.active),
+            #error-message:empty,
+            #errors-message:not(.active) {
+                display: none;
+            }
+
+            #success-message.active {
+                padding: 10px 0;
+            }
+
+            #error-message.active {
+                color: red;
+                padding: 10px 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,102 @@
+{%- liquid 
+#   -== Translations ==- 
+    assign title = 'customer.reactivate.title' | t
+    assign description = 'customer.reactivate.description' | t
+    assign email = 'customer.reactivate.email' | t
+    assign submit = 'customer.reactivate.submit' | t
+-%}
+
+{%- capture reactivate_form -%}
+
+    <div class="heading-md">{{- title -}}</div>
+    <p>{{- description -}}</p>
+    
+    
+    <form id="reactivate-account">
+        
+        <div id="success-message"></div>
+        <div id="error-message"></div>
+        
+        {%- render 'v3-form-field',
+            type: "email"
+            id: "ReactivateAccountEmail",
+            name: "email",
+            label: email, 
+            placeholder: email,
+            attributes: 'autocomplete="email" autocorrect="off" autocapitalize="off"', 
+            required: true, 
+        -%}
+        
+        <button type="submit" class="button-1">{{- submit -}}</button>
+    </form>
+    
+    
+    <script>
+        const reactiveAccountForm = document.getElementById('reactivate-account');
+        if ( reactiveAccountForm ) {
+            
+            reactiveAccountForm.addEventListener('submit', function (e) {
+                
+                const errorMessage = document.getElementById('error-message');
+                const successMessage = document.getElementById('success-message');
+                
+                if ( errorMessage ) errorMessage.textContent = '';
+                e.preventDefault(); // Prevent the default form submission behavior
+                
+                // Get form data
+                const formData = new FormData(this);
+                
+                // Convert form data to JSON
+                const formDataJSON = {};
+                formData.forEach((value, key) => {
+                    formDataJSON[key] = value;
+                });
+                
+                // Send the data using Fetch API
+                fetch('https://sud.qfconnector.com/api/shopify/activate-account', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formDataJSON)
+                })
+                .then(response => {
+                    if (response.status === 200) {
+                        return response.json();
+                        // Display the success message
+                        if ( successMessage ) successMessage.classList.add('active');
+                        if ( successMessage ) successMessage.textContent = data.message;
+                    } else if (response.status === 404) {
+                        throw new Error('Email does not exist');
+                    } else if (response.status === 422) {
+                        throw new Error('Unprocessable Entity (422)');
+                    } else if (response.status === 500) {
+                        throw new Error('Account already activated');
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                })
+                .then(data => {
+                    console.log(data); // Handle a successful response from the server
+                    // Clear any previous error messages
+                    if ( errorMessage ) errorMessage.classList.remove('active');
+                    if ( errorMessage ) errorMessage.textContent = '';
+                    if ( successMessage ) successMessage.classList.remove('active');
+                    if ( successMessage ) successMessage.textContent = '';
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                    // Display the error message in the form
+                    if ( errorMessage ) errorMessage.classList.add('active');
+                    if ( errorMessage ) errorMessage.textContent = error.message;
+                });
+                
+            });
+            
+        }
+    </script>
+{%- endcapture -%}
+
+{%- if template == 'customers/login' -%}
+    {%- render 'v2-modal-generator', name: 'reactivate-form', content: reactivate_form -%}
+{%- endif -%}

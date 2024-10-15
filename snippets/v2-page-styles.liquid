@@ -1,0 +1,34 @@
+{% comment %} 
+    Description: 
+    - Conditionally includes required page styles based on page visited
+{% endcomment %}
+
+
+{% if template contains '404' %}
+    {{ 'page-404.min.css' | asset_url | stylesheet_tag: preload: true }}
+
+{% elsif template == blank %}
+    {% comment %} POLICY PAGES {% endcomment %}
+    {{ 'page-policies.min.css' | asset_url | stylesheet_tag: preload: true }}
+
+{% elsif template == 'customers/register' %}
+    {{ 'page-register.min.css' | asset_url | stylesheet_tag: preload: true }}
+
+{% elsif template == 'customers/login' %}
+    {{ 'page-login.min.css' | asset_url | stylesheet_tag: preload: true }}
+{% elsif template == 'customers/activate_account' %}
+    {{ 'page-activate-account.min.css' | asset_url | stylesheet_tag: preload: true }}
+
+    {% elsif template == 'customers/reset_password' %}
+    {{ 'page-reset-password.min.css' | asset_url | stylesheet_tag: preload: true }}
+
+{% elsif template == 'customers/account' %}
+    {{ 'page-account.min.css' | asset_url | stylesheet_tag: preload: true }}
+
+{% elsif template == 'customers/addresses' %}
+    <link rel="preload" href="{{ 'page-account.min.css' | asset_url }}" as="style">
+    <link rel="stylesheet" href="{{ 'page-account.min.css' | asset_url }}">
+    <link rel="preload" href="{{ 'page-addresses.min.css' | asset_url }}" as="style">
+    <link rel="stylesheet" href="{{ 'page-addresses.min.css' | asset_url }}">
+
+{% endif %}

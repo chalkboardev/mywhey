@@ -1,0 +1,8 @@
+{% if image_url != blank %}
+  <a class="lightbox-trigger" data-fslightbox href="{{ image_url }}" aria-label="Open Lightbox">
+    {%- render 'gb-icon', icon: 'mag_glass' -%}
+  </a>
+
+{% else %}
+  you need to provide a url
+{% endif %}

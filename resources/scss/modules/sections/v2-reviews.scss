@@ -1,0 +1,14 @@
+.reviews {
+    .heading {
+        margin-bottom: 20px;
+    } 
+    .widget {
+        margin-bottom: 25px;
+    }
+    .heading, .reviews-link {
+        text-align: center;
+        a {
+            margin: 0 auto;
+        }
+    }
+}

@@ -1,0 +1,119 @@
+@import '../../../scss/breakpoints.scss';
+
+.recently-viewed {
+    .swiper-slide {
+        display: flex;
+        height: auto;
+    }
+    
+    input {
+        display: none;
+        + label {
+            display: inline-block
+        }
+    }
+
+    input ~ .tab {
+        display: none;
+    }
+
+    #tab1:checked ~ .tab.content1,
+    #tab2:checked ~ .tab.content2,
+    #tab3:checked ~ .tab.content3 {
+        display: block;
+    }
+
+    input + label {     
+        padding: 4px 12px;
+        position: relative;
+        top: 1px;
+        font-weight: normal;
+        cursor: pointer;
+        &:first-of-type {
+            padding-left: 0;
+        }
+    }
+
+    input:checked + label {
+        font-weight: 700;
+        transition: 0.3s all;
+        text-decoration: underline;
+    }
+
+    input ~ .tab {
+        padding: 12px 0;
+    }
+
+    .custom-select {
+        display: none;
+    }
+
+    .heading-md {
+        text-decoration: underline;
+    }
+
+    @include to-sm() {
+        .heading-md {
+            font-size: 24px;
+            
+        }
+
+        input, label {
+            display: none!important;
+        }
+
+        .custom-select {
+            position: relative;
+            display: block;
+
+            .select-chevron {
+                content: 'HELLO';
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translateY(-50%);
+                z-index: 1;
+                pointer-events: none;
+            }
+
+            select {
+                width: 100%;
+                border: none;
+                //border-bottom: 3px solid var(--primary-color);
+                padding: 10px 0;
+                background: transparent;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                &:focus-visible {
+                    outline: none;
+                }
+                option {
+                    padding: 5px 10px;
+                }
+            }
+        }
+    }
+    .page-width {
+        position: relative;
+
+        .recently-viewed-button {
+            position: absolute;
+            top: 10px;
+            right: 5rem;
+        }
+        
+        .pipe {
+            @include to-sm() {
+                display: none;
+            }
+        }
+
+        .recently-viewed-button {
+            padding: 15px 30px;
+            @include to-sm() {
+                display: none;
+            }
+        }
+    }
+}
