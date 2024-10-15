@@ -15,7 +15,6 @@
 {%- endcapture -%}
 
 {%- if predictive_search.performed -%}
-  <div class="heading-lg desktop-hide">Results:</div>
   <div id="predictive-search-results">
     {%- if predictive_search.resources.collections.size > 0
       or predictive_search.resources.pages.size > 0
@@ -75,9 +74,9 @@
 
         <div class="search-products">
           {%- if predictive_search.resources.products.size > 0 -%}
-            <div class="search-products__heading product_search_heading">
+            <div class="search-products__heading">
               <div class="desktop-hide">Products</div>
-              <div class="search_heading mobile-hide">
+              <div class="mobile-hide">
                 <span>Results for "{{ term }}"</span>
                 <a class="" href="/search?q={{ term }}&type=product"> View All Products </a>
               </div>

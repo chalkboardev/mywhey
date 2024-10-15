@@ -1,12 +1,1 @@
-{
-    "sections": {
-      "reviews": {
-        "type": "v2-reviews",
-        "settings": {
-        }
-      }
-    },
-    "order": [
-      "reviews"
-    ]
-  }
+{"sections":{"reviews":{"type":"v2-reviews","settings":{}}},"order":["reviews"]}

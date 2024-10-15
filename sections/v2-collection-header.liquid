@@ -25,49 +25,33 @@
 
 
    <div class="image-container" style="filter:brightness({{ section.settings.plp_head_overlay_opacity }});">
-    {%- if section.settings.remove_feature_img == true -%}
-
+    {%- if section.settings.show_default_feature_img == false and section.settings.feature_image != blank -%}
+      {{ section.settings.feature_image | image_url: width: 1200, format: "jpg" | image_tag: class: img_width, fetchpriority: 'high', loading: 'eager' }}
+  {%- endif -%}
+      {%- if collection.metafields.video != blank -%}
+        {{ collection.metafields.video | video_tag: class: img_width, autoplay: true, loop: true, muted: true, controls: false }}
       {%- else -%}
-
-      {%- if section.settings.show_default_feature_img == false and section.settings.feature_image != blank -%}
-        {{ section.settings.feature_image | image_url: width: 1200, format: "jpg" | image_tag: class: img_width, fetchpriority: 'high', loading: 'eager' }}
-    {%- endif -%}
-        {%- if collection.metafields.video != blank -%}
-          {{ collection.metafields.video | video_tag: class: img_width, autoplay: true, loop: true, muted: true, controls: false }}
+        {%- if collection.featured_image != blank and section.settings.show_default_feature_img == true -%}
+            {{ collection.featured_image | image_url: width: 1200, format: "jpg" | image_tag: class: img_width, fetchpriority: 'high', loading: 'eager' }}
         {%- else -%}
-          {%- if collection.featured_image != blank and section.settings.show_default_feature_img == true -%}
-              {{ collection.featured_image | image_url: width: 1200, format: "jpg" | image_tag: class: img_width, fetchpriority: 'high', loading: 'eager' }}
+          {% if settings.collection_banner_fallback != blank %}
+            {{ settings.collection_banner_fallback | image_url: width: 800, format: "jpg" | image_tag: class: img_width, fetchpriority: 'high', loading: 'eager' }}
           {%- else -%}
-            {% if settings.collection_banner_fallback != blank %}
-              {{ settings.collection_banner_fallback | image_url: width: 800, format: "jpg" | image_tag: class: img_width, fetchpriority: 'high', loading: 'eager' }}
-            {%- else -%}
-            {% comment %} {{ 'lifestyle-1' | placeholder_svg_tag }} {% endcomment %}
-            {%- endif -%}
-          {%- endif -%} 
+          {% comment %} {{ 'lifestyle-1' | placeholder_svg_tag }} {% endcomment %}
+          {%- endif -%}
         {%- endif -%} 
-      
-    {%- endif -%}
-   
-
-      
+      {%- endif -%} 
   </div>
 
-  {%- if section.settings.remove_feature_img == true -%}
-        <div class="text-container {{ text_width }}" style="color:#000;text-align:{{ section.settings.text_alignment }};">
-            <h1 class="heading-xl">{{ collection.title }}</h1>
-            <div class="text">
-                {{ collection.description }}
-            </div>
-        </div>
-    {%- else -%}
-        <div class="text-container {{ text_width }}" style="text-align:{{ section.settings.text_alignment }};">
-            <h1 class="heading-xl">{{ collection.title }}</h1>
-            <div class="text">
-                {{ collection.description }}
-            </div>
-        </div>
-  {%- endif -%}
+  <div class="text-container {{ text_width }}" style="text-align:{{ section.settings.text_alignment }};">
 
+      <h1 class="heading-xl">{{ collection.title }}</h1>
+      <div class="text">
+        
+          {{ collection.description }}
+      </div>
+
+  </div>
 
 </div>
 
@@ -88,12 +72,6 @@
     {
       "type": "header",
       "content": "Images"
-    },
-    {
-      "type": "checkbox",
-      "id": "remove_feature_img",
-      "label": "Don't show any Feature Image",
-      "default": false
     },
     {
       "type": "checkbox",

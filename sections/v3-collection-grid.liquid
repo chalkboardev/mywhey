@@ -207,11 +207,6 @@
       </div>       
       
       {%- if paginate.pages > 1 -%}
-        <div class="collection_results">
-          <span class="collection_paginate_size" style="display: none;">{{ collection.products.size }}</span>
-          <p class="collection_viewing_of"> {{ 'collections.viewing_total' | t }} <span class="update_product_count">{{ collection.products.size }}</span> {{ 'collections.viewing_of' | t }}  {{ collection.all_products_count }}</p>
-        </div>
-
           <div class="custom-filter-load-more button-1">
             {{ 'collections.load_more' | t }}
             <div class="load-more-spinner">
@@ -389,10 +384,3 @@
   ]
 }
 {% endschema %}
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-  var items = document.getElementsByClassName("selected-filter").length;
-  //alert(items);
-})
-</script>

@@ -1,12 +1,1 @@
-{
-  "sections": {
-    "cart-items": {
-      "type": "v2-cart",
-      "settings": {
-      }
-    }
-  },
-  "order": [
-    "cart-items"
-  ]
-}
+{"sections":{"cart-items":{"type":"v2-cart","settings":{}}},"order":["cart-items"]}

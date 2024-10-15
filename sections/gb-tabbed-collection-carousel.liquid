@@ -10,7 +10,7 @@
 
   Section Author: Jeremy Lee
 {% endcomment %}
-<div class="tabbed_carousel_padding"></div>
+
 {{ 'section-v2-recently-viewed.min.css' | asset_url | stylesheet_tag }}
 {% assign tabs = section.blocks | where: 'type', 'tab' %}
 {% assign tab_number = 1 %}
@@ -81,21 +81,11 @@
   </div>
 
   {%- if tabs.size > 0 -%}
-    {% comment %} {{ tabs.size }} {% endcomment %}
     {% for tab in tabs %}
       {% assign tab_number = forloop.index %}
 
       <div class="tab content{{ tab_number }}">
-          {% if section.settings.collection_slider_navigation == true %}
-            <!-- If we need navigation buttons -->
-            <div class="tabbed-{{ section.index }} swiper-button-prev"></div>
-          {% endif %}
-          <!-- If we need navigation buttons -->
-          {% if section.settings.collection_slider_navigation == true %}
-            <div class="tabbed-{{ section.index }} swiper-button-next"></div>
-          {% endif %}
-
-        <div class="swiper best-sellers-swiper-{{ section.index }}">
+        <div class="swiper best-sellers-swiper">
           <div class="swiper-wrapper">
             {%- for product in tab.settings.collection.products -%}
               <div class="swiper-slide">
@@ -103,10 +93,6 @@
               </div>
             {%- endfor -%}
           </div>
-           <!-- If we need pagination -->
-          {% if section.settings.collection_slider_pagination == true %}
-            <div class="collection-swiper-pagination swiper-pagination"></div>
-          {% endif %}
         </div>
       </div>
     {%- endfor -%}
@@ -115,22 +101,8 @@
   {% if section.settings.show_recently_viewed == true %}
     {% assign tab_number = tab_number | plus: 1 %}
     <div class="tab content{{ tab_number }}">
-      
-        {% if section.settings.collection_slider_navigation == true %}
-        <!-- If we need navigation buttons -->
-          <div class="tabbed-{{ section.index }} swiper-button-prev"></div>
-        {% endif %}
-        <!-- If we need navigation buttons -->
-        {% if section.settings.collection_slider_navigation == true %}
-          <div class="tabbed-{{ section.index }} swiper-button-next"></div>
-        {% endif %}
-
-      <div class="swiper recently-swiper-{{ section.index }}">
+      <div class="swiper recently-swiper">
         <div class="swiper-wrapper recently-viewed-slider"></div>
-        <!-- If we need pagination -->
-        {% if section.settings.collection_slider_pagination_recent == true %}
-          <div class="pager-{{ section.index }} collection-swiper-pagination swiper-pagination"></div>
-        {% endif %}
       </div>
     </div>
   {%- endif -%}
@@ -149,125 +121,6 @@
       document.querySelector('.tabbed-collection-carousel .' + e.target.value).style.display = 'block';
     });
   }
-  
-</script>
-
-<script>
-  var my_swiper = new window.swiper(".best-sellers-swiper-{{ section.index }}", {
-      spaceBetween: 20,
-      slidesPerView: 1,
-      initialSlide: 1,
-      lazy: {
-          enabled: true,
-          checkInView: true,
-          centeredSlides: true,
-          loadOnTransitionStart: true,
-          loadPrevNext: true,
-          loadPrevNextAmount: 1
-      },
-      loop: {{ section.settings.collection_slider_loop }},
-      {% if section.settings.collection_slider_pagination %}
-          // If we need pagination
-          pagination: {
-              el: '.collection-swiper-pagination.swiper-pagination',
-              clickable: true,
-              dynamicBullets: true,
-          },
-      {% endif %}
-
-      {% if section.settings.collection_slider_navigation == true %}
-          // Navigation arrows
-          navigation: {
-              nextEl: '.tabbed-{{ section.index }}.swiper-button-next',
-              prevEl: '.tabbed-{{ section.index }}.swiper-button-prev',
-          },
-      {% endif %}
-
-      {% if section.settings.collection_slider_scrollbar == true %}
-          // And if we need scrollbar
-          scrollbar: {
-              el: '.collection-swiper-scrollbar.swiper-scrollbar',
-          },
-      {% endif %}
-      breakpoints: {
-          0: {
-            slidesPerView: 1.3
-          },
-          360: {
-            slidesPerView: 1.3
-          },
-          425: {
-            slidesPerView: 2.3
-          },
-          768: {
-              slidesPerView: {{ section.settings.slidesSmall }}
-          },
-          992: {
-              slidesPerView: {{ section.settings.slidesMid }}
-          },
-          1200: {
-              slidesPerView: {{ section.settings.slidesLarge }}
-          }
-      },
-  });
-
-  var my_swiper_recent = new window.swiper(".recently-swiper-{{ section.index }}", {
-      spaceBetween: 20,
-      slidesPerView: 1,
-      initialSlide: 1,
-      lazy: {
-          enabled: true,
-          checkInView: true,
-          centeredSlides: true,
-          loadOnTransitionStart: true,
-          loadPrevNext: true,
-          loadPrevNextAmount: 1
-      },
-      loop: true,
-      {% if section.settings.collection_slider_pagination_recent %}
-          // If we need pagination
-          pagination: {
-              el: '.pager-{{ section.index }}.collection-swiper-pagination.swiper-pagination',
-              clickable: true,
-              dynamicBullets: true,
-          },
-      {% endif %}
-
-      {% if section.settings.collection_slider_navigation == true %}
-          // Navigation arrows
-          navigation: {
-              nextEl: '.tabbed-{{ section.index }}.swiper-button-next',
-              prevEl: '.tabbed-{{ section.index }}.swiper-button-prev',
-          },
-      {% endif %}
-
-      {% if section.settings.collection_slider_scrollbar == true %}
-          // And if we need scrollbar
-          scrollbar: {
-              el: '.collection-swiper-scrollbar.swiper-scrollbar',
-          },
-      {% endif %}
-      breakpoints: {
-          0: {
-            slidesPerView: 1.3
-          },
-          360: {
-            slidesPerView: 1.3
-          },
-          425: {
-            slidesPerView: 2.3
-          },
-          768: {
-              slidesPerView: {{ section.settings.slidesSmall }}
-          },
-          992: {
-              slidesPerView: {{ section.settings.slidesMid }}
-          },
-          1200: {
-              slidesPerView: {{ section.settings.slidesLarge }}
-          }
-      },
-  });
 </script>
 
 <script src="{{ 'recently-viewed.min.js' | asset_url }}" defer></script>
@@ -295,102 +148,13 @@
       "id": "show_recently_viewed",
       "label": "Show recently viewed",
       "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "collection_slider_pagination",
-      "label": "Slider Pagination",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "collection_slider_pagination_recent",
-      "label": "Recent Slider Pagination",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "collection_slider_navigation",
-      "label": "USP Slider Navigation",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "collection_slider_scrollbar",
-      "label": "USP Slider Scrollbar"
-    },
-    {
-      "type": "checkbox",
-      "id": "collection_slider_loop",
-      "label": "USP Slider Loop",
-      "default": false
-    },
-    {
-        "type": "select",
-        "id": "slidesLarge",
-        "label": "Slides per view at largest breakpoint",
-        "options": [
-          {
-            "value": "5",
-            "label": "5"
-          },
-          {
-            "value": "4",
-            "label": "4"
-          },
-          {
-            "value": "3",
-            "label": "3"
-          }
-        ],
-        "default": "4"
-      },
-      {
-          "type": "select",
-          "id": "slidesMid",
-          "label": "Slides per view at middle breakpoint",
-          "options": [
-            {
-              "value": "5",
-              "label": "5"
-            },
-            {
-              "value": "4",
-              "label": "4"
-            },
-            {
-              "value": "3",
-              "label": "3"
-            }
-          ],
-          "default": "4"
-        },
-        {
-            "type": "select",
-            "id": "slidesSmall",
-            "label": "Slides per view at smallest breakpoint",
-            "options": [
-              {
-                "value": "5",
-                "label": "5"
-              },
-              {
-                "value": "4",
-                "label": "4"
-              },
-              {
-                "value": "3",
-                "label": "3"
-              }
-            ],
-            "default": "4"
-        }
+    }
   ],
   "blocks": [
     {
       "type": "tab",
       "name": "Tab",
-      "limit": 4,
+      "limit": 3,
       "settings": [
         {
           "type": "text",

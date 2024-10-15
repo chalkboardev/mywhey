@@ -1,18 +1,11 @@
 <div class="mobile-filter-heading">
     <h2>{{ 'collections.filter_sort' | t }}</h2>
     {% render 'gb-icon', icon: 'chevron' %}
-  </div>  
-  {%- if section.settings.show_selected_filters -%}
+  </div>  {%- if section.settings.show_selected_filters -%}
     <div class="selected-filter-wrapper">
-
   {% assign variable = 0 %}
-  {% assign variable_sort = 0 %}
       {%- for filter in collection.filters -%}
-
-        {% comment %} {{ filter.label }}  {% endcomment %}
-        {% comment %} {{ collection.filters.size }} {% endcomment %}
-    
-        <!-- Start Active Filters -->
+        {% comment %} {{ filter.label }} {{ collection.filters.size }} {% endcomment %}
         {%- if filter.type == 'price_range' -%}
           {%- if filter.min_value.value != null or filter.max_value.value != null -%}
             <a class="selected-filter" href="{{ filter.url_to_remove }}" aria-label="Remove Filter">
@@ -24,77 +17,30 @@
           {%- endif -%}
         {%- else -%}
 
-        {% comment %} {{ filter.active_values.size }} {% endcomment %}
-        
+          
           {%- for filter_value in filter.active_values -%}
             {% assign variable = variable | plus: 1 %}
             {% comment %} {{ variable }} {% endcomment %}
             {%- if variable > 1 -%}
-                {% comment %} NO filter_padding!! {% endcomment %}
-            {%- else -%}
-                <span class="filter_padding"></span>
-                 
-
-        <!-- START Active Sorty By Filter -->
-        {% assign variable_sort = variable_sort | plus: 1 %}
-        {%- if variable_sort > 1 -%}
-        {% comment %} DONT SHOW ACTIVE SORT FILTER!! {% endcomment %}
-        {%- else -%}
-              {% comment %} {{ collection.sort_by }}<br> {% endcomment %}   
-              {% if collection.sort_by != "" %}
-                    {%- for option in collection.sort_options -%}
-                          {% if option.value == collection.sort_by %}
-                              {% assign url_to_remove1 = "sort_by=" %}
-                              {% assign url_to_remove2 = option.value %}
-                              {% assign url_to_remove_final = url_to_remove1 | append: '' | append: url_to_remove2 %}
-                              {% assign url_to_remove_url = filter_value |  replace: "sort_by", ""  %}
-                              {% comment %} {{ option.value }}<br> {% endcomment %}
-                              {%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
-                                {%- assign pageUrl = contentForQuerystring
-                                  | split: '"pageurl":"'
-                                  | last
-                                  | split: '"'
-                                  | first
-                                  | replace: '\/', '/'
-                                  | replace: '%20', ' '
-                                  | replace: '\u0026', '&'
-                                -%}
-                                {% capture finalurl %}https://{{ pageUrl }}{% endcapture %}
-                                {% comment %} {{ finalurl }} {% endcomment %}
-                                <a class="selected-filter" href="{{ finalurl |  replace: url_to_remove_final, "" }}" aria-label="Remove Filter">
-                                  {% render 'gb-icon', icon: 'close_gb' %}
-                                  {% comment %} {{ filter.label }}:  {% endcomment %}
-                                  {{ option.name | escape | replace: ",", " -" }}
-                                </a>
-                              {% comment %} | {{ option.value | escape }} {% endcomment %}
-                          {% endif %}
-                    {%- endfor -%}
-              {% endif %}
-      {%- endif -%}
-      <!-- END Active Sorty By Filter -->
-
-    {%- endif -%}
+            {%- endif -%}
             
-            <a class="selected-filter" href="{{ filter_value.url_to_remove }}&sort_by={{ collection.sort_by }}" aria-label="Remove Filter">
-              {% render 'gb-icon', icon: 'close_gb' %}
-              {% comment %} {{ filter.label }}:  {% endcomment %}
-              {{ filter_value.label }}
+            <a class="selected-filter" href="{{ filter_value.url_to_remove }}" aria-label="Remove Filter">
+              {% render 'gb-icon', icon: 'close' %}
+              {{ filter.label }}: {{ filter_value.label }}
             </a>
+
           {%- endfor -%}
         {%- endif -%}
-
-   
-
       {%- endfor -%} 
-
-   
+      
       {%- if variable > 0  -%}
           <div style="display:flex" class="reset-filter-wrapper">
-              <a href="{{ collection.url }}" id="reset-filters" aria-label="Reset Filters">
+              <a href="{{ collection.url }}?sort_by={{ collection.sort_by }}" id="reset-filters" aria-label="Reset Filters">
                 {{- 'collections.reset_filters' | t -}}
               </a>
             </div>
         {%- endif -%}
+
     </div>
   {%- endif -%}
   <div style="height: 100%;" class="filters_contents">
@@ -162,7 +108,7 @@
                         
                          <span class="fill_me"></span>
                         </span>
-                        <span style="position: absolute;top: 5px;"> {{ filter_value.label }}</span>
+                        <span style="position: absolute;top: 11px;"> {{ filter_value.label }}</span>
                        
                         {%- if section.settings.show_filter_count -%}
                           {% comment %} ({{ filter_value.count }}) {% endcomment %}

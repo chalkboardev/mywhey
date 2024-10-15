@@ -1,13 +1,1 @@
-{
-  "sections": {
-    "main": {
-      "type": "v2-main-search",
-      "settings": {
-        "grid_size": 24
-      }
-    }
-  },
-  "order": [
-    "main"
-  ]
-}
+{"sections":{"main":{"type":"v2-main-search","settings":{"grid_size":24}}},"order":["main"]}

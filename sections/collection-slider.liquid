@@ -22,7 +22,7 @@
   Section Author: Henry Hardwell
 {% endcomment %}
 
-<link rel="stylesheet" href="{{ 'section-collection-slider.min.css' | asset_url }}">
+<link rel="stylesheet" href="{{ 'section-v2-collection-slider.min.css' | asset_url }}">
 
 {% assign bg = false %}
 {% if section.settings.bg_image != blank %}
@@ -39,31 +39,34 @@
       <div class="intro">
         <div class="slider-header">
           <h3 class="heading-x-lg">{{ section.settings.section_title }}</h3>
-          
+
           {% if section.settings.section_desc != blank %}
-          <p class="description body">{{ section.settings.section_desc }}</p>
-        {% endif %}
-        </div>
- {% if section.settings.section_link != blank and section.settings.section_link_value %}
-            <a href="{{ section.settings.section_link }}" class="button-1" aria-label="{{ section.settings.section_link_value }}"
-              >{{ section.settings.section_link_value }}</a>
+            <p class="description body">{{ section.settings.section_desc }}</p>
           {% endif %}
-       
+        </div>
+        {% if section.settings.section_link != blank and section.settings.section_link_value %}
+          <a
+            href="{{ section.settings.section_link }}"
+            class="button-1"
+            aria-label="{{ section.settings.section_link_value }}"
+          >
+            {{- section.settings.section_link_value -}}
+          </a>
+        {% endif %}
       </div>
     </div>
   </div>
 
-  <div class="collection-slider-bottom page-width">
-    
+  <div class="collection-slider-bottom" style="position: relative;">
     {% if section.settings.collection_slider_navigation == true %}
       <!-- If we need navigation buttons -->
       <div class="swiper-button-prev"></div>
     {% endif %}
 
-      <!-- If we need navigation buttons -->
-      {% if section.settings.collection_slider_navigation == true %}
-        <div class="swiper-button-next"></div>
-      {% endif %}
+    <!-- If we need navigation buttons -->
+    {% if section.settings.collection_slider_navigation == true %}
+      <div class="swiper-button-next"></div>
+    {% endif %}
 
     <div class="swiper collection-slider-swiper">
       <!-- Additional required wrapper -->
@@ -76,7 +79,6 @@
         <!-- Slides Go Here -->
 
         {% for product in section.settings.collection_slider_items.products limit: section.settings.product_limit %}
-   
           <div class="swiper-slide collection-slider-product">
             {% render 'gb-product-card', product: product %}
           </div>
@@ -88,8 +90,6 @@
         <div class="collection-swiper-pagination swiper-pagination"></div>
       {% endif %}
     </div>
-
-
   </div>
 
   <!-- If we need scrollbar -->
