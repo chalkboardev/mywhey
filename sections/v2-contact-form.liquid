@@ -97,7 +97,7 @@
             </div>
           {% when 'social_icons' %}
             <div class="contact-block social-icons">
-              {% render 'gb-social-icons', id: section.id, color: settings.theme_primary_color, direction: 'row', justify: 'flex-start', gap: '0px 30px' ; %}
+              {% render 'gb-social-icons', id: section.id, color: settings.theme_primary_color, direction: 'row', justify: 'flex-start', gap: '0px 30px' %}
             </div>
           {% when 'live_chat' %}
             {% comment %} Functionality with the live chat needs adding {% endcomment %}
@@ -309,3 +309,15 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'gb-social-icons', id: section.id, color: settings.theme_primary_color,
+    direction: 'row', justify: 'flex-start', gap: '0px 30px' ; %}"
+  to: "{% render 'gb-social-icons', id: section.id, color: settings.theme_primary_color,
+    direction: 'row', justify: 'flex-start', gap: '0px 30px' %}"
+  position: 3583..3724
+{% endcomment %}

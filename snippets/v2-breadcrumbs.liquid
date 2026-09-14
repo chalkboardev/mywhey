@@ -24,7 +24,7 @@
         <a href="{{ product.url }}" aria-current="page" aria-label="Link to {{ product.title }}">{{ product.title }}</a>
       </li>
 
-    {% when 'collection' and collection.handle %}
+    {% when 'collection' %}
 
       {% if current_tags %}
         <li>{{ collection.title | link_to: collection.url }}</li>
@@ -68,4 +68,13 @@
     {% endcase %}
 
     </ul>
-  </nav>
+  </nav>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% when 'collection' and collection.handle %}"
+  to: "{% when 'collection' %}"
+  position: 715..738
+{%- endcomment -%}
